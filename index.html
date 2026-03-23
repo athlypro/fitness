@@ -3392,6 +3392,19 @@
             margin-bottom: 16px;
             position: relative;
         }
+        #profile-name-display {
+            font-size: 22px;
+            font-weight: 900;
+            color: var(--text-primary) !important;
+            -webkit-text-fill-color: var(--text-primary) !important;
+            background: none !important;
+            letter-spacing: -.4px;
+            margin-bottom: 4px;
+        }
+        #profile-email-display {
+            font-size: 13px;
+            color: var(--text-muted) !important;
+        }
 
         .profile-avatar-large {
             width: 100px;
@@ -10925,8 +10938,8 @@
             const pageTitleHeader = document.getElementById('page-title-header');
             
             if (pageName === 'home') {
-                // Show hero header, hide regular header
-                if (heroHeader) heroHeader.style.display = 'block';
+                // Hide both headers on home — home has its own in-page header
+                if (heroHeader) heroHeader.style.display = 'none';
                 if (regularHeader) regularHeader.style.display = 'none';
             } else {
                 // Show regular header, hide hero header
@@ -11003,8 +11016,14 @@
                 goalBadge.textContent = goalMap[profile.goals[0]] || 'Fitness';
             }
             
-            // Update avatar
-            updateProfileAvatar(profile.avatar, profile.avatarImage);
+            // Update avatar — check dedicated key first (survives Firebase sync)
+            const localAvatar = localStorage.getItem('localAvatarImage');
+            const avatarToShow = localAvatar || profile.avatarImage || null;
+            if (localAvatar && !profile.avatarImage) {
+                profile.avatarImage = localAvatar;
+                localStorage.setItem('userProfile', JSON.stringify(profile));
+            }
+            updateProfileAvatar(profile.avatar, avatarToShow);
             
             // Update workout count
             updateWorkoutCount();
@@ -11094,8 +11113,9 @@
             const headerAvatar = document.getElementById('header-avatar-home');
             if (!headerAvatar) return;
             
-            if (avatarImage) {
-                headerAvatar.innerHTML = `<img src="${avatarImage}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">`;
+            const _avatarSrc = avatarImage || localStorage.getItem('localAvatarImage');
+            if (_avatarSrc) {
+                headerAvatar.innerHTML = `<img src="${_avatarSrc}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">`;
             } else {
                 headerAvatar.innerHTML = `${svgIcon(avatarIcons[avatar] || 'fa-user')}`;
             }
@@ -14614,10 +14634,7 @@
                     <div class="train-card-bg" style="background-image:url('${meta.img}');background-color:transparent"></div>
                     <div class="train-card-overlay"></div>
 
-                    <div class="train-card-badges">
-                        <span class="diff-badge ${diffCls}">${meta.diff}</span>
-                        ${isHot ? '<span class="diff-badge" style="background:rgba(255,107,26,.25);color:#ff6b1a">On Fire</span>' : ''}
-                    </div>
+
 
                     <div class="train-card-fav ${isFav?'active':''}"
                          onclick="event.stopPropagation();toggleFav('${k}')">
@@ -14987,7 +15004,17 @@
                 const data = {};
                 SYNC_KEYS.forEach(k => {
                     const v = localStorage.getItem(k);
-                    if (v) data[k] = JSON.parse(v);
+                    if (v) {
+                        if (k === 'userProfile') {
+                            // Strip avatarImage before syncing (too large for Firebase)
+                            const p = JSON.parse(v);
+                            const stripped = Object.assign({}, p);
+                            delete stripped.avatarImage;
+                            data[k] = stripped;
+                        } else {
+                            data[k] = JSON.parse(v);
+                        }
+                    }
                 });
                 // Daily challenge completions
                 const challenges = {};
@@ -15021,7 +15048,17 @@
                 const data   = snap.val();
                 SYNC_KEYS.forEach(k => {
                     if (data[k] !== undefined) {
-                        localStorage.setItem(k, JSON.stringify(data[k]));
+                        // For userProfile, merge carefully — preserve local avatarImage
+                        if (k === 'userProfile') {
+                            const localProfile = JSON.parse(localStorage.getItem('userProfile') || '{}');
+                            const cloudProfile = data[k];
+                            // Cloud wins for name/email/goals/level, but local wins for avatarImage
+                            const merged = Object.assign({}, localProfile, cloudProfile);
+                            if (localProfile.avatarImage) merged.avatarImage = localProfile.avatarImage;
+                            localStorage.setItem(k, JSON.stringify(merged));
+                        } else {
+                            localStorage.setItem(k, JSON.stringify(data[k]));
+                        }
                     }
                 });
                 // Restore challenge days
@@ -15109,7 +15146,7 @@
                     window._fbOnValue(bcastRef, snap => {
                         if (snap && snap.exists && snap.exists()) {
                             const val = snap.val();
-                            if (val && val.message) {
+                            if (val && val.message && val.message.trim()) {
                                 showAnnouncementBanner(val.message, val.color || '#ff6b1a');
                             }
                         }
@@ -15118,6 +15155,16 @@
             }
             applyAdminConfig();
             applyAdminImages();
+
+            // Sync Firebase auth name/email into userProfile
+            if (user.displayName || user.email) {
+                const p = JSON.parse(localStorage.getItem('userProfile') || '{}');
+                if (!p.name && user.displayName) p.name = user.displayName;
+                if (!p.email && user.email)       p.email = user.email;
+                if (user.displayName) p.name = user.displayName; // always use auth name
+                if (user.email)       p.email = user.email;
+                localStorage.setItem('userProfile', JSON.stringify(p));
+            }
 
             // Update profile UI
             const displayName = user.displayName || 'Athlete';
@@ -15318,7 +15365,7 @@
             }
 
             // Announcement banner
-            if (cfg.bannerText) showAnnouncementBanner(cfg.bannerText, cfg.bannerColor || '#ff6b1a');
+            if (cfg.bannerText && cfg.bannerText.trim()) showAnnouncementBanner(cfg.bannerText, cfg.bannerColor || '#ff6b1a');
 
             // Workout names
             if (cfg.workoutNames) {
@@ -15337,15 +15384,26 @@
         }
 
         function showAnnouncementBanner(text, color) {
+            // Never show empty banners
+            if (!text || !text.trim()) return;
             let banner = document.getElementById('admin-announcement-banner');
             if (!banner) {
                 banner = document.createElement('div');
                 banner.id = 'admin-announcement-banner';
-                banner.style.cssText = `position:fixed;top:0;left:0;right:0;z-index:7999;padding:10px 16px;font-size:12px;font-weight:700;text-align:center;color:#000;`;
+                banner.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:7999;padding:8px 40px 8px 16px;font-size:12px;font-weight:700;text-align:center;color:#000;';
+                // Close button
+                const close = document.createElement('button');
+                close.textContent = '×';
+                close.style.cssText = 'position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;font-size:18px;cursor:pointer;color:#000;opacity:.6;line-height:1;padding:0;';
+                close.onclick = () => { banner.style.display = 'none'; };
+                banner.appendChild(close);
                 document.body.insertBefore(banner, document.body.firstChild);
             }
             banner.style.background = color || '#ff6b1a';
+            // Set text without overwriting close button
+            const existing = banner.querySelector('button');
             banner.textContent = text;
+            if (existing) banner.appendChild(existing);
             banner.style.display = 'block';
         }
 

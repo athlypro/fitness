@@ -5782,7 +5782,7 @@
         }
         .rm-field input:focus { border-color: var(--success); box-shadow: 0 0 0 3px rgba(255,107,26,.15); }
         .rm-result {
-            background: linear-gradient(135deg, rgba(255,107,26,.15), rgba(255,208,0,.08));
+            background: rgba(255,107,26,.1);
             border: 1px solid rgba(255,107,26,.3); border-radius: 18px;
             padding: 20px; text-align: center; margin: 20px 0;
         }
@@ -7401,7 +7401,7 @@
         /* ── Challenge banner (new style) ── */
         .home-challenge-banner {
             margin: 0 18px 14px;
-            background: linear-gradient(135deg, rgba(255,107,26,.15), rgba(255,208,0,.08));
+            background: rgba(255,107,26,.1);
             border: none;
             border-radius: 18px; padding: 14px 16px;
             display: flex; align-items: center; gap: 12px;
@@ -7517,7 +7517,7 @@
 
     
         /* ── Ensure no banner renders when empty ── */
-        #admin-announcement-banner { display: none !important; height: 0 !important; padding: 0 !important; margin: 0 !important; border: none !important; }
+        #admin-announcement-banner { display: none !important; height: 0 !important; padding: 0 !important; margin: 0 !important; border: none !important; overflow: hidden !important; max-height: 0 !important; }
 </style>
 
     <!-- Firebase SDK -->
@@ -7757,45 +7757,77 @@
 
             <!-- ── COLOURS ── -->
             <div class="admin-panel-inner" id="apanel-colours">
-                <div class="admin-section">
-                    <div class="admin-section-title">Theme Colours</div>
-                    <div class="admin-color-row">
-                        <div class="admin-color-label">Primary Accent (buttons, highlights)</div>
-                        <input type="color" class="admin-color-swatch" id="adm-color-accent" value="#ff6b1a" oninput="adminPreviewColor()">
+
+                <!-- Live preview bar -->
+                <div style="height:8px;border-radius:8px;margin-bottom:20px;transition:background .3s;background:linear-gradient(90deg,var(--success),var(--danger))" id="adm-preview-bar"></div>
+
+                <!-- Sub-tabs -->
+                <div class="img-subtab-row" style="margin-bottom:18px">
+                    <div class="img-subtab active" onclick="switchColourTab('theme')"    id="ctab-theme">Theme</div>
+                    <div class="img-subtab"        onclick="switchColourTab('text')"     id="ctab-text">Text</div>
+                    <div class="img-subtab"        onclick="switchColourTab('surfaces')" id="ctab-surfaces">Surfaces</div>
+                    <div class="img-subtab"        onclick="switchColourTab('buttons')"  id="ctab-buttons">Buttons</div>
+                    <div class="img-subtab"        onclick="switchColourTab('nav')"      id="ctab-nav">Nav</div>
+                    <div class="img-subtab"        onclick="switchColourTab('cards')"    id="ctab-cards">Cards</div>
+                </div>
+
+                <!-- THEME tab -->
+                <div class="img-panel active" id="cpanel-theme">
+                    <div class="admin-section-title">Main Accent Colours</div>
+                    <div id="clr-theme-fields"></div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px">
+                        <button class="admin-save-btn" onclick="adminApplyAllColours()">Apply & Save</button>
+                        <button class="admin-save-btn secondary" onclick="adminResetAllColours()">Reset</button>
                     </div>
-                    <div class="admin-color-row">
-                        <div class="admin-color-label">Secondary Accent (gold/yellow)</div>
-                        <input type="color" class="admin-color-swatch" id="adm-color-secondary" value="#ffd000" oninput="adminPreviewColor()">
-                    </div>
-                    <div class="admin-color-row">
-                        <div class="admin-color-label">Background</div>
-                        <input type="color" class="admin-color-swatch" id="adm-color-bg" value="#0a0a0a" oninput="adminPreviewColor()">
-                    </div>
-                    <div class="admin-color-row">
-                        <div class="admin-color-label">Surface (cards)</div>
-                        <input type="color" class="admin-color-swatch" id="adm-color-surface" value="#1a1a1a" oninput="adminPreviewColor()">
-                    </div>
-                    <div class="admin-color-row">
-                        <div class="admin-color-label">Text Primary</div>
-                        <input type="color" class="admin-color-swatch" id="adm-color-text" value="#ffffff" oninput="adminPreviewColor()">
-                    </div>
-                    <div style="display:flex;gap:8px;margin-top:8px">
-                        <button class="admin-save-btn" onclick="adminSaveColours()" style="flex:1">Apply & Save</button>
-                        <button class="admin-save-btn secondary" onclick="adminResetColours()" style="flex:1">Reset Default</button>
+                    <div class="admin-section-title" style="margin-top:20px">Presets</div>
+                    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+                        <button class="admin-save-btn secondary" onclick="adminApplyPreset('orange')" style="background:#ff6b1a22;border-color:#ff6b1a44;color:#ff6b1a">Orange</button>
+                        <button class="admin-save-btn secondary" onclick="adminApplyPreset('blue')"   style="background:#1565c022;border-color:#1565c044;color:#42a5f5">Blue</button>
+                        <button class="admin-save-btn secondary" onclick="adminApplyPreset('green')"  style="background:#1b5e2022;border-color:#1b5e2044;color:#66bb6a">Green</button>
+                        <button class="admin-save-btn secondary" onclick="adminApplyPreset('purple')" style="background:#4a148c22;border-color:#4a148c44;color:#ab47bc">Purple</button>
+                        <button class="admin-save-btn secondary" onclick="adminApplyPreset('red')"    style="background:#b71c1c22;border-color:#b71c1c44;color:#ef5350">Red</button>
+                        <button class="admin-save-btn secondary" onclick="adminApplyPreset('teal')"   style="background:#00695c22;border-color:#00695c44;color:#26a69a">Teal</button>
+                        <button class="admin-save-btn secondary" onclick="adminApplyPreset('pink')"   style="background:#88002222;border-color:#88002244;color:#f48fb1">Pink</button>
+                        <button class="admin-save-btn secondary" onclick="adminApplyPreset('gold')"   style="background:#f5780022;border-color:#f5780044;color:#ffcc02">Gold</button>
+                        <button class="admin-save-btn secondary" onclick="adminApplyPreset('white')"  style="background:#ffffff11;border-color:#ffffff33;color:#ffffff">White</button>
                     </div>
                 </div>
 
-                <div class="admin-section">
-                    <div class="admin-section-title">Colour Presets</div>
-                    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
-                        <button class="admin-save-btn secondary" onclick="adminApplyPreset('orange')" style="background:#ff6b1a22;border-color:#ff6b1a44;color:#ff6b1a">Orange</button>
-                        <button class="admin-save-btn secondary" onclick="adminApplyPreset('blue')" style="background:#1565c022;border-color:#1565c044;color:#42a5f5">Blue</button>
-                        <button class="admin-save-btn secondary" onclick="adminApplyPreset('green')" style="background:#1b5e2022;border-color:#1b5e2044;color:#66bb6a">Green</button>
-                        <button class="admin-save-btn secondary" onclick="adminApplyPreset('purple')" style="background:#4a148c22;border-color:#4a148c44;color:#ab47bc">Purple</button>
-                        <button class="admin-save-btn secondary" onclick="adminApplyPreset('red')" style="background:#b71c1c22;border-color:#b71c1c44;color:#ef5350">Red</button>
-                        <button class="admin-save-btn secondary" onclick="adminApplyPreset('teal')" style="background:#00695c22;border-color:#00695c44;color:#26a69a">Teal</button>
-                    </div>
+                <!-- TEXT tab -->
+                <div class="img-panel" id="cpanel-text">
+                    <div class="admin-section-title">Text Colours</div>
+                    <div id="clr-text-fields"></div>
+                    <button class="admin-save-btn full" onclick="adminApplyAllColours()" style="margin-top:8px">Apply & Save</button>
                 </div>
+
+                <!-- SURFACES tab -->
+                <div class="img-panel" id="cpanel-surfaces">
+                    <div class="admin-section-title">Background & Surface Colours</div>
+                    <div id="clr-surfaces-fields"></div>
+                    <button class="admin-save-btn full" onclick="adminApplyAllColours()" style="margin-top:8px">Apply & Save</button>
+                </div>
+
+                <!-- BUTTONS tab -->
+                <div class="img-panel" id="cpanel-buttons">
+                    <div class="admin-section-title">Button & Interactive Colours</div>
+                    <div id="clr-buttons-fields"></div>
+                    <button class="admin-save-btn full" onclick="adminApplyAllColours()" style="margin-top:8px">Apply & Save</button>
+                </div>
+
+                <!-- NAV tab -->
+                <div class="img-panel" id="cpanel-nav">
+                    <div class="admin-section-title">Navigation Bar</div>
+                    <div id="clr-nav-fields"></div>
+                    <button class="admin-save-btn full" onclick="adminApplyAllColours()" style="margin-top:8px">Apply & Save</button>
+                </div>
+
+                <!-- CARDS tab -->
+                <div class="img-panel" id="cpanel-cards">
+                    <div class="admin-section-title">Cards & Borders</div>
+                    <div id="clr-cards-fields"></div>
+                    <button class="admin-save-btn full" onclick="adminApplyAllColours()" style="margin-top:8px">Apply & Save</button>
+                </div>
+
             </div>
 
             <!-- ── CONTENT ── -->
@@ -10702,9 +10734,18 @@
 
         document.addEventListener('DOMContentLoaded', function() {
             console.log('App initializing...');
-            // Permanently hide announcement banner on startup
+            // Permanently destroy announcement banner on startup
             const _initBanner = document.getElementById('admin-announcement-banner');
             if (_initBanner) { _initBanner.style.display = 'none'; _initBanner.remove(); }
+            // Also clear any saved bannerText from adminConfig so it never comes back
+            try {
+                const _ac = JSON.parse(localStorage.getItem('adminConfig') || '{}');
+                if (_ac.bannerText !== undefined) {
+                    delete _ac.bannerText;
+                    delete _ac.bannerColor;
+                    localStorage.setItem('adminConfig', JSON.stringify(_ac));
+                }
+            } catch(e) {}
             
             // Initialize all data
             initializeData();
@@ -15115,8 +15156,14 @@
                     window._fbOnValue(cfgRef, snap => {
                         if (snap && snap.exists && snap.exists()) {
                             const val = snap.val();
+                            // Strip banner before saving/applying
+                            delete val.bannerText;
+                            delete val.bannerColor;
                             localStorage.setItem('adminConfig', JSON.stringify(val));
                             applyAdminConfig();
+                            // Remove any existing banner element
+                            const _ab = document.getElementById('admin-announcement-banner');
+                            if (_ab) _ab.remove();
                             showSync('synced');
                         }
                     });
@@ -15139,7 +15186,9 @@
                     window._fbOnValue(bcastRef, snap => {
                         if (snap && snap.exists && snap.exists()) {
                             const val = snap.val();
-                            // Broadcast banner disabled
+                            // Broadcast banner permanently disabled
+                    const _bb = document.getElementById('admin-announcement-banner');
+                    if (_bb) _bb.remove();
                         }
                     });
                 } catch(e) { console.warn('Admin listener error:', e); }
@@ -15223,6 +15272,7 @@
             if (tab === 'challenges') adminLoadChallenges();
             if (tab === 'users')      adminLoadUsers();
             if (tab === 'images')     switchImgTab('hero');
+            if (tab === 'colours')    adminLoadColours();
         }
 
         function adminLoadAll() {
@@ -15335,9 +15385,9 @@
                     // Derive surface-light from surface
                     r.style.setProperty('--secondary', cfg.colours.surface);
                 }
-                if (cfg.colours.text) {
-                    r.style.setProperty('--text-primary', cfg.colours.text);
-                }
+                if (cfg.colours && cfg.colours.text) {
+                    document.documentElement.style.setProperty('--text-primary', cfg.colours.text);
+                } // end legacy
             }
 
             // Quotes
@@ -15356,7 +15406,14 @@
             }
 
             // Announcement banner
-            // Announcement banner disabled
+            // Announcement banner permanently disabled — clear it
+            if (cfg.bannerText) {
+                cfg.bannerText = '';
+                cfg.bannerColor = '';
+                localStorage.setItem('adminConfig', JSON.stringify(cfg));
+            }
+            const _ab = document.getElementById('admin-announcement-banner');
+            if (_ab) _ab.remove();
 
             // Workout names
             if (cfg.workoutNames) {
@@ -15435,50 +15492,12 @@
             showNotification('Nav labels saved and applied!');
         }
 
-        function adminPreviewColor() {
-            const accent  = document.getElementById('adm-color-accent').value;
-            const bg      = document.getElementById('adm-color-bg').value;
-            const surface = document.getElementById('adm-color-surface').value;
-            const text    = document.getElementById('adm-color-text').value;
-            const r = document.documentElement;
-            r.style.setProperty('--success', accent);
-            r.style.setProperty('--primary', bg);
-            r.style.setProperty('--surface', surface);
-            r.style.setProperty('--text-primary', text);
-        }
 
-        function adminSaveColours() {
-            const colours = {
-                accent:    document.getElementById('adm-color-accent').value,
-                secondary: document.getElementById('adm-color-secondary').value,
-                bg:        document.getElementById('adm-color-bg').value,
-                surface:   document.getElementById('adm-color-surface').value,
-                text:      document.getElementById('adm-color-text').value,
-            };
-            saveAdminConfig({ colours });
-            applyAdminConfig();
-            showNotification('Colours saved and applied!');
-        }
 
-        const COLOUR_PRESETS = {
-            orange: { accent:'#ff6b1a', secondary:'#ffd000', bg:'#0a0a0a', surface:'#1a1a1a', text:'#ffffff' },
-            blue:   { accent:'#42a5f5', secondary:'#80d8ff', bg:'#0a0f14', surface:'#0d1520', text:'#ffffff' },
-            green:  { accent:'#66bb6a', secondary:'#a5d6a7', bg:'#080e08', surface:'#0d1a0d', text:'#ffffff' },
-            purple: { accent:'#ab47bc', secondary:'#ce93d8', bg:'#0a080e', surface:'#14101a', text:'#ffffff' },
-            red:    { accent:'#ef5350', secondary:'#ffcdd2', bg:'#0e0808', surface:'#1a0d0d', text:'#ffffff' },
-            teal:   { accent:'#26a69a', secondary:'#80cbc4', bg:'#080e0e', surface:'#0d1a1a', text:'#ffffff' },
-        };
 
-        function adminApplyPreset(name) {
-            const p = COLOUR_PRESETS[name];
-            if (!p) return;
-            document.getElementById('adm-color-accent').value    = p.accent;
-            document.getElementById('adm-color-secondary').value = p.secondary;
-            document.getElementById('adm-color-bg').value        = p.bg;
-            document.getElementById('adm-color-surface').value   = p.surface;
-            document.getElementById('adm-color-text').value      = p.text;
-            adminSaveColours();
-        }
+
+
+
 
         function adminResetColours() {
             adminApplyPreset('orange');
@@ -16126,6 +16145,222 @@
             renderHomeActivity();
         }
         window.renderNewHome = renderNewHome;
+
+
+        // ══════════════════════════════════════════════════════
+        // ADMIN FULL COLOUR CUSTOMIZER
+        // ══════════════════════════════════════════════════════
+
+        // All customizable CSS variables with labels, defaults, and groups
+        const ADM_COLOUR_DEFS = {
+            theme: [
+                { var: '--success',      label: 'Primary Accent',      default: '#ff6b1a', desc: 'Buttons, active states, highlights' },
+                { var: '--danger',       label: 'Secondary Accent',     default: '#ffd000', desc: 'Gold, badges, secondary highlights' },
+                { var: '--gold',         label: 'Gold Colour',          default: '#ffd000', desc: 'PR badges, top ranks' },
+            ],
+            text: [
+                { var: '--text-primary',   label: 'Primary Text',   default: '#ffffff', desc: 'Main headings and labels' },
+                { var: '--text-secondary', label: 'Secondary Text', default: '#a0a0a0', desc: 'Subheadings, descriptions' },
+                { var: '--text-muted',     label: 'Muted Text',     default: '#606060', desc: 'Timestamps, meta info' },
+            ],
+            surfaces: [
+                { var: '--primary',        label: 'App Background',     default: '#0a0a0a', desc: 'Main background colour' },
+                { var: '--secondary',      label: 'Secondary BG',       default: '#111111', desc: 'Secondary backgrounds' },
+                { var: '--surface',        label: 'Card Surface',       default: '#141414', desc: 'Card and panel backgrounds' },
+                { var: '--surface-light',  label: 'Light Surface',      default: '#1c1c1c', desc: 'Lighter card variant' },
+                { var: '--surface-hover',  label: 'Hover Surface',      default: '#222222', desc: 'Hovered elements' },
+                { var: '--accent',         label: 'Accent Surface',     default: '#1e1e1e', desc: 'Accent backgrounds' },
+            ],
+            buttons: [
+                { var: '--success',      label: 'Primary Button BG',    default: '#ff6b1a', desc: 'Main CTA buttons' },
+                { var: '--danger',       label: 'Secondary Button BG',  default: '#ffd000', desc: 'Secondary/warning buttons' },
+                { var: '--radius-sm',    label: 'Small Radius',         default: '12px',    desc: 'Button corner radius (small)', type: 'text' },
+                { var: '--radius-md',    label: 'Medium Radius',        default: '18px',    desc: 'Card corner radius', type: 'text' },
+                { var: '--radius-lg',    label: 'Large Radius',         default: '24px',    desc: 'Large card corner radius', type: 'text' },
+            ],
+            nav: [
+                { var: '--nav-bg',       label: 'Nav Background',       default: '#080808', desc: 'Bottom navigation background', css: '.bottom-nav { background: {val} !important; }' },
+                { var: '--nav-active',   label: 'Nav Active Icon',      default: '#ff6b1a', desc: 'Active tab icon colour',       css: '.nav-item.active { color: {val} !important; }' },
+                { var: '--nav-inactive', label: 'Nav Inactive Icon',    default: '#606060', desc: 'Inactive tab icon colour',     css: '.nav-item { color: {val}; }' },
+                { var: '--header-bg',    label: 'Header Background',    default: '#0a0a0a', desc: 'Top header background',       css: '.regular-header, .hero-header { background: {val} !important; }' },
+            ],
+            cards: [
+                { var: '--border',       label: 'Border Colour',        default: 'rgba(255,255,255,0.08)', desc: 'Default card borders', type: 'text' },
+                { var: '--border-strong',label: 'Strong Border',        default: 'rgba(255,255,255,0.14)', desc: 'Emphasised borders',   type: 'text' },
+                { var: '--card-shadow',  label: 'Card Shadow',          default: '0 8px 24px rgba(0,0,0,0.5)', desc: 'Card drop shadow', type: 'text', css: '.admin-workout-card, .home-featured-card, .train-muscle-card { box-shadow: {val}; }' },
+                { var: '--challenge-bg', label: 'Challenge Banner BG',  default: 'rgba(255,107,26,0.1)', desc: 'Daily challenge card bg', type: 'text', css: '.home-challenge-banner { background: {val} !important; }' },
+                { var: '--home-bg',      label: 'Home Header BG',       default: '#0a0a0a', desc: 'Home page background',        css: '#home-page { background: {val}; }' },
+            ],
+        };
+
+        let _adColours = {}; // current admin colour state
+
+        function switchColourTab(tab) {
+            document.querySelectorAll('.img-subtab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.img-panel').forEach(p => p.classList.remove('active'));
+            const t = document.getElementById('ctab-' + tab);
+            const p = document.getElementById('cpanel-' + tab);
+            if (t) t.classList.add('active');
+            if (p) p.classList.add('active');
+            adminRenderColourFields(tab);
+        }
+        window.switchColourTab = switchColourTab;
+
+        function adminRenderColourFields(group) {
+            const container = document.getElementById('clr-' + group + '-fields');
+            if (!container) return;
+            const defs = ADM_COLOUR_DEFS[group] || [];
+            container.innerHTML = defs.map(d => {
+                const saved = _adColours[d.var] || d.default;
+                const isText = d.type === 'text';
+                return `
+                <div class="admin-color-row" style="flex-direction:column;align-items:stretch;gap:6px;margin-bottom:14px">
+                    <div style="display:flex;align-items:center;justify-content:space-between">
+                        <div>
+                            <div style="font-size:12px;font-weight:800;color:#ccc">${d.label}</div>
+                            <div style="font-size:10px;color:#444;margin-top:1px">${d.desc}</div>
+                        </div>
+                        ${!isText ? `<input type="color" style="width:40px;height:40px;border-radius:10px;border:2px solid #333;cursor:pointer;flex-shrink:0" value="${saved.startsWith('#') ? saved : '#ff6b1a'}" id="clrinput-${d.var.replace(/[^a-zA-Z0-9]/g,'_')}" oninput="adminLiveColour('${d.var}', this.value, ${JSON.stringify(d.css||'')})">` : ''}
+                    </div>
+                    ${isText ? `<input type="text" class="admin-input" value="${saved}" id="clrinput-${d.var.replace(/[^a-zA-Z0-9]/g,'_')}" placeholder="${d.default}" oninput="adminLiveColour('${d.var}', this.value, ${JSON.stringify(d.css||'')})">` : `
+                    <input type="text" class="admin-input" style="font-size:11px;padding:7px 12px" value="${saved}" id="clrtext-${d.var.replace(/[^a-zA-Z0-9]/g,'_')}" placeholder="${d.default}" oninput="adminSyncColourText('${d.var}', this.value, '${d.var.replace(/[^a-zA-Z0-9]/g,'_')}')">`}
+                </div>`;
+            }).join('');
+        }
+
+        function adminSyncColourText(varName, val, safeId) {
+            // Sync text input → colour picker when valid hex
+            if (/^#[0-9a-fA-F]{6}$/.test(val)) {
+                const picker = document.getElementById('clrinput-' + safeId);
+                if (picker && picker.type === 'color') picker.value = val;
+            }
+            adminLiveColour(varName, val, '');
+        }
+        window.adminSyncColourText = adminSyncColourText;
+
+        function adminLiveColour(varName, val, customCss) {
+            if (!val) return;
+            _adColours[varName] = val;
+            const r = document.documentElement;
+            // Apply CSS variable
+            r.style.setProperty(varName, val);
+            // Apply custom CSS if provided
+            if (customCss && customCss !== 'undefined' && customCss !== '') {
+                const styleId = 'adm-custom-css-' + varName.replace(/[^a-zA-Z0-9]/g,'_');
+                let styleEl = document.getElementById(styleId);
+                if (!styleEl) {
+                    styleEl = document.createElement('style');
+                    styleEl.id = styleId;
+                    document.head.appendChild(styleEl);
+                }
+                styleEl.textContent = customCss.replace(/{val}/g, val);
+            }
+            // Special handling for body background
+            if (varName === '--primary') {
+                document.body.style.background = val;
+                const ac = document.querySelector('.app-container');
+                if (ac) ac.style.background = val;
+            }
+            // Update glow colours derived from accent
+            if (varName === '--success') {
+                const hex = val.replace('#','');
+                if (hex.length === 6) {
+                    const ri = parseInt(hex.slice(0,2),16);
+                    const gi = parseInt(hex.slice(2,4),16);
+                    const bi = parseInt(hex.slice(4,6),16);
+                    r.style.setProperty('--success-glow', 'rgba('+ri+','+gi+','+bi+',0.25)');
+                    r.style.setProperty('--shadow-glow',  'rgba('+ri+','+gi+','+bi+',0.2)');
+                    r.style.setProperty('--glow', '0 0 20px rgba('+ri+','+gi+','+bi+',0.1)');
+                }
+            }
+            // Update preview bar
+            const pb = document.getElementById('adm-preview-bar');
+            if (pb) pb.style.background = 'linear-gradient(90deg,'+(_adColours['--success']||'#ff6b1a')+','+(_adColours['--danger']||'#ffd000')+')';
+            // Also sync text input if colour picker changed
+            const safeVar = varName.replace(/[^a-zA-Z0-9]/g,'_');
+            const textInput = document.getElementById('clrtext-' + safeVar);
+            if (textInput) textInput.value = val;
+        }
+        window.adminLiveColour = adminLiveColour;
+
+        function adminApplyAllColours() {
+            // Read all current inputs across all groups
+            Object.entries(ADM_COLOUR_DEFS).forEach(([group, defs]) => {
+                defs.forEach(d => {
+                    const safeId = d.var.replace(/[^a-zA-Z0-9]/g,'_');
+                    const input = document.getElementById('clrinput-' + safeId) || document.getElementById('clrtext-' + safeId);
+                    if (input && input.value) {
+                        _adColours[d.var] = input.value;
+                        adminLiveColour(d.var, input.value, d.css || '');
+                    }
+                });
+            });
+            saveAdminConfig({ colours: _adColours });
+            showNotification('All colours saved and applied!');
+        }
+        window.adminApplyAllColours = adminApplyAllColours;
+
+        function adminResetAllColours() {
+            _adColours = {};
+            Object.entries(ADM_COLOUR_DEFS).forEach(([group, defs]) => {
+                defs.forEach(d => {
+                    document.documentElement.style.removeProperty(d.var);
+                    const safeId = d.var.replace(/[^a-zA-Z0-9]/g,'_');
+                    const input = document.getElementById('clrinput-' + safeId);
+                    if (input) input.value = d.default.startsWith('#') ? d.default : '#ff6b1a';
+                    const textInput = document.getElementById('clrtext-' + safeId);
+                    if (textInput) textInput.value = d.default;
+                    // Remove any custom style elements
+                    const styleEl = document.getElementById('adm-custom-css-' + safeId);
+                    if (styleEl) styleEl.remove();
+                });
+            });
+            document.body.style.background = '#000';
+            saveAdminConfig({ colours: {} });
+            showNotification('Colours reset to defaults!');
+        }
+        window.adminResetAllColours = adminResetAllColours;
+
+        const COLOUR_PRESETS = {
+            orange: { '--success':'#ff6b1a','--danger':'#ffd000','--gold':'#ffd000','--primary':'#0a0a0a','--surface':'#141414','--surface-light':'#1c1c1c','--surface-hover':'#222222','--text-primary':'#ffffff','--text-secondary':'#a0a0a0','--text-muted':'#606060' },
+            blue:   { '--success':'#42a5f5','--danger':'#80d8ff','--gold':'#80d8ff','--primary':'#0a0f14','--surface':'#0d1520','--surface-light':'#111c28','--surface-hover':'#14202e','--text-primary':'#ffffff','--text-secondary':'#90b8d0','--text-muted':'#506070' },
+            green:  { '--success':'#66bb6a','--danger':'#a5d6a7','--gold':'#a5d6a7','--primary':'#080e08','--surface':'#0d1a0d','--surface-light':'#112011','--surface-hover':'#162816','--text-primary':'#ffffff','--text-secondary':'#90c090','--text-muted':'#507050' },
+            purple: { '--success':'#ab47bc','--danger':'#ce93d8','--gold':'#ce93d8','--primary':'#0a080e','--surface':'#14101a','--surface-light':'#1a1522','--surface-hover':'#201a2a','--text-primary':'#ffffff','--text-secondary':'#b090c0','--text-muted':'#705080' },
+            red:    { '--success':'#ef5350','--danger':'#ffcdd2','--gold':'#ffcdd2','--primary':'#0e0808','--surface':'#1a0d0d','--surface-light':'#221212','--surface-hover':'#281818','--text-primary':'#ffffff','--text-secondary':'#c09090','--text-muted':'#705050' },
+            teal:   { '--success':'#26a69a','--danger':'#80cbc4','--gold':'#80cbc4','--primary':'#080e0e','--surface':'#0d1a1a','--surface-light':'#112020','--surface-hover':'#162828','--text-primary':'#ffffff','--text-secondary':'#90c0be','--text-muted':'#507070' },
+            pink:   { '--success':'#f48fb1','--danger':'#f8bbd0','--gold':'#f8bbd0','--primary':'#0e080c','--surface':'#1a0d14','--surface-light':'#22121c','--surface-hover':'#281824','--text-primary':'#ffffff','--text-secondary':'#c090a8','--text-muted':'#705060' },
+            gold:   { '--success':'#ffcc02','--danger':'#ffe57f','--gold':'#ffe57f','--primary':'#0c0a00','--surface':'#1a1600','--surface-light':'#221e00','--surface-hover':'#282400','--text-primary':'#ffffff','--text-secondary':'#c0b050','--text-muted':'#706030' },
+            white:  { '--success':'#ffffff','--danger':'#e0e0e0','--gold':'#e0e0e0','--primary':'#0a0a0a','--surface':'#181818','--surface-light':'#202020','--surface-hover':'#282828','--text-primary':'#ffffff','--text-secondary':'#b0b0b0','--text-muted':'#707070' },
+        };
+
+        function adminApplyPreset(name) {
+            const p = COLOUR_PRESETS[name];
+            if (!p) return;
+            _adColours = { ..._adColours, ...p };
+            Object.entries(p).forEach(([v, val]) => adminLiveColour(v, val, ''));
+            // Refresh current visible inputs
+            const curTab = document.querySelector('.img-subtab.active');
+            if (curTab) {
+                const tabName = curTab.id.replace('ctab-','');
+                adminRenderColourFields(tabName);
+            }
+            saveAdminConfig({ colours: _adColours });
+            showNotification(name.charAt(0).toUpperCase()+name.slice(1)+' theme applied!');
+        }
+
+        // Load saved colours into _adColours and apply on panel open
+        function adminLoadColours() {
+            const cfg = getAdminConfig();
+            _adColours = cfg.colours || {};
+            // Render the active tab
+            const activeTab = document.querySelector('#apanel-colours .img-subtab.active');
+            const tabName = activeTab ? activeTab.id.replace('ctab-','') : 'theme';
+            adminRenderColourFields(tabName);
+            // Update preview bar
+            const pb = document.getElementById('adm-preview-bar');
+            if (pb) pb.style.background = 'linear-gradient(90deg,'+(_adColours['--success']||'#ff6b1a')+','+(_adColours['--danger']||'#ffd000')+')';
+        }
+        window.adminLoadColours = adminLoadColours;
 
         // ==================== MAKE FUNCTIONS GLOBAL ====================
         window.showPage = showPage;

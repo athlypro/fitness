@@ -7189,6 +7189,108 @@
         .admin-fab:hover { transform: scale(1.08); }
         .admin-fab svg { width: 20px; height: 20px; fill: #000; }
 
+    
+        /* ════════════════════════════════════════
+           ADMIN IMAGE MANAGER
+           ════════════════════════════════════════ */
+        .img-zone-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px;
+        }
+        .img-zone-card {
+            background: #111; border: 1px solid #222; border-radius: 14px;
+            overflow: hidden; cursor: pointer; position: relative;
+            transition: all .2s;
+        }
+        .img-zone-card:hover { border-color: #ff6b1a; }
+        .img-zone-card.wide { grid-column: 1 / -1; }
+        .img-zone-preview {
+            width: 100%; aspect-ratio: 16/9; object-fit: cover;
+            display: block; background: #0d0d0d;
+        }
+        .img-zone-preview.square { aspect-ratio: 1; }
+        .img-zone-preview.banner { aspect-ratio: 3/1; }
+        .img-zone-label {
+            padding: 8px 10px; font-size: 11px; font-weight: 700;
+            color: #666; text-transform: uppercase; letter-spacing: .06em;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .img-zone-label span { color: #333; font-size: 10px; font-weight: 600; text-transform: none; letter-spacing: 0; }
+        .img-zone-upload-overlay {
+            position: absolute; inset: 0; background: rgba(255,107,26,.12);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            gap: 6px; opacity: 0; transition: opacity .2s; cursor: pointer;
+        }
+        .img-zone-card:hover .img-zone-upload-overlay { opacity: 1; }
+        .img-zone-upload-overlay svg { width: 28px; height: 28px; fill: #ff6b1a; }
+        .img-zone-upload-overlay span { font-size: 11px; font-weight: 700; color: #ff6b1a; }
+        .img-zone-card input[type=file] { display: none; }
+
+        /* Upload-all grid: exercise list */
+        .img-ex-list { display: flex; flex-direction: column; gap: 8px; max-height: 480px; overflow-y: auto; padding-right: 4px; }
+        .img-ex-row {
+            display: flex; align-items: center; gap: 10px;
+            background: #111; border: 1px solid #1e1e1e; border-radius: 12px; padding: 8px 10px;
+        }
+        .img-ex-thumb-wrap { position: relative; width: 52px; height: 52px; flex-shrink: 0; cursor: pointer; }
+        .img-ex-thumb-wrap img { width: 52px; height: 52px; border-radius: 10px; object-fit: cover; border: 1px solid #2a2a2a; }
+        .img-ex-thumb-overlay {
+            position: absolute; inset: 0; border-radius: 10px;
+            background: rgba(255,107,26,.5); display: flex; align-items: center;
+            justify-content: center; opacity: 0; transition: opacity .15s;
+        }
+        .img-ex-thumb-wrap:hover .img-ex-thumb-overlay { opacity: 1; }
+        .img-ex-thumb-overlay svg { width: 18px; height: 18px; fill: #fff; }
+        .img-ex-thumb-wrap input[type=file] { display: none; }
+        .img-ex-info { flex: 1; min-width: 0; }
+        .img-ex-name { font-size: 13px; font-weight: 700; color: #ccc; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .img-ex-hint { font-size: 10px; color: #444; margin-top: 2px; }
+        .img-ex-form-wrap { position: relative; width: 80px; height: 50px; flex-shrink: 0; cursor: pointer; }
+        .img-ex-form-wrap img { width: 80px; height: 50px; border-radius: 8px; object-fit: cover; border: 1px solid #2a2a2a; }
+        .img-ex-form-overlay {
+            position: absolute; inset: 0; border-radius: 8px;
+            background: rgba(255,107,26,.5); display: flex; align-items: center;
+            justify-content: center; opacity: 0; transition: opacity .15s;
+        }
+        .img-ex-form-wrap:hover .img-ex-form-overlay { opacity: 1; }
+        .img-ex-form-wrap input[type=file] { display: none; }
+
+        /* Muscle card image zone */
+        .img-muscle-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-bottom: 16px; }
+        .img-muscle-card {
+            background: #111; border: 1px solid #1e1e1e; border-radius: 12px;
+            overflow: hidden; cursor: pointer; position: relative;
+        }
+        .img-muscle-card:hover { border-color: #ff6b1a44; }
+        .img-muscle-preview { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; background: #0d0d0d; }
+        .img-muscle-label { padding: 6px 8px; font-size: 10px; font-weight: 700; color: #555; text-transform: uppercase; letter-spacing: .05em; }
+        .img-muscle-overlay {
+            position: absolute; inset: 0; background: rgba(255,107,26,.15);
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; transition: opacity .15s;
+        }
+        .img-muscle-card:hover .img-muscle-overlay { opacity: 1; }
+        .img-muscle-overlay svg { width: 22px; height: 22px; fill: #ff6b1a; }
+        .img-muscle-card input[type=file] { display: none; }
+
+        /* Tab labels for image sub-sections */
+        .img-subtab-row { display: flex; gap: 6px; margin-bottom: 18px; flex-wrap: wrap; }
+        .img-subtab {
+            padding: 7px 14px; background: #111; border: 1px solid #222;
+            border-radius: 50px; font-size: 11px; font-weight: 700; color: #555;
+            cursor: pointer; transition: all .2s; white-space: nowrap;
+        }
+        .img-subtab.active { background: rgba(255,107,26,.12); border-color: rgba(255,107,26,.4); color: #ff6b1a; }
+
+        .img-panel { display: none; }
+        .img-panel.active { display: block; }
+
+        .img-clear-btn {
+            padding: 5px 10px; background: rgba(239,83,80,.1); border: 1px solid rgba(239,83,80,.25);
+            border-radius: 7px; font-size: 10px; font-weight: 700; color: #ef9a9a;
+            cursor: pointer; transition: all .15s; white-space: nowrap;
+        }
+        .img-clear-btn:hover { background: rgba(239,83,80,.2); }
+
     </style>
 
     <!-- Firebase SDK -->
@@ -7375,6 +7477,7 @@
             <div class="admin-tab"        onclick="switchAdminTab('workouts')"   id="atab-workouts">Workouts</div>
             <div class="admin-tab"        onclick="switchAdminTab('challenges')" id="atab-challenges">Challenges</div>
             <div class="admin-tab"        onclick="switchAdminTab('users')"      id="atab-users">Users</div>
+            <div class="admin-tab"        onclick="switchAdminTab('images')"     id="atab-images">Images</div>
         </div>
 
         <div class="admin-content">
@@ -7544,6 +7647,48 @@
                     <div class="admin-section-title">Database</div>
                     <button class="admin-save-btn full secondary" onclick="adminExportDB()">Export All Data (JSON)</button>
                 </div>
+            </div>
+
+
+            <!-- ── IMAGES ── -->
+            <div class="admin-panel-inner" id="apanel-images">
+
+                <div class="img-subtab-row">
+                    <div class="img-subtab active" onclick="switchImgTab('hero')"    id="imgtab-hero">Hero Banner</div>
+                    <div class="img-subtab"        onclick="switchImgTab('muscles')" id="imgtab-muscles">Muscle Cards</div>
+                    <div class="img-subtab"        onclick="switchImgTab('exercises')" id="imgtab-exercises">Exercises</div>
+                </div>
+
+                <!-- Hero Banner images -->
+                <div class="img-panel active" id="imgpanel-hero">
+                    <div class="admin-section-title" style="margin-bottom:14px">Home Page Banner Images
+                        <span style="font-size:10px;color:#444;font-weight:500;text-transform:none;letter-spacing:0"> — rotates daily</span>
+                    </div>
+                    <div class="img-zone-grid" id="admin-hero-grid">
+                        <!-- populated by JS -->
+                    </div>
+                    <button class="admin-save-btn secondary" onclick="adminClearHeroBanner()" style="width:100%;margin-top:4px">Reset to Defaults</button>
+                </div>
+
+                <!-- Muscle card images -->
+                <div class="img-panel" id="imgpanel-muscles">
+                    <div class="admin-section-title" style="margin-bottom:14px">Train Page — Muscle Card Backgrounds</div>
+                    <div class="img-muscle-grid" id="admin-muscle-img-grid">
+                        <!-- populated by JS -->
+                    </div>
+                    <button class="admin-save-btn secondary" onclick="adminClearMuscleImages()" style="width:100%;margin-top:4px">Reset to Defaults</button>
+                </div>
+
+                <!-- Exercise images -->
+                <div class="img-panel" id="imgpanel-exercises">
+                    <div class="admin-section-title" style="margin-bottom:6px">Exercise Images</div>
+                    <p style="font-size:12px;color:#444;margin-bottom:14px">Left thumbnail = shown in exercise list. Right wide = shown during workout execution.</p>
+                    <div class="img-ex-list" id="admin-exercise-img-list">
+                        <!-- populated by JS -->
+                    </div>
+                    <button class="admin-save-btn secondary" onclick="adminClearExerciseImages()" style="width:100%;margin-top:12px">Reset All to Defaults</button>
+                </div>
+
             </div>
 
         </div>
@@ -10355,7 +10500,8 @@
             // Rotate hero banner by day of week
             const dayIdx = new Date().getDay();
             const bannerEl = document.getElementById('hero-banner-img');
-            if (bannerEl) bannerEl.src = HERO_IMAGES[dayIdx % HERO_IMAGES.length];
+            const _heroSet = (window._adminHeroImages && window._adminHeroImages.length) ? window._adminHeroImages : HERO_IMAGES;
+            if (bannerEl) bannerEl.src = (_heroSet[dayIdx] || _heroSet[dayIdx % _heroSet.length] || HERO_IMAGES[dayIdx % HERO_IMAGES.length]);
 
             // Random motivational quote
             const DEFAULT_QUOTES = [["The only bad workout is the one that didn't happen.", 'Unknown'], ['Push yourself because no one else is going to do it for you.', 'Unknown'], ["Your body can stand almost anything. It's your mind you have to convince.", 'Unknown'], ['Success starts with self-discipline.', 'Unknown'], ["Don't wish for it. Work for it.", 'Unknown'], ["The pain you feel today is the strength you'll feel tomorrow.", 'Unknown'], ['Sweat is just fat crying.', 'Unknown'], ['Train insane or remain the same.', 'Unknown']];
@@ -14789,6 +14935,7 @@
                 } catch(e) {}
             }
             applyAdminConfig();
+            applyAdminImages();
 
             // Update profile UI
             const displayName = user.displayName || 'Athlete';
@@ -15308,6 +15455,251 @@
         window.adminLoadWorkouts      = adminLoadWorkouts;
         window.adminLoadUsers         = adminLoadUsers;
         window.showAnnouncementBanner = showAnnouncementBanner;
+
+
+        // ══════════════════════════════════════════════════════
+        // ADMIN IMAGE MANAGER
+        // ══════════════════════════════════════════════════════
+
+        // Storage keys for admin images
+        const ADMIN_IMG_HERO     = 'adminImg_hero';       // array of dataURLs
+        const ADMIN_IMG_MUSCLES  = 'adminImg_muscles';    // { chest, back, ... }
+        const ADMIN_IMG_THUMBS   = 'adminImg_thumbs';     // { 'Push-ups': dataURL, ... }
+        const ADMIN_IMG_FORMS    = 'adminImg_forms';      // { 'Push-ups': dataURL, ... }
+
+        function switchImgTab(tab) {
+            document.querySelectorAll('.img-subtab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.img-panel').forEach(p => p.classList.remove('active'));
+            const t = document.getElementById('imgtab-' + tab);
+            const p = document.getElementById('imgpanel-' + tab);
+            if (t) t.classList.add('active');
+            if (p) p.classList.add('active');
+            if (tab === 'hero')      adminLoadHeroImages();
+            if (tab === 'muscles')   adminLoadMuscleImages();
+            if (tab === 'exercises') adminLoadExerciseImages();
+        }
+        window.switchImgTab = switchImgTab;
+
+        // ── Hero banner images ──
+        function adminLoadHeroImages() {
+            const grid = document.getElementById('admin-hero-grid');
+            if (!grid) return;
+            const saved = JSON.parse(localStorage.getItem(ADMIN_IMG_HERO) || '[]');
+            const DAYS  = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+            const today = new Date().getDay();
+            grid.innerHTML = DAYS.map((day, i) => {
+                const src = saved[i] || HERO_IMAGES[i % HERO_IMAGES.length];
+                const isToday = i === today;
+                return `
+                <label class="img-zone-card ${i===6?'':''}">
+                    <img class="img-zone-preview banner" src="${src}" alt="${day}" id="hero-prev-${i}">
+                    <div class="img-zone-label">${day}${isToday?' ★':''} <span>Click to change</span></div>
+                    <div class="img-zone-upload-overlay">
+                        <svg viewBox="0 0 24 24"><path d="M9 16h6v-6h4l-7-7-7 7h4v6zm-4 2h14v2H5v-2z"/></svg>
+                        <span>Upload</span>
+                    </div>
+                    <input type="file" accept="image/*,video/*" onchange="adminUploadHeroImg(event,${i})">
+                </label>`;
+            }).join('');
+        }
+
+        function adminUploadHeroImg(event, dayIndex) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = e => {
+                const saved = JSON.parse(localStorage.getItem(ADMIN_IMG_HERO) || '[]');
+                while (saved.length <= dayIndex) saved.push(null);
+                saved[dayIndex] = e.target.result;
+                localStorage.setItem(ADMIN_IMG_HERO, JSON.stringify(saved));
+                // Update preview
+                const prev = document.getElementById('hero-prev-' + dayIndex);
+                if (prev) prev.src = e.target.result;
+                // Apply immediately
+                applyAdminImages();
+                showNotification('Hero image updated!');
+            };
+            reader.readAsDataURL(file);
+            event.target.value = '';
+        }
+        window.adminUploadHeroImg = adminUploadHeroImg;
+
+        function adminClearHeroBanner() {
+            localStorage.removeItem(ADMIN_IMG_HERO);
+            adminLoadHeroImages();
+            applyAdminImages();
+            showNotification('Hero images reset to defaults');
+        }
+        window.adminClearHeroBanner = adminClearHeroBanner;
+
+        // ── Muscle card images ──
+        const MUSCLE_KEYS = ['chest','back','arms','shoulders','legs','abs','fullbody','cardio','glutes','calves','forearms'];
+        const MUSCLE_LABELS = { chest:'Chest', back:'Back', arms:'Arms', shoulders:'Shoulders',
+            legs:'Legs', abs:'Core', fullbody:'Full Body', cardio:'Cardio',
+            glutes:'Glutes', calves:'Calves', forearms:'Forearms' };
+
+        function adminLoadMuscleImages() {
+            const grid = document.getElementById('admin-muscle-img-grid');
+            if (!grid) return;
+            const saved = JSON.parse(localStorage.getItem(ADMIN_IMG_MUSCLES) || '{}');
+            grid.innerHTML = MUSCLE_KEYS.map(key => {
+                const meta = MUSCLE_META[key];
+                const src  = saved[key] || (meta && meta.img) || '';
+                return `
+                <label class="img-muscle-card">
+                    <img class="img-muscle-preview" src="${src}" alt="${key}" id="mimg-prev-${key}">
+                    <div class="img-muscle-label">${MUSCLE_LABELS[key]}</div>
+                    <div class="img-muscle-overlay">
+                        <svg viewBox="0 0 24 24"><path d="M9 16h6v-6h4l-7-7-7 7h4v6zm-4 2h14v2H5v-2z"/></svg>
+                    </div>
+                    <input type="file" accept="image/*,video/*" onchange="adminUploadMuscleImg(event,'${key}')">
+                </label>`;
+            }).join('');
+        }
+
+        function adminUploadMuscleImg(event, key) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = e => {
+                const saved = JSON.parse(localStorage.getItem(ADMIN_IMG_MUSCLES) || '{}');
+                saved[key] = e.target.result;
+                localStorage.setItem(ADMIN_IMG_MUSCLES, JSON.stringify(saved));
+                const prev = document.getElementById('mimg-prev-' + key);
+                if (prev) prev.src = e.target.result;
+                // Update MUSCLE_META immediately
+                if (MUSCLE_META[key]) MUSCLE_META[key].img = e.target.result;
+                renderTrainCards();
+                showNotification(MUSCLE_LABELS[key] + ' card image updated!');
+            };
+            reader.readAsDataURL(file);
+            event.target.value = '';
+        }
+        window.adminUploadMuscleImg = adminUploadMuscleImg;
+
+        function adminClearMuscleImages() {
+            localStorage.removeItem(ADMIN_IMG_MUSCLES);
+            adminLoadMuscleImages();
+            applyAdminImages();
+            showNotification('Muscle images reset to defaults');
+        }
+        window.adminClearMuscleImages = adminClearMuscleImages;
+
+        // ── Exercise images (thumbnails + form guides) ──
+        function adminLoadExerciseImages() {
+            const list = document.getElementById('admin-exercise-img-list');
+            if (!list) return;
+            const savedThumbs = JSON.parse(localStorage.getItem(ADMIN_IMG_THUMBS) || '{}');
+            const savedForms  = JSON.parse(localStorage.getItem(ADMIN_IMG_FORMS)  || '{}');
+
+            // Collect all unique exercise names from all workouts
+            const allNames = new Set();
+            Object.values(muscleWorkouts).forEach(mw => {
+                (mw.exercises || []).forEach(ex => allNames.add(ex.name));
+            });
+
+            list.innerHTML = [...allNames].sort().map(name => {
+                const thumbSrc = savedThumbs[name] || EXERCISE_THUMBS[name] || DEFAULT_EXERCISE_THUMB;
+                const formSrc  = savedForms[name]  || EXERCISE_IMAGES[name] || DEFAULT_EXERCISE_IMAGE;
+                const safeId   = name.replace(/[^a-zA-Z0-9]/g,'_');
+                return `
+                <div class="img-ex-row">
+                    <label class="img-ex-thumb-wrap" title="Thumbnail (shown in exercise list)">
+                        <img src="${thumbSrc}" id="ethumb-${safeId}" alt="${name}">
+                        <div class="img-ex-thumb-overlay"><svg viewBox="0 0 24 24"><path d="M9 16h6v-6h4l-7-7-7 7h4v6z"/></svg></div>
+                        <input type="file" accept="image/*" onchange="adminUploadExThumb(event,'${name.replace(/'/g,"\'")}','${safeId}')">
+                    </label>
+                    <div class="img-ex-info">
+                        <div class="img-ex-name">${name}</div>
+                        <div class="img-ex-hint">Thumb · Form guide →</div>
+                    </div>
+                    <label class="img-ex-form-wrap" title="Form guide (shown during workout)">
+                        <img src="${formSrc}" id="eform-${safeId}" alt="${name} form">
+                        <div class="img-ex-form-overlay"><svg viewBox="0 0 24 24"><path d="M9 16h6v-6h4l-7-7-7 7h4v6z"/></svg></div>
+                        <input type="file" accept="image/*,video/*" onchange="adminUploadExForm(event,'${name.replace(/'/g,"\'")}','${safeId}')">
+                    </label>
+                </div>`;
+            }).join('');
+        }
+
+        function adminUploadExThumb(event, name, safeId) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = e => {
+                const saved = JSON.parse(localStorage.getItem(ADMIN_IMG_THUMBS) || '{}');
+                saved[name] = e.target.result;
+                localStorage.setItem(ADMIN_IMG_THUMBS, JSON.stringify(saved));
+                // Update preview in admin
+                const prev = document.getElementById('ethumb-' + safeId);
+                if (prev) prev.src = e.target.result;
+                // Update live EXERCISE_THUMBS
+                EXERCISE_THUMBS[name] = e.target.result;
+                showNotification(name + ' thumbnail updated!');
+            };
+            reader.readAsDataURL(file);
+            event.target.value = '';
+        }
+        window.adminUploadExThumb = adminUploadExThumb;
+
+        function adminUploadExForm(event, name, safeId) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = e => {
+                const saved = JSON.parse(localStorage.getItem(ADMIN_IMG_FORMS) || '{}');
+                saved[name] = e.target.result;
+                localStorage.setItem(ADMIN_IMG_FORMS, JSON.stringify(saved));
+                const prev = document.getElementById('eform-' + safeId);
+                if (prev) prev.src = e.target.result;
+                // Update live EXERCISE_IMAGES
+                EXERCISE_IMAGES[name] = e.target.result;
+                showNotification(name + ' form image updated!');
+            };
+            reader.readAsDataURL(file);
+            event.target.value = '';
+        }
+        window.adminUploadExForm = adminUploadExForm;
+
+        function adminClearExerciseImages() {
+            localStorage.removeItem(ADMIN_IMG_THUMBS);
+            localStorage.removeItem(ADMIN_IMG_FORMS);
+            adminLoadExerciseImages();
+            applyAdminImages();
+            showNotification('Exercise images reset to defaults');
+        }
+        window.adminClearExerciseImages = adminClearExerciseImages;
+
+        // ── Apply all saved admin images on login ──
+        function applyAdminImages() {
+            // Hero
+            const savedHero = JSON.parse(localStorage.getItem(ADMIN_IMG_HERO) || '[]');
+            if (savedHero.length) {
+                // Override HERO_IMAGES entries in-place by patching updateHomeHero
+                window._adminHeroImages = savedHero;
+            }
+            // Muscles
+            const savedMuscles = JSON.parse(localStorage.getItem(ADMIN_IMG_MUSCLES) || '{}');
+            Object.entries(savedMuscles).forEach(([key, url]) => {
+                if (MUSCLE_META[key] && url) MUSCLE_META[key].img = url;
+            });
+            // Exercises
+            const savedThumbs = JSON.parse(localStorage.getItem(ADMIN_IMG_THUMBS) || '{}');
+            const savedForms  = JSON.parse(localStorage.getItem(ADMIN_IMG_FORMS)  || '{}');
+            Object.entries(savedThumbs).forEach(([name, url]) => { EXERCISE_THUMBS[name] = url; });
+            Object.entries(savedForms).forEach(([name, url]) => { EXERCISE_IMAGES[name] = url; });
+        }
+        window.applyAdminImages = applyAdminImages;
+
+        // ── Load images panel when switching to it ──
+        const _origSwitchAdmin = window.switchAdminTab;
+        window.switchAdminTab = function(tab) {
+            _origSwitchAdmin(tab);
+            if (tab === 'images') {
+                // Default to hero sub-tab
+                switchImgTab('hero');
+            }
+        };
 
         // ==================== MAKE FUNCTIONS GLOBAL ====================
         window.showPage = showPage;

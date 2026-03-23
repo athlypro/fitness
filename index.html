@@ -3399,11 +3399,29 @@
             -webkit-text-fill-color: var(--text-primary) !important;
             background: none !important;
             letter-spacing: -.4px;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(255,255,255,0.12);
+            display: inline-block;
+            min-width: 140px;
         }
         #profile-email-display {
             font-size: 13px;
-            color: var(--text-muted) !important;
+            font-weight: 500;
+            color: rgba(255,255,255,0.55) !important;
+            margin-top: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+        #profile-email-display::before {
+            content: '';
+            display: inline-block;
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--success);
+            flex-shrink: 0;
         }
 
         .profile-avatar-large {
@@ -7497,7 +7515,10 @@
         .home-activity-val { font-size: 22px; font-weight: 900; color: var(--text-primary); letter-spacing: -.5px; line-height: 1; }
         .home-activity-unit { font-size: 10px; color: var(--text-muted); font-weight: 600; margin-top: 2px; }
 
-    </style>
+    
+        /* ── Ensure no banner renders when empty ── */
+        #admin-announcement-banner:empty { display: none !important; }
+</style>
 
     <!-- Firebase SDK -->
     <script type="module">
@@ -8499,61 +8520,21 @@
                     <div class="train-suggestion-reason" id="suggestion-reason"></div>
                 </div>
 
-                <!-- ── Body Silhouette + Tab Bar ── -->
-                <div class="train-top-section">
-                    <!-- Body silhouette diagram -->
-                    <div class="body-diagram" id="body-diagram">
-                        <svg viewBox="0 0 120 280" class="body-svg" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Head -->
-                            <circle cx="60" cy="22" r="16" class="body-part" id="bp-head" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
-                            <!-- Neck -->
-                            <rect x="54" y="36" width="12" height="10" rx="4" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
-                            <!-- Shoulders -->
-                            <ellipse cx="28" cy="55" rx="16" ry="10" class="body-part body-shoulders" id="bp-shoulders" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" onclick="filterByMuscle('shoulders')"/>
-                            <ellipse cx="92" cy="55" rx="16" ry="10" class="body-part body-shoulders" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" onclick="filterByMuscle('shoulders')"/>
-                            <!-- Chest -->
-                            <rect x="38" y="46" width="44" height="30" rx="8" class="body-part" id="bp-chest" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" onclick="filterByMuscle('chest')"/>
-                            <!-- Upper Arms -->
-                            <rect x="10" y="56" width="14" height="36" rx="6" class="body-part body-arms" id="bp-arms" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" onclick="filterByMuscle('arms')"/>
-                            <rect x="96" y="56" width="14" height="36" rx="6" class="body-part body-arms" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" onclick="filterByMuscle('arms')"/>
-                            <!-- Forearms -->
-                            <rect x="8" y="96" width="12" height="30" rx="5" class="body-part body-forearms" id="bp-forearms" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" onclick="filterByMuscle('forearms')"/>
-                            <rect x="100" y="96" width="12" height="30" rx="5" class="body-part body-forearms" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" onclick="filterByMuscle('forearms')"/>
-                            <!-- Abs / Core -->
-                            <rect x="40" y="76" width="40" height="44" rx="8" class="body-part" id="bp-abs" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" onclick="filterByMuscle('abs')"/>
-                            <!-- Back (shown as outline behind) -->
-                            <!-- Glutes -->
-                            <ellipse cx="60" cy="130" rx="22" ry="14" class="body-part" id="bp-glutes" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" onclick="filterByMuscle('glutes')"/>
-                            <!-- Upper legs -->
-                            <rect x="38" y="140" width="20" height="56" rx="8" class="body-part body-legs" id="bp-legs" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" onclick="filterByMuscle('legs')"/>
-                            <rect x="62" y="140" width="20" height="56" rx="8" class="body-part body-legs" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" onclick="filterByMuscle('legs')"/>
-                            <!-- Calves -->
-                            <rect x="40" y="200" width="16" height="44" rx="7" class="body-part body-calves" id="bp-calves" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" onclick="filterByMuscle('calves')"/>
-                            <rect x="64" y="200" width="16" height="44" rx="7" class="body-part body-calves" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" onclick="filterByMuscle('calves')"/>
-                            <!-- Feet -->
-                            <ellipse cx="48" cy="248" rx="10" ry="6" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-                            <ellipse cx="72" cy="248" rx="10" ry="6" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-                        </svg>
-                        <div class="body-diagram-label" id="body-diagram-label">Tap a muscle</div>
+                <!-- ── Tab Bar + Search ── -->
+                <div style="padding: 0 18px 14px;">
+                    <!-- Tab bar -->
+                    <div class="train-tab-bar" style="margin-bottom:10px">
+                        <div class="train-tab active" onclick="setTrainTab('all')" id="ttab-all">All</div>
+                        <div class="train-tab" onclick="setTrainTab('push')" id="ttab-push">Push</div>
+                        <div class="train-tab" onclick="setTrainTab('pull')" id="ttab-pull">Pull</div>
+                        <div class="train-tab" onclick="setTrainTab('legs')" id="ttab-legs">Legs</div>
                     </div>
-
-                    <!-- Tab bar + search -->
-                    <div class="train-right-panel">
-                        <!-- Tab bar -->
-                        <div class="train-tab-bar">
-                            <div class="train-tab active" onclick="setTrainTab('all')" id="ttab-all">All</div>
-                            <div class="train-tab" onclick="setTrainTab('push')" id="ttab-push">Push</div>
-                            <div class="train-tab" onclick="setTrainTab('pull')" id="ttab-pull">Pull</div>
-                            <div class="train-tab" onclick="setTrainTab('legs')" id="ttab-legs">Legs</div>
-                        </div>
-                        <!-- Search bar -->
-                        <div class="train-search-wrap">
-                            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" class="train-search-icon"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-                            <input type="text" class="train-search-input" id="train-search" placeholder="Search workouts..." oninput="filterTrainCards()">
-                        </div>
+                    <!-- Search bar -->
+                    <div class="train-search-wrap">
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" class="train-search-icon"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                        <input type="text" class="train-search-input" id="train-search" placeholder="Search workouts..." oninput="filterTrainCards()">
                     </div>
                 </div>
-
                 <!-- ── Muscle Cards Grid ── -->
                 <div class="train-muscle-grid" id="train-muscle-grid">
                     <!-- Populated by JS -->
@@ -8682,7 +8663,7 @@
                             </div>
                         </div>
                         <h2 id="profile-name-display">Fitness Enthusiast</h2>
-                        <p id="profile-email-display" style="color: var(--text-muted);">user@example.com</p>
+                        <p id="profile-email-display">—</p>
                         
                         <!-- User Level and Goals -->
                         <div class="badge-container" id="profile-badges">
@@ -10721,6 +10702,9 @@
 
         document.addEventListener('DOMContentLoaded', function() {
             console.log('App initializing...');
+            // Hide announcement banner until valid text is confirmed
+            const _initBanner = document.getElementById('admin-announcement-banner');
+            if (_initBanner) _initBanner.style.display = 'none';
             
             // Initialize all data
             initializeData();
@@ -10995,7 +10979,11 @@
             const nameDisplay = document.getElementById('profile-name-display');
             const emailDisplay = document.getElementById('profile-email-display');
             if (nameDisplay) nameDisplay.textContent = profile.name || 'Fitness Enthusiast';
-            if (emailDisplay) emailDisplay.textContent = profile.email || 'No email provided';
+            if (emailDisplay) {
+                // Prefer Firebase auth email (always accurate)
+                const authEmail = window._fbUser && window._fbUser.email;
+                emailDisplay.textContent = authEmail || profile.email || 'No email set';
+            }
             
             // Update level badge
             const levelBadge = document.getElementById('profile-level-badge');
@@ -11297,51 +11285,56 @@
         }
 
         function handleAvatarUpload(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    avatarImage = e.target.result;
-                    selectedAvatar = 'custom';
-                    
-                    // Show preview in avatar grid
-                    const avatarGrid = document.querySelector('.avatar-grid');
-                    if (!avatarGrid) return;
-                    
-                    // Remove existing preview
-                    const oldPreview = document.getElementById('uploaded-avatar-preview');
-                    if (oldPreview) {
-                        oldPreview.remove();
-                    }
-                    
-                    // Create new preview
+            const file = event.target.files && event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const dataUrl = e.target.result;
+                avatarImage   = dataUrl;
+                selectedAvatar = 'custom';
+
+                // Save immediately — no need to press Save button
+                const profile = JSON.parse(localStorage.getItem('userProfile') || '{}');
+                profile.avatarImage = dataUrl;
+                profile.avatar = 'custom';
+                localStorage.setItem('userProfile', JSON.stringify(profile));
+                // Dedicated key — survives Firebase sync
+                localStorage.setItem('localAvatarImage', dataUrl);
+
+                // Update UI instantly
+                updateProfileAvatar('custom', dataUrl);
+                updateHeaderAvatar('custom', dataUrl);
+
+                // Show preview in modal grid too
+                const avatarGrid = document.querySelector('.avatar-grid');
+                if (avatarGrid) {
+                    const old = document.getElementById('uploaded-avatar-preview');
+                    if (old) old.remove();
                     const preview = document.createElement('div');
                     preview.className = 'avatar-option selected';
                     preview.id = 'uploaded-avatar-preview';
-                    preview.innerHTML = `<img src="${avatarImage}" style="width: 100%; height: 100%; object-fit: cover;">`;
+                    preview.style.cssText = 'width:56px;height:56px;border-radius:50%;overflow:hidden;border:3px solid var(--success);';
+                    preview.innerHTML = '<img src="' + dataUrl + '" style="width:100%;height:100%;object-fit:cover;">';
                     avatarGrid.insertBefore(preview, avatarGrid.firstChild);
-                    
-                    // Deselect other avatars
-                    document.querySelectorAll('.avatar-option').forEach(opt => {
-                        opt.classList.remove('selected');
-                    });
+                    document.querySelectorAll('.avatar-option').forEach(o => o.classList.remove('selected'));
                     preview.classList.add('selected');
-                };
-                reader.readAsDataURL(file);
-            }
+                }
+                showNotification('Profile photo saved!');
+            };
+            reader.readAsDataURL(file);
         }
 
         function saveAvatar() {
             const profile = JSON.parse(localStorage.getItem('userProfile') || '{}');
-            
-            if (selectedAvatar === 'custom') {
+            if (selectedAvatar === 'custom' && avatarImage) {
                 profile.avatarImage = avatarImage;
-                profile.avatar = 'user'; // default
-            } else {
+                profile.avatar = 'custom';
+                localStorage.setItem('localAvatarImage', avatarImage);
+            } else if (selectedAvatar !== 'custom') {
                 profile.avatar = selectedAvatar;
                 profile.avatarImage = null;
+                localStorage.removeItem('localAvatarImage');
             }
-            
             localStorage.setItem('userProfile', JSON.stringify(profile));
             loadProfile();
             closeAvatarModal();
@@ -15365,7 +15358,8 @@
             }
 
             // Announcement banner
-            if (cfg.bannerText && cfg.bannerText.trim()) showAnnouncementBanner(cfg.bannerText, cfg.bannerColor || '#ff6b1a');
+            // Banner only shown if explicitly non-empty
+if (cfg.bannerText && cfg.bannerText.trim().length > 0) showAnnouncementBanner(cfg.bannerText, cfg.bannerColor || '#ff6b1a');
 
             // Workout names
             if (cfg.workoutNames) {

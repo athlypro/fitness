@@ -15002,6 +15002,7 @@
             if (tab === 'workouts')   adminLoadWorkouts();
             if (tab === 'challenges') adminLoadChallenges();
             if (tab === 'users')      adminLoadUsers();
+            if (tab === 'images')     switchImgTab('hero');
         }
 
         function adminLoadAll() {
@@ -15491,15 +15492,15 @@
                 const src = saved[i] || HERO_IMAGES[i % HERO_IMAGES.length];
                 const isToday = i === today;
                 return `
-                <label class="img-zone-card ${i===6?'':''}">
-                    <img class="img-zone-preview banner" src="${src}" alt="${day}" id="hero-prev-${i}">
-                    <div class="img-zone-label">${day}${isToday?' ★':''} <span>Click to change</span></div>
+                <div class="img-zone-card" onclick="document.getElementById('hero-file-${i}').click()">
+                    <img class="img-zone-preview banner" src="${src}" alt="${day}" id="hero-prev-${i}" style="width:100%;height:80px;object-fit:cover;display:block">
+                    <div class="img-zone-label">${day}${isToday?' ★':''} <span>Tap to upload</span></div>
                     <div class="img-zone-upload-overlay">
                         <svg viewBox="0 0 24 24"><path d="M9 16h6v-6h4l-7-7-7 7h4v6zm-4 2h14v2H5v-2z"/></svg>
                         <span>Upload</span>
                     </div>
-                    <input type="file" accept="image/*,video/*" onchange="adminUploadHeroImg(event,${i})">
-                </label>`;
+                    <input type="file" id="hero-file-${i}" accept="image/*" style="display:none" onchange="adminUploadHeroImg(event,${i})">
+                </div>`;
             }).join('');
         }
 
@@ -15546,14 +15547,14 @@
                 const meta = MUSCLE_META[key];
                 const src  = saved[key] || (meta && meta.img) || '';
                 return `
-                <label class="img-muscle-card">
+                <div class="img-muscle-card" onclick="document.getElementById('mfile-${key}').click()">
                     <img class="img-muscle-preview" src="${src}" alt="${key}" id="mimg-prev-${key}">
                     <div class="img-muscle-label">${MUSCLE_LABELS[key]}</div>
                     <div class="img-muscle-overlay">
                         <svg viewBox="0 0 24 24"><path d="M9 16h6v-6h4l-7-7-7 7h4v6zm-4 2h14v2H5v-2z"/></svg>
                     </div>
-                    <input type="file" accept="image/*,video/*" onchange="adminUploadMuscleImg(event,'${key}')">
-                </label>`;
+                    <input type="file" id="mfile-${key}" accept="image/*" style="display:none" onchange="adminUploadMuscleImg(event,'${key}')">
+                </div>`;
             }).join('');
         }
 
@@ -15602,22 +15603,23 @@
                 const thumbSrc = savedThumbs[name] || EXERCISE_THUMBS[name] || DEFAULT_EXERCISE_THUMB;
                 const formSrc  = savedForms[name]  || EXERCISE_IMAGES[name] || DEFAULT_EXERCISE_IMAGE;
                 const safeId   = name.replace(/[^a-zA-Z0-9]/g,'_');
+                const escapedName = name.replace(/'/g, "\\'");
                 return `
                 <div class="img-ex-row">
-                    <label class="img-ex-thumb-wrap" title="Thumbnail (shown in exercise list)">
+                    <div class="img-ex-thumb-wrap" onclick="document.getElementById('tf-${safeId}').click()" title="Upload thumbnail">
                         <img src="${thumbSrc}" id="ethumb-${safeId}" alt="${name}">
-                        <div class="img-ex-thumb-overlay"><svg viewBox="0 0 24 24"><path d="M9 16h6v-6h4l-7-7-7 7h4v6z"/></svg></div>
-                        <input type="file" accept="image/*" onchange="adminUploadExThumb(event,'${name.replace(/'/g,"\'")}','${safeId}')">
-                    </label>
+                        <div class="img-ex-thumb-overlay"><svg viewBox="0 0 24 24" fill="white" width="16" height="16"><path d="M9 16h6v-6h4l-7-7-7 7h4v6z"/></svg></div>
+                        <input type="file" id="tf-${safeId}" accept="image/*" style="display:none" onchange="adminUploadExThumb(event,'${escapedName}','${safeId}')">
+                    </div>
                     <div class="img-ex-info">
                         <div class="img-ex-name">${name}</div>
-                        <div class="img-ex-hint">Thumb · Form guide →</div>
+                        <div class="img-ex-hint">← List thumb &nbsp;|&nbsp; Form guide →</div>
                     </div>
-                    <label class="img-ex-form-wrap" title="Form guide (shown during workout)">
+                    <div class="img-ex-form-wrap" onclick="document.getElementById('ff-${safeId}').click()" title="Upload form guide">
                         <img src="${formSrc}" id="eform-${safeId}" alt="${name} form">
-                        <div class="img-ex-form-overlay"><svg viewBox="0 0 24 24"><path d="M9 16h6v-6h4l-7-7-7 7h4v6z"/></svg></div>
-                        <input type="file" accept="image/*,video/*" onchange="adminUploadExForm(event,'${name.replace(/'/g,"\'")}','${safeId}')">
-                    </label>
+                        <div class="img-ex-form-overlay"><svg viewBox="0 0 24 24" fill="white" width="16" height="16"><path d="M9 16h6v-6h4l-7-7-7 7h4v6z"/></svg></div>
+                        <input type="file" id="ff-${safeId}" accept="image/*" style="display:none" onchange="adminUploadExForm(event,'${escapedName}','${safeId}')">
+                    </div>
                 </div>`;
             }).join('');
         }
@@ -15692,14 +15694,7 @@
         window.applyAdminImages = applyAdminImages;
 
         // ── Load images panel when switching to it ──
-        const _origSwitchAdmin = window.switchAdminTab;
-        window.switchAdminTab = function(tab) {
-            _origSwitchAdmin(tab);
-            if (tab === 'images') {
-                // Default to hero sub-tab
-                switchImgTab('hero');
-            }
-        };
+
 
         // ==================== MAKE FUNCTIONS GLOBAL ====================
         window.showPage = showPage;

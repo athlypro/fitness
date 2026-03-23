@@ -92,7 +92,7 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            border-bottom: none;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
         }
 
         .header-top {
@@ -3392,37 +3392,6 @@
             margin-bottom: 16px;
             position: relative;
         }
-        #profile-name-display {
-            font-size: 22px;
-            font-weight: 900;
-            color: var(--text-primary) !important;
-            -webkit-text-fill-color: var(--text-primary) !important;
-            background: none !important;
-            letter-spacing: -.4px;
-            margin-bottom: 6px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid rgba(255,255,255,0.12);
-            display: inline-block;
-            min-width: 140px;
-        }
-        #profile-email-display {
-            font-size: 13px;
-            font-weight: 500;
-            color: rgba(255,255,255,0.55) !important;
-            margin-top: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-        }
-        #profile-email-display::before {
-            content: '';
-            display: inline-block;
-            width: 6px; height: 6px;
-            border-radius: 50%;
-            background: var(--success);
-            flex-shrink: 0;
-        }
 
         .profile-avatar-large {
             width: 100px;
@@ -3877,7 +3846,7 @@
             display: flex;
             justify-content: space-around;
             padding: 16px 0 14px;
-            border-top: none;
+            border-top: 1px solid var(--border);
             z-index: 100;
             flex-shrink: 0;
             position: sticky;
@@ -4478,7 +4447,7 @@
 
         .app-container {
             background: #0a0a0a;
-            box-shadow: 0 0 80px rgba(0,0,0,0.9);
+            box-shadow: 0 0 80px rgba(0,0,0,0.9), 0 0 0 1px rgba(255,255,255,0.04);
         }
 
         /* ---- Scrollbar ---- */
@@ -5393,30 +5362,30 @@
 
         /* ── Global ── */
         body { background: #050505; }
-        .app-container { box-shadow: 0 0 80px rgba(0,0,0,0.9); background:#0a0a0a; }
+        .app-container { box-shadow: 0 0 80px rgba(0,0,0,0.9), 0 0 0 1px rgba(255,255,255,0.04); background:#0a0a0a; }
         .content::-webkit-scrollbar { width:3px; }
         .content::-webkit-scrollbar-thumb { background:rgba(255,255,255,0.12); border-radius:10px; }
 
         /* ── Headers ── */
-        .hero-header { background:#0a0a0a; border-bottom: none; }
+        .hero-header { background:#0a0a0a; border-bottom:1px solid var(--border); }
         .header-greeting p { font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--success); margin-bottom:3px; }
         .header-greeting h1 { font-size:24px; font-weight:900; letter-spacing:-.5px; color:#fff; background:none; -webkit-text-fill-color:#fff; }
         .header-streak { background:rgba(255,107,26,.12); border:1px solid rgba(255,107,26,.3); color:var(--success); font-weight:700; }
         .header-avatar { border:2px solid var(--border); border-radius:50%; overflow:hidden; }
         .header-avatar:hover { border-color:var(--success); }
         .summary-item { background:rgba(255,255,255,.04); border:1px solid var(--border); border-radius:14px; position:relative; overflow:hidden; }
-        .summary-item::before { display: none; }
-        .summary-item:hover::before { display: none; }
+        .summary-item::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--success),var(--danger)); opacity:0; transition:.3s; }
+        .summary-item:hover::before { opacity:1; }
         .summary-value { font-size:19px; font-weight:900; letter-spacing:-.5px; }
         .summary-label { font-size:10px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--text-muted); }
 
-        .regular-header { background:rgba(10,10,10,.97); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border-bottom: none; }
+        .regular-header { background:rgba(10,10,10,.97); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border-bottom:1px solid var(--border); }
         .regular-header h2 { font-size:17px; font-weight:800; letter-spacing:-.3px; color:#fff; background:none; -webkit-text-fill-color:#fff; }
         .back-btn { background:rgba(255,255,255,.07); border:1px solid var(--border); border-radius:10px; }
         .back-btn:hover { background:rgba(255,255,255,.12); transform:none; }
 
         /* ── Bottom Nav ── */
-        .bottom-nav { background:rgba(8,8,8,.97); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); border-top: none; padding:10px 8px 14px; }
+        .bottom-nav { background:rgba(8,8,8,.97); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); border-top:1px solid var(--border); padding:10px 8px 14px; }
         .nav-item { color:#3a3a3a; border-radius:14px; transition:all .2s; padding:6px 4px; }
         .nav-item .svg-icon { width:26px; height:26px; margin-bottom:4px; }
         .nav-item span { font-size:11px; font-weight:700; letter-spacing:.01em; }
@@ -5782,7 +5751,7 @@
         }
         .rm-field input:focus { border-color: var(--success); box-shadow: 0 0 0 3px rgba(255,107,26,.15); }
         .rm-result {
-            background: rgba(255,107,26,.1);
+            background: linear-gradient(135deg, rgba(255,107,26,.15), rgba(255,208,0,.08));
             border: 1px solid rgba(255,107,26,.3); border-radius: 18px;
             padding: 20px; text-align: center; margin: 20px 0;
         }
@@ -7322,203 +7291,7 @@
         }
         .img-clear-btn:hover { background: rgba(239,83,80,.2); }
 
-    
-        /* ════════════════════════════════════════
-           HOME PAGE REDESIGN (reference-inspired)
-           ════════════════════════════════════════ */
-
-        /* ── New hero header ── */
-        .home-header {
-            padding: 16px 18px 12px;
-            display: flex; align-items: center; justify-content: space-between;
-            flex-shrink: 0;
-        }
-        .home-header-left { flex: 1; }
-        .home-greeting-sub {
-            font-size: 12px; font-weight: 600;
-            color: var(--text-muted); margin-bottom: 3px;
-        }
-        .home-greeting-name {
-            font-size: 22px; font-weight: 900; color: var(--text-primary);
-            letter-spacing: -.5px; line-height: 1;
-        }
-        .home-greeting-wave { margin-left: 4px; }
-        .home-header-right {
-            display: flex; align-items: center; gap: 10px;
-        }
-        .home-header-icon-btn {
-            width: 38px; height: 38px; border-radius: 50%;
-            background: var(--surface); border: 1px solid var(--border);
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; color: var(--text-muted); flex-shrink: 0;
-            transition: all .2s;
-        }
-        .home-header-icon-btn:hover { border-color: var(--success); color: var(--success); }
-        .home-header-avatar {
-            width: 40px; height: 40px; border-radius: 50%;
-            background: linear-gradient(135deg,var(--success),#ffd000);
-            border: 2px solid var(--success);
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; overflow: hidden; flex-shrink: 0;
-        }
-        .home-header-avatar img { width: 100%; height: 100%; object-fit: cover; }
-        .home-header-avatar svg { width: 20px; height: 20px; fill: #000; }
-
-        /* ── Week day strip ── */
-        .week-strip {
-            padding: 4px 18px 14px;
-            display: flex; align-items: center; gap: 4px;
-            overflow-x: auto; scrollbar-width: none;
-        }
-        .week-strip::-webkit-scrollbar { display: none; }
-        .week-day {
-            flex: 0 0 auto; display: flex; flex-direction: column;
-            align-items: center; gap: 4px; cursor: pointer;
-            min-width: 36px;
-        }
-        .week-day-label {
-            font-size: 9px; font-weight: 700; text-transform: uppercase;
-            letter-spacing: .06em; color: var(--text-muted);
-        }
-        .week-day-num {
-            width: 32px; height: 32px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 13px; font-weight: 800; color: var(--text-muted);
-            transition: all .2s;
-        }
-        .week-day.today .week-day-num {
-            background: var(--success); color: #000;
-            box-shadow: 0 3px 10px rgba(255,107,26,.4);
-        }
-        .week-day.has-workout .week-day-num {
-            color: var(--text-primary);
-        }
-        .week-day.has-workout::after {
-            content: ''; width: 4px; height: 4px; border-radius: 50%;
-            background: var(--success); margin-top: -2px;
-        }
-
-        /* ── Challenge banner (new style) ── */
-        .home-challenge-banner {
-            margin: 0 18px 14px;
-            background: rgba(255,107,26,.1);
-            border: none;
-            border-radius: 18px; padding: 14px 16px;
-            display: flex; align-items: center; gap: 12px;
-            cursor: pointer; transition: all .2s;
-        }
-        .home-challenge-banner:hover { border-color: var(--success); transform: translateY(-2px); }
-        .home-challenge-banner-icon {
-            width: 44px; height: 44px; border-radius: 14px;
-            background: var(--success); display: flex;
-            align-items: center; justify-content: center; flex-shrink: 0;
-        }
-        .home-challenge-banner-icon svg { width: 22px; height: 22px; fill: #000; }
-        .home-challenge-banner-info { flex: 1; min-width: 0; }
-        .home-challenge-banner-title {
-            font-size: 15px; font-weight: 900; color: var(--text-primary);
-            letter-spacing: -.3px; margin-bottom: 2px;
-        }
-        .home-challenge-banner-sub {
-            font-size: 12px; color: var(--text-muted); font-weight: 500;
-        }
-        .home-challenge-start-btn {
-            background: var(--success); color: #000; font-size: 12px; font-weight: 900;
-            padding: 8px 14px; border-radius: 10px; white-space: nowrap;
-            letter-spacing: .02em; flex-shrink: 0;
-            box-shadow: 0 3px 10px rgba(255,107,26,.35);
-        }
-
-        /* ── Workout category pills ── */
-        .home-cat-pills {
-            display: flex; gap: 8px; padding: 0 18px 16px;
-            overflow-x: auto; scrollbar-width: none;
-        }
-        .home-cat-pills::-webkit-scrollbar { display: none; }
-        .home-cat-pill {
-            flex: 0 0 auto; display: flex; align-items: center; gap: 7px;
-            padding: 9px 16px; border-radius: 50px;
-            background: var(--surface); border: 1px solid var(--border);
-            font-size: 13px; font-weight: 700; color: var(--text-muted);
-            cursor: pointer; transition: all .2s; white-space: nowrap;
-        }
-        .home-cat-pill.active {
-            background: var(--success); border-color: var(--success); color: #000;
-            box-shadow: 0 3px 12px rgba(255,107,26,.3);
-        }
-        .home-cat-pill svg { width: 14px; height: 14px; }
-
-        /* ── Featured workout cards (image-bg horizontal scroll) ── */
-        .home-section-header {
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 0 18px 12px;
-        }
-        .home-section-title {
-            font-size: 17px; font-weight: 900; color: var(--text-primary); letter-spacing: -.3px;
-        }
-        .home-section-link {
-            font-size: 12px; font-weight: 700; color: var(--success);
-            text-decoration: none; cursor: pointer;
-        }
-        .home-featured-row {
-            display: flex; gap: 12px; padding: 0 18px 18px;
-            overflow-x: auto; scrollbar-width: none;
-        }
-        .home-featured-row::-webkit-scrollbar { display: none; }
-        .home-featured-card {
-            flex: 0 0 140px; height: 160px; border-radius: 18px;
-            overflow: hidden; position: relative; cursor: pointer;
-            transition: transform .25s;
-        }
-        .home-featured-card:hover { transform: scale(1.03); }
-        .home-featured-card-bg {
-            position: absolute; inset: 0;
-            background-size: cover; background-position: center;
-            transition: transform .4s;
-        }
-        .home-featured-card:hover .home-featured-card-bg { transform: scale(1.06); }
-        .home-featured-card-overlay {
-            position: absolute; inset: 0;
-            background: linear-gradient(180deg,rgba(0,0,0,.05) 0%,rgba(0,0,0,.75) 100%);
-        }
-        .home-featured-card-body {
-            position: absolute; bottom: 0; left: 0; right: 0; padding: 12px;
-        }
-        .home-featured-card-name {
-            font-size: 13px; font-weight: 900; color: #fff;
-            letter-spacing: -.2px; margin-bottom: 4px; line-height: 1.2;
-        }
-        .home-featured-card-meta {
-            display: flex; align-items: center; gap: 5px;
-            font-size: 10px; color: rgba(255,255,255,.65); font-weight: 600;
-        }
-        .home-featured-card-meta svg { width: 10px; height: 10px; fill: rgba(255,255,255,.65); }
-
-        /* ── Recent Activity section ── */
-        .home-activity-row {
-            display: flex; align-items: center;
-            padding: 12px 18px; cursor: pointer;
-            border-radius: 16px; margin: 0 18px 8px;
-            background: var(--surface); border: 1px solid var(--border);
-            transition: all .2s;
-        }
-        .home-activity-row:hover { border-color: rgba(255,107,26,.25); background: var(--surface-hover); }
-        .home-activity-icon {
-            width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0;
-            display: flex; align-items: center; justify-content: center; margin-right: 12px;
-        }
-        .home-activity-icon svg { width: 22px; height: 22px; }
-        .home-activity-info { flex: 1; min-width: 0; }
-        .home-activity-name { font-size: 14px; font-weight: 800; color: var(--text-primary); margin-bottom: 2px; }
-        .home-activity-time { font-size: 11px; color: var(--text-muted); font-weight: 500; }
-        .home-activity-stat { text-align: right; flex-shrink: 0; }
-        .home-activity-val { font-size: 22px; font-weight: 900; color: var(--text-primary); letter-spacing: -.5px; line-height: 1; }
-        .home-activity-unit { font-size: 10px; color: var(--text-muted); font-weight: 600; margin-top: 2px; }
-
-    
-        /* ── Ensure no banner renders when empty ── */
-        #admin-announcement-banner { display: none !important; height: 0 !important; padding: 0 !important; margin: 0 !important; border: none !important; overflow: hidden !important; max-height: 0 !important; }
-</style>
+    </style>
 
     <!-- Firebase SDK -->
     <script type="module">
@@ -7757,173 +7530,45 @@
 
             <!-- ── COLOURS ── -->
             <div class="admin-panel-inner" id="apanel-colours">
-
-                <!-- Live preview bar -->
-                <div style="height:8px;border-radius:8px;margin-bottom:20px;transition:background .3s;background:linear-gradient(90deg,var(--success),var(--danger))" id="adm-preview-bar"></div>
-
-                <!-- Sub-tabs -->
-                <div class="img-subtab-row" style="margin-bottom:18px">
-                    <div class="img-subtab active" onclick="switchColourTab('theme')"    id="ctab-theme">Theme</div>
-                    <div class="img-subtab"        onclick="switchColourTab('text')"     id="ctab-text">Text</div>
-                    <div class="img-subtab"        onclick="switchColourTab('surfaces')" id="ctab-surfaces">Surfaces</div>
-                    <div class="img-subtab"        onclick="switchColourTab('buttons')"  id="ctab-buttons">Buttons</div>
-                    <div class="img-subtab"        onclick="switchColourTab('nav')"      id="ctab-nav">Nav</div>
-                    <div class="img-subtab"        onclick="switchColourTab('cards')"    id="ctab-cards">Cards</div>
-                    <div class="img-subtab"        onclick="switchColourTab('typography')" id="ctab-typography">Font</div>
-                    <div class="img-subtab"        onclick="switchColourTab('layout')"    id="ctab-layout">Layout</div>
+                <div class="admin-section">
+                    <div class="admin-section-title">Theme Colours</div>
+                    <div class="admin-color-row">
+                        <div class="admin-color-label">Primary Accent (buttons, highlights)</div>
+                        <input type="color" class="admin-color-swatch" id="adm-color-accent" value="#ff6b1a" oninput="adminPreviewColor()">
+                    </div>
+                    <div class="admin-color-row">
+                        <div class="admin-color-label">Secondary Accent (gold/yellow)</div>
+                        <input type="color" class="admin-color-swatch" id="adm-color-secondary" value="#ffd000" oninput="adminPreviewColor()">
+                    </div>
+                    <div class="admin-color-row">
+                        <div class="admin-color-label">Background</div>
+                        <input type="color" class="admin-color-swatch" id="adm-color-bg" value="#0a0a0a" oninput="adminPreviewColor()">
+                    </div>
+                    <div class="admin-color-row">
+                        <div class="admin-color-label">Surface (cards)</div>
+                        <input type="color" class="admin-color-swatch" id="adm-color-surface" value="#1a1a1a" oninput="adminPreviewColor()">
+                    </div>
+                    <div class="admin-color-row">
+                        <div class="admin-color-label">Text Primary</div>
+                        <input type="color" class="admin-color-swatch" id="adm-color-text" value="#ffffff" oninput="adminPreviewColor()">
+                    </div>
+                    <div style="display:flex;gap:8px;margin-top:8px">
+                        <button class="admin-save-btn" onclick="adminSaveColours()" style="flex:1">Apply & Save</button>
+                        <button class="admin-save-btn secondary" onclick="adminResetColours()" style="flex:1">Reset Default</button>
+                    </div>
                 </div>
 
-                <!-- THEME tab -->
-                <div class="img-panel active" id="cpanel-theme">
-                    <div class="admin-section-title">Main Accent Colours</div>
-                    <div id="clr-theme-fields"></div>
-                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px">
-                        <button class="admin-save-btn" onclick="adminApplyAllColours()">Apply & Save</button>
-                        <button class="admin-save-btn secondary" onclick="adminResetAllColours()">Reset</button>
-                    </div>
-                    <div class="admin-section-title" style="margin-top:20px">Presets</div>
+                <div class="admin-section">
+                    <div class="admin-section-title">Colour Presets</div>
                     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
                         <button class="admin-save-btn secondary" onclick="adminApplyPreset('orange')" style="background:#ff6b1a22;border-color:#ff6b1a44;color:#ff6b1a">Orange</button>
-                        <button class="admin-save-btn secondary" onclick="adminApplyPreset('blue')"   style="background:#1565c022;border-color:#1565c044;color:#42a5f5">Blue</button>
-                        <button class="admin-save-btn secondary" onclick="adminApplyPreset('green')"  style="background:#1b5e2022;border-color:#1b5e2044;color:#66bb6a">Green</button>
+                        <button class="admin-save-btn secondary" onclick="adminApplyPreset('blue')" style="background:#1565c022;border-color:#1565c044;color:#42a5f5">Blue</button>
+                        <button class="admin-save-btn secondary" onclick="adminApplyPreset('green')" style="background:#1b5e2022;border-color:#1b5e2044;color:#66bb6a">Green</button>
                         <button class="admin-save-btn secondary" onclick="adminApplyPreset('purple')" style="background:#4a148c22;border-color:#4a148c44;color:#ab47bc">Purple</button>
-                        <button class="admin-save-btn secondary" onclick="adminApplyPreset('red')"    style="background:#b71c1c22;border-color:#b71c1c44;color:#ef5350">Red</button>
-                        <button class="admin-save-btn secondary" onclick="adminApplyPreset('teal')"   style="background:#00695c22;border-color:#00695c44;color:#26a69a">Teal</button>
-                        <button class="admin-save-btn secondary" onclick="adminApplyPreset('pink')"   style="background:#88002222;border-color:#88002244;color:#f48fb1">Pink</button>
-                        <button class="admin-save-btn secondary" onclick="adminApplyPreset('gold')"   style="background:#f5780022;border-color:#f5780044;color:#ffcc02">Gold</button>
-                        <button class="admin-save-btn secondary" onclick="adminApplyPreset('white')"  style="background:#ffffff11;border-color:#ffffff33;color:#ffffff">White</button>
+                        <button class="admin-save-btn secondary" onclick="adminApplyPreset('red')" style="background:#b71c1c22;border-color:#b71c1c44;color:#ef5350">Red</button>
+                        <button class="admin-save-btn secondary" onclick="adminApplyPreset('teal')" style="background:#00695c22;border-color:#00695c44;color:#26a69a">Teal</button>
                     </div>
                 </div>
-
-                <!-- TEXT tab -->
-                <div class="img-panel" id="cpanel-text">
-                    <div class="admin-section-title">Text Colours</div>
-                    <div id="clr-text-fields"></div>
-                    <button class="admin-save-btn full" onclick="adminApplyAllColours()" style="margin-top:8px">Apply & Save</button>
-                </div>
-
-                <!-- SURFACES tab -->
-                <div class="img-panel" id="cpanel-surfaces">
-                    <div class="admin-section-title">Background & Surface Colours</div>
-                    <div id="clr-surfaces-fields"></div>
-                    <button class="admin-save-btn full" onclick="adminApplyAllColours()" style="margin-top:8px">Apply & Save</button>
-                </div>
-
-                <!-- BUTTONS tab -->
-                <div class="img-panel" id="cpanel-buttons">
-                    <div class="admin-section-title">Button & Interactive Colours</div>
-                    <div id="clr-buttons-fields"></div>
-                    <button class="admin-save-btn full" onclick="adminApplyAllColours()" style="margin-top:8px">Apply & Save</button>
-                </div>
-
-                <!-- NAV tab -->
-                <div class="img-panel" id="cpanel-nav">
-                    <div class="admin-section-title">Navigation Bar</div>
-                    <div id="clr-nav-fields"></div>
-                    <button class="admin-save-btn full" onclick="adminApplyAllColours()" style="margin-top:8px">Apply & Save</button>
-                </div>
-
-                <!-- CARDS tab -->
-                <div class="img-panel" id="cpanel-cards">
-                    <div class="admin-section-title">Cards & Borders</div>
-                    <div id="clr-cards-fields"></div>
-                    <button class="admin-save-btn full" onclick="adminApplyAllColours()" style="margin-top:8px">Apply & Save</button>
-                </div>
-
-
-                <!-- TYPOGRAPHY tab -->
-                <div class="img-panel" id="cpanel-typography">
-                    <div class="admin-section-title">Font & Typography</div>
-                    <div class="admin-field">
-                        <label>Font Family</label>
-                        <select class="admin-input" id="adm-font-family" onchange="adminApplyFont(this.value)">
-                            <option value="Inter">Inter (Default)</option>
-                            <option value="Poppins">Poppins</option>
-                            <option value="Roboto">Roboto</option>
-                            <option value="Nunito">Nunito</option>
-                            <option value="DM Sans">DM Sans</option>
-                            <option value="Space Grotesk">Space Grotesk</option>
-                            <option value="Outfit">Outfit</option>
-                        </select>
-                    </div>
-                    <div class="admin-field">
-                        <label>Base Font Size</label>
-                        <div style="display:flex;align-items:center;gap:10px">
-                            <input type="range" id="adm-font-size" min="12" max="18" value="14" step="1"
-                                style="flex:1;accent-color:var(--success)" oninput="adminApplyFontSize(this.value)">
-                            <span id="adm-font-size-val" style="font-size:12px;color:#888;min-width:28px">14px</span>
-                        </div>
-                    </div>
-                    <div class="admin-field">
-                        <label>Font Weight (Body)</label>
-                        <select class="admin-input" id="adm-font-weight" onchange="adminApplyFontWeight(this.value)">
-                            <option value="400">Regular (400)</option>
-                            <option value="500" selected>Medium (500)</option>
-                            <option value="600">Semi-Bold (600)</option>
-                            <option value="700">Bold (700)</option>
-                        </select>
-                    </div>
-                    <div class="admin-field">
-                        <label>Heading Size Multiplier</label>
-                        <div style="display:flex;align-items:center;gap:10px">
-                            <input type="range" id="adm-heading-scale" min="0.8" max="1.5" value="1" step="0.05"
-                                style="flex:1;accent-color:var(--success)" oninput="adminApplyHeadingScale(this.value)">
-                            <span id="adm-heading-scale-val" style="font-size:12px;color:#888;min-width:32px">1×</span>
-                        </div>
-                    </div>
-                    <div class="admin-field">
-                        <label>Letter Spacing</label>
-                        <select class="admin-input" id="adm-letter-spacing" onchange="adminApplyLetterSpacing(this.value)">
-                            <option value="normal">Normal</option>
-                            <option value="0.02em">Wide (0.02em)</option>
-                            <option value="0.05em">Wider (0.05em)</option>
-                            <option value="-0.02em">Tight (-0.02em)</option>
-                        </select>
-                    </div>
-                    <button class="admin-save-btn full" onclick="adminSaveTypography()" style="margin-top:8px">Save Typography</button>
-                </div>
-
-                <!-- LAYOUT tab -->
-                <div class="img-panel" id="cpanel-layout">
-                    <div class="admin-section-title">Layout & Spacing</div>
-                    <div class="admin-field">
-                        <label>Card Corner Radius</label>
-                        <div style="display:flex;align-items:center;gap:10px">
-                            <input type="range" id="adm-radius" min="0" max="32" value="18" step="2"
-                                style="flex:1;accent-color:var(--success)" oninput="adminApplyRadius(this.value)">
-                            <span id="adm-radius-val" style="font-size:12px;color:#888;min-width:32px">18px</span>
-                        </div>
-                    </div>
-                    <div class="admin-field">
-                        <label>Content Padding</label>
-                        <div style="display:flex;align-items:center;gap:10px">
-                            <input type="range" id="adm-spacing" min="8" max="32" value="18" step="2"
-                                style="flex:1;accent-color:var(--success)" oninput="adminApplySpacing(this.value)">
-                            <span id="adm-spacing-val" style="font-size:12px;color:#888;min-width:32px">18px</span>
-                        </div>
-                    </div>
-                    <div class="admin-section-title" style="margin-top:16px">Element Visibility</div>
-                    <div style="display:flex;flex-direction:column;gap:8px">
-                        <label style="display:flex;align-items:center;justify-content:space-between;background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:12px 14px;cursor:pointer">
-                            <span style="font-size:13px;font-weight:700;color:#ccc">Show Week Strip</span>
-                            <input type="checkbox" id="adm-show-weekstrip" checked onchange="adminToggleElement('home-week-strip', this.checked)" style="accent-color:var(--success);width:18px;height:18px">
-                        </label>
-                        <label style="display:flex;align-items:center;justify-content:space-between;background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:12px 14px;cursor:pointer">
-                            <span style="font-size:13px;font-weight:700;color:#ccc">Show Daily Challenge</span>
-                            <input type="checkbox" id="adm-show-challenge" checked onchange="adminToggleElement('daily-challenge-card', this.checked)" style="accent-color:var(--success);width:18px;height:18px">
-                        </label>
-                        <label style="display:flex;align-items:center;justify-content:space-between;background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:12px 14px;cursor:pointer">
-                            <span style="font-size:13px;font-weight:700;color:#ccc">Show Category Pills</span>
-                            <input type="checkbox" id="adm-show-catpills" checked onchange="adminToggleElement('.home-cat-pills', this.checked)" style="accent-color:var(--success);width:18px;height:18px">
-                        </label>
-                        <label style="display:flex;align-items:center;justify-content:space-between;background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:12px 14px;cursor:pointer">
-                            <span style="font-size:13px;font-weight:700;color:#ccc">Enable Animations</span>
-                            <input type="checkbox" id="adm-animations" checked onchange="adminToggleAnimations(this.checked)" style="accent-color:var(--success);width:18px;height:18px">
-                        </label>
-                    </div>
-                    <button class="admin-save-btn full" onclick="adminSaveLayout()" style="margin-top:12px">Save Layout Settings</button>
-                </div>
-
             </div>
 
             <!-- ── CONTENT ── -->
@@ -8214,7 +7859,7 @@
             <svg class="svg-icon" data-icon="fa-check-circle" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><use href="#fa-check-circle"/></svg> <span id="notification-message"></span>
         </div>
 
-        <!-- Hero Header - Fixed at top (hidden for home, shown for other pages) -->
+        <!-- Hero Header - Fixed at top -->
         <div id="hero-header" class="hero-header">
             <div class="header-top">
                 <div class="header-greeting">
@@ -8266,101 +7911,143 @@
             <!-- Home Page -->
             <div id="home-page" class="page active-page">
 
-                <!-- ── Top Header ── -->
-                <div class="home-header">
-                    <div class="home-header-left">
-                        <div class="home-greeting-sub" id="home-greeting-sub">Good morning</div>
-                        <div class="home-greeting-name"><span id="home-greeting-name">Athlete</span> <span class="home-greeting-wave">👋</span></div>
-                    </div>
-                    <div class="home-header-right">
-                        <div class="home-header-icon-btn" onclick="showPage('profile')">
-                            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
+                <!-- Hero Cards Row -->
+                <div class="hero-cards-row">
+
+                    <!-- Motivational Quote Card -->
+                    <div class="hero-quote-card">
+                        <img class="hero-banner-img" id="hero-banner-img" src="" alt="" aria-hidden="true">
+                        <div class="hero-quote-icon">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z" fill="currentColor"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z" fill="currentColor"/></svg>
                         </div>
-                        <div class="home-header-icon-btn" onclick="showPage('profile')">
-                            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67z"/></svg>
+                        <p class="hero-quote-text" id="hero-quote-text">"The only bad workout is the one that didn't happen."</p>
+                        <span class="hero-quote-author" id="hero-quote-author">— Unknown</span>
+                    </div>
+
+                    <!-- Streak Banner + Weekly Progress Ring Row -->
+                    <div class="hero-stats-row">
+                        <!-- Streak Banner -->
+                        <div class="hero-streak-banner">
+                            <div class="hero-streak-flame">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67z"/></svg>
+                            </div>
+                            <div class="hero-streak-info">
+                                <div class="hero-streak-number" id="home-streak-count">0</div>
+                                <div class="hero-streak-label">Day Streak</div>
+                            </div>
                         </div>
-                        <div class="home-header-avatar" id="home-avatar-btn" onclick="showPage('profile')">
-                            <svg viewBox="0 0 24 24" fill="#000" width="20" height="20"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+
+                        <!-- Weekly Progress Ring -->
+                        <div class="hero-ring-card" onclick="startTodaysWorkout()">
+                            <svg class="hero-ring-svg" viewBox="0 0 80 80">
+                                <circle cx="40" cy="40" r="32" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="7"/>
+                                <circle id="hero-ring-progress" cx="40" cy="40" r="32" fill="none"
+                                    stroke="#ff6b1a" stroke-width="7"
+                                    stroke-linecap="round"
+                                    stroke-dasharray="201"
+                                    stroke-dashoffset="201"
+                                    transform="rotate(-90 40 40)"
+                                    style="transition:stroke-dashoffset 1s ease"/>
+                                <text x="40" y="36" text-anchor="middle" fill="#fff" font-size="13" font-weight="900" font-family="Inter,sans-serif" id="hero-ring-num">0</text>
+                                <text x="40" y="49" text-anchor="middle" fill="rgba(255,255,255,0.45)" font-size="7" font-weight="700" font-family="Inter,sans-serif">/ 7 days</text>
+                            </svg>
+                            <div class="hero-ring-label">This Week</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- ── Week Day Strip ── -->
-                <div class="week-strip" id="home-week-strip">
-                    <!-- Populated by JS -->
-                </div>
 
-                <!-- ── Challenge Banner ── -->
-                <div class="home-challenge-banner" id="daily-challenge-card" onclick="doChallenge()">
-                    <div class="home-challenge-banner-icon">
-                        <svg viewBox="0 0 24 24"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2z"/></svg>
-                    </div>
-                    <div class="home-challenge-banner-info">
-                        <div class="home-challenge-banner-title" id="challenge-name">Daily Challenge</div>
-                        <div class="home-challenge-banner-sub" id="challenge-desc">Loading your challenge...</div>
-                        <!-- hidden elements preserved for JS compatibility -->
-                        <span id="challenge-reps" style="display:none"></span>
-                        <span id="challenge-time" style="display:none"></span>
-                        <span id="challenge-done" style="display:none"></span>
-                    </div>
-                    <div class="home-challenge-start-btn" id="challenge-cta-btn">START</div>
-                </div>
-
-                <!-- ── Category Pills ── -->
-                <div class="home-cat-pills">
-                    <div class="home-cat-pill active" onclick="homeCatFilter('all')" id="hcat-all">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 7h-6v13h-2v-6h-2v6H9V9H3V7h18v2z"/></svg>
-                        All
-                    </div>
-                    <div class="home-cat-pill" onclick="homeCatFilter('warmup')" id="hcat-warmup">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9l1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z"/></svg>
-                        Warm Up
-                    </div>
-                    <div class="home-cat-pill" onclick="homeCatFilter('cardio')" id="hcat-cardio">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg>
-                        Cardio
-                    </div>
-                    <div class="home-cat-pill" onclick="homeCatFilter('strength')" id="hcat-strength">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43l-1.43-1.44-2.85 2.85 1.44 1.43L3.43 9.14 2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43 1.44 1.43 2.85-2.85-1.44-1.43z"/></svg>
-                        Strength
+                <!-- Daily Challenge -->
+                <div class="daily-challenge-card" onclick="doChallenge()" id="daily-challenge-card">
+                    <div class="challenge-eyebrow"><svg viewBox="0 0 24 24" fill="#4fc3f7" width="10" height="10" style="vertical-align:1px"><circle cx="12" cy="12" r="6"/></svg> Daily Challenge</div>
+                    <div class="challenge-name" id="challenge-name">Loading...</div>
+                    <div class="challenge-desc" id="challenge-desc"></div>
+                    <div class="challenge-meta-row">
+                        <span class="challenge-pill" id="challenge-reps"></span>
+                        <span class="challenge-pill" id="challenge-time"></span>
+                        <span class="challenge-done-badge" id="challenge-done">✓ Done</span>
+                        <span class="challenge-cta" id="challenge-cta-btn">Start →</span>
                     </div>
                 </div>
 
-                <!-- ── Featured Workouts ── -->
-                <div class="home-section-header">
-                    <div class="home-section-title">Featured</div>
-                    <div class="home-section-link" onclick="showPage('workout')">See all</div>
-                </div>
-                <div class="home-featured-row" id="home-featured-row">
-                    <!-- Populated by JS -->
-                </div>
-
-                <!-- ── Recent Activity ── -->
-                <div class="home-section-header" style="margin-top:4px">
-                    <div class="home-section-title">Recent Activity</div>
-                    <div class="home-section-link" onclick="showAllWorkouts()">
-                        <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14" style="vertical-align:-2px"><path d="M3 18h13v-2H3v2zm0-5h10v-2H3v2zm0-7v2h13V6H3zm18 9.59L17.42 12 21 8.41 19.59 7l-5 5 5 5L21 15.59z"/></svg>
+                <!-- Today Workout CTA (kept functional, restyled) -->
+                <div id="workout-of-the-day" class="todays-workout-cta" onclick="startTodaysWorkout()">
+                    <div class="todays-cta-left">
+                        <div class="todays-cta-eyebrow">Today's Workout</div>
+                        <div class="todays-cta-name" id="todays-workout-desc">Loading...</div>
+                        <div class="todays-cta-meta" id="todays-workout-meta">
+                            <span><svg class="svg-icon" data-icon="fa-clock" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><use href="#fa-clock"/></svg> <span id="todays-duration">0</span> min</span>
+                            <span><svg class="svg-icon" data-icon="fa-fire" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><use href="#fa-fire"/></svg> <span id="todays-calories">0</span> cal</span>
+                        </div>
+                    </div>
+                    <div class="todays-cta-btn">
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M8 5v14l11-7z"/></svg>
                     </div>
                 </div>
-                <div id="home-activity-list">
-                    <!-- Populated by JS -->
+
+                <!-- Quick Start Workouts -->
+                <div class="section-title">
+                    <h2>Quick Start</h2>
+                    <a href="#" onclick="showPage('workout'); return false;">See all</a>
+                </div>
+                <div class="hscroll-row">
+                    <div class="hscroll-card" onclick="startMuscleWorkout('fullbody')">
+                        <div class="hscroll-card-icon" style="background:linear-gradient(135deg,#ff6b1a22,#ff6b1a11)">
+                            <svg viewBox="0 0 24 24" fill="#ff6b1a" width="26" height="26"><path d="M12 2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 7h-6v13h-2v-6h-2v6H9V9H3V7h18v2z"/></svg>
+                        </div>
+                        <div class="hscroll-card-name">Full Body</div>
+                        <div class="hscroll-card-meta">20 min · 250 cal</div>
+                        <div class="hscroll-card-tag">Beginner</div>
+                    </div>
+                    <div class="hscroll-card" onclick="startMuscleWorkout('abs')">
+                        <div class="hscroll-card-icon" style="background:linear-gradient(135deg,#ffd00022,#ffd00011)">
+                            <svg viewBox="0 0 24 24" fill="#ffd000" width="26" height="26"><path d="M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9l1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z"/></svg>
+                        </div>
+                        <div class="hscroll-card-name">Core</div>
+                        <div class="hscroll-card-meta">15 min · 150 cal</div>
+                        <div class="hscroll-card-tag">All Levels</div>
+                    </div>
+                    <div class="hscroll-card" onclick="startMuscleWorkout('arms')">
+                        <div class="hscroll-card-icon" style="background:linear-gradient(135deg,#ff6b1a22,#ff6b1a11)">
+                            <svg viewBox="0 0 24 24" fill="#ff6b1a" width="26" height="26"><path d="M21 7c0-1.1-.9-2-2-2h-2.27c.17-.31.27-.66.27-1 0-1.2-1.02-2-2-2-1.03 0-2 .81-2 2v1.54c-.23-.06-.48-.1-.73-.1C11.22 5.44 10 6.47 10 7.73v.27c-.25-.06-.5-.1-.75-.1-1.03 0-2.25.8-2.25 2.1v.5c-.27-.06-.53-.1-.78-.1-1.14 0-2.22.83-2.22 2.17V17c0 2.21 1.79 4 4 4h3.79c.98 0 1.96-.32 2.75-.9L19 15.16V9c0-1.1-.9-2-2-2z"/></svg>
+                        </div>
+                        <div class="hscroll-card-name">Arms</div>
+                        <div class="hscroll-card-meta">18 min · 180 cal</div>
+                        <div class="hscroll-card-tag">Intermediate</div>
+                    </div>
+                    <div class="hscroll-card" onclick="startMuscleWorkout('legs')">
+                        <div class="hscroll-card-icon" style="background:linear-gradient(135deg,#ffd00022,#ffd00011)">
+                            <svg viewBox="0 0 24 24" fill="#ffd000" width="26" height="26"><path d="M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9l1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z"/></svg>
+                        </div>
+                        <div class="hscroll-card-name">Legs</div>
+                        <div class="hscroll-card-meta">22 min · 220 cal</div>
+                        <div class="hscroll-card-tag">Beginner</div>
+                    </div>
+                    <div class="hscroll-card" onclick="startMuscleWorkout('cardio')">
+                        <div class="hscroll-card-icon" style="background:linear-gradient(135deg,#ff6b1a22,#ff6b1a11)">
+                            <svg viewBox="0 0 24 24" fill="#ff6b1a" width="26" height="26"><path d="M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9l1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z"/></svg>
+                        </div>
+                        <div class="hscroll-card-name">Cardio</div>
+                        <div class="hscroll-card-meta">15 min · 200 cal</div>
+                        <div class="hscroll-card-tag">All Levels</div>
+                    </div>
+                    <div class="hscroll-card" onclick="startMuscleWorkout('chest')">
+                        <div class="hscroll-card-icon" style="background:linear-gradient(135deg,#ffd00022,#ffd00011)">
+                            <svg viewBox="0 0 24 24" fill="#ffd000" width="26" height="26"><path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"/></svg>
+                        </div>
+                        <div class="hscroll-card-name">Chest</div>
+                        <div class="hscroll-card-meta">25 min · 280 cal</div>
+                        <div class="hscroll-card-tag">Intermediate</div>
+                    </div>
                 </div>
 
-                <!-- hidden elements for JS compatibility -->
-                <div style="display:none">
-                    <div id="hero-ring-progress"></div>
-                    <div id="hero-ring-num"></div>
-                    <div id="home-streak-count"></div>
-                    <img id="hero-banner-img" src="" alt="">
-                    <div id="hero-quote-text"></div>
-                    <div id="hero-quote-author"></div>
-                    <div id="workout-of-the-day"></div>
-                    <div id="todays-workout-desc"></div>
-                    <div id="todays-duration"></div>
-                    <div id="todays-calories"></div>
-                    <div id="recent-workouts"></div>
+                <!-- Recent Workouts -->
+                <div class="section-title">
+                    <h2>Recent Workouts</h2>
                 </div>
-
+                <div id="recent-workouts">
+                    <!-- Populated by JavaScript -->
+                </div>
             </div>
 
 
@@ -8648,21 +8335,61 @@
                     <div class="train-suggestion-reason" id="suggestion-reason"></div>
                 </div>
 
-                <!-- ── Tab Bar + Search ── -->
-                <div style="padding: 0 18px 14px;">
-                    <!-- Tab bar -->
-                    <div class="train-tab-bar" style="margin-bottom:10px">
-                        <div class="train-tab active" onclick="setTrainTab('all')" id="ttab-all">All</div>
-                        <div class="train-tab" onclick="setTrainTab('push')" id="ttab-push">Push</div>
-                        <div class="train-tab" onclick="setTrainTab('pull')" id="ttab-pull">Pull</div>
-                        <div class="train-tab" onclick="setTrainTab('legs')" id="ttab-legs">Legs</div>
+                <!-- ── Body Silhouette + Tab Bar ── -->
+                <div class="train-top-section">
+                    <!-- Body silhouette diagram -->
+                    <div class="body-diagram" id="body-diagram">
+                        <svg viewBox="0 0 120 280" class="body-svg" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Head -->
+                            <circle cx="60" cy="22" r="16" class="body-part" id="bp-head" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+                            <!-- Neck -->
+                            <rect x="54" y="36" width="12" height="10" rx="4" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+                            <!-- Shoulders -->
+                            <ellipse cx="28" cy="55" rx="16" ry="10" class="body-part body-shoulders" id="bp-shoulders" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" onclick="filterByMuscle('shoulders')"/>
+                            <ellipse cx="92" cy="55" rx="16" ry="10" class="body-part body-shoulders" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" onclick="filterByMuscle('shoulders')"/>
+                            <!-- Chest -->
+                            <rect x="38" y="46" width="44" height="30" rx="8" class="body-part" id="bp-chest" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" onclick="filterByMuscle('chest')"/>
+                            <!-- Upper Arms -->
+                            <rect x="10" y="56" width="14" height="36" rx="6" class="body-part body-arms" id="bp-arms" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" onclick="filterByMuscle('arms')"/>
+                            <rect x="96" y="56" width="14" height="36" rx="6" class="body-part body-arms" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" onclick="filterByMuscle('arms')"/>
+                            <!-- Forearms -->
+                            <rect x="8" y="96" width="12" height="30" rx="5" class="body-part body-forearms" id="bp-forearms" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" onclick="filterByMuscle('forearms')"/>
+                            <rect x="100" y="96" width="12" height="30" rx="5" class="body-part body-forearms" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" onclick="filterByMuscle('forearms')"/>
+                            <!-- Abs / Core -->
+                            <rect x="40" y="76" width="40" height="44" rx="8" class="body-part" id="bp-abs" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" onclick="filterByMuscle('abs')"/>
+                            <!-- Back (shown as outline behind) -->
+                            <!-- Glutes -->
+                            <ellipse cx="60" cy="130" rx="22" ry="14" class="body-part" id="bp-glutes" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" onclick="filterByMuscle('glutes')"/>
+                            <!-- Upper legs -->
+                            <rect x="38" y="140" width="20" height="56" rx="8" class="body-part body-legs" id="bp-legs" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" onclick="filterByMuscle('legs')"/>
+                            <rect x="62" y="140" width="20" height="56" rx="8" class="body-part body-legs" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" onclick="filterByMuscle('legs')"/>
+                            <!-- Calves -->
+                            <rect x="40" y="200" width="16" height="44" rx="7" class="body-part body-calves" id="bp-calves" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" onclick="filterByMuscle('calves')"/>
+                            <rect x="64" y="200" width="16" height="44" rx="7" class="body-part body-calves" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" onclick="filterByMuscle('calves')"/>
+                            <!-- Feet -->
+                            <ellipse cx="48" cy="248" rx="10" ry="6" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+                            <ellipse cx="72" cy="248" rx="10" ry="6" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+                        </svg>
+                        <div class="body-diagram-label" id="body-diagram-label">Tap a muscle</div>
                     </div>
-                    <!-- Search bar -->
-                    <div class="train-search-wrap">
-                        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" class="train-search-icon"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-                        <input type="text" class="train-search-input" id="train-search" placeholder="Search workouts..." oninput="filterTrainCards()">
+
+                    <!-- Tab bar + search -->
+                    <div class="train-right-panel">
+                        <!-- Tab bar -->
+                        <div class="train-tab-bar">
+                            <div class="train-tab active" onclick="setTrainTab('all')" id="ttab-all">All</div>
+                            <div class="train-tab" onclick="setTrainTab('push')" id="ttab-push">Push</div>
+                            <div class="train-tab" onclick="setTrainTab('pull')" id="ttab-pull">Pull</div>
+                            <div class="train-tab" onclick="setTrainTab('legs')" id="ttab-legs">Legs</div>
+                        </div>
+                        <!-- Search bar -->
+                        <div class="train-search-wrap">
+                            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" class="train-search-icon"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                            <input type="text" class="train-search-input" id="train-search" placeholder="Search workouts..." oninput="filterTrainCards()">
+                        </div>
                     </div>
                 </div>
+
                 <!-- ── Muscle Cards Grid ── -->
                 <div class="train-muscle-grid" id="train-muscle-grid">
                     <!-- Populated by JS -->
@@ -8791,7 +8518,7 @@
                             </div>
                         </div>
                         <h2 id="profile-name-display">Fitness Enthusiast</h2>
-                        <p id="profile-email-display">—</p>
+                        <p id="profile-email-display" style="color: var(--text-muted);">user@example.com</p>
                         
                         <!-- User Level and Goals -->
                         <div class="badge-container" id="profile-badges">
@@ -10830,18 +10557,6 @@
 
         document.addEventListener('DOMContentLoaded', function() {
             console.log('App initializing...');
-            // Permanently destroy announcement banner on startup
-            const _initBanner = document.getElementById('admin-announcement-banner');
-            if (_initBanner) { _initBanner.style.display = 'none'; _initBanner.remove(); }
-            // Also clear any saved bannerText from adminConfig so it never comes back
-            try {
-                const _ac = JSON.parse(localStorage.getItem('adminConfig') || '{}');
-                if (_ac.bannerText !== undefined) {
-                    delete _ac.bannerText;
-                    delete _ac.bannerColor;
-                    localStorage.setItem('adminConfig', JSON.stringify(_ac));
-                }
-            } catch(e) {}
             
             // Initialize all data
             initializeData();
@@ -10901,7 +10616,6 @@
             updateHomeHero();
             loadDailyChallenge();
             checkAndAwardBadges();
-            renderNewHome();
             // Show home page with hero header
             showPage('home');
             
@@ -11059,8 +10773,8 @@
             const pageTitleHeader = document.getElementById('page-title-header');
             
             if (pageName === 'home') {
-                // Hide both headers on home — home has its own in-page header
-                if (heroHeader) heroHeader.style.display = 'none';
+                // Show hero header, hide regular header
+                if (heroHeader) heroHeader.style.display = 'block';
                 if (regularHeader) regularHeader.style.display = 'none';
             } else {
                 // Show regular header, hide hero header
@@ -11116,11 +10830,7 @@
             const nameDisplay = document.getElementById('profile-name-display');
             const emailDisplay = document.getElementById('profile-email-display');
             if (nameDisplay) nameDisplay.textContent = profile.name || 'Fitness Enthusiast';
-            if (emailDisplay) {
-                // Prefer Firebase auth email (always accurate)
-                const authEmail = window._fbUser && window._fbUser.email;
-                emailDisplay.textContent = authEmail || profile.email || 'No email set';
-            }
+            if (emailDisplay) emailDisplay.textContent = profile.email || 'No email provided';
             
             // Update level badge
             const levelBadge = document.getElementById('profile-level-badge');
@@ -11141,14 +10851,8 @@
                 goalBadge.textContent = goalMap[profile.goals[0]] || 'Fitness';
             }
             
-            // Update avatar — check dedicated key first (survives Firebase sync)
-            const localAvatar = localStorage.getItem('localAvatarImage');
-            const avatarToShow = localAvatar || profile.avatarImage || null;
-            if (localAvatar && !profile.avatarImage) {
-                profile.avatarImage = localAvatar;
-                localStorage.setItem('userProfile', JSON.stringify(profile));
-            }
-            updateProfileAvatar(profile.avatar, avatarToShow);
+            // Update avatar
+            updateProfileAvatar(profile.avatar, profile.avatarImage);
             
             // Update workout count
             updateWorkoutCount();
@@ -11238,9 +10942,8 @@
             const headerAvatar = document.getElementById('header-avatar-home');
             if (!headerAvatar) return;
             
-            const _avatarSrc = avatarImage || localStorage.getItem('localAvatarImage');
-            if (_avatarSrc) {
-                headerAvatar.innerHTML = `<img src="${_avatarSrc}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">`;
+            if (avatarImage) {
+                headerAvatar.innerHTML = `<img src="${avatarImage}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">`;
             } else {
                 headerAvatar.innerHTML = `${svgIcon(avatarIcons[avatar] || 'fa-user')}`;
             }
@@ -11422,56 +11125,51 @@
         }
 
         function handleAvatarUpload(event) {
-            const file = event.target.files && event.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const dataUrl = e.target.result;
-                avatarImage   = dataUrl;
-                selectedAvatar = 'custom';
-
-                // Save immediately — no need to press Save button
-                const profile = JSON.parse(localStorage.getItem('userProfile') || '{}');
-                profile.avatarImage = dataUrl;
-                profile.avatar = 'custom';
-                localStorage.setItem('userProfile', JSON.stringify(profile));
-                // Dedicated key — survives Firebase sync
-                localStorage.setItem('localAvatarImage', dataUrl);
-
-                // Update UI instantly
-                updateProfileAvatar('custom', dataUrl);
-                updateHeaderAvatar('custom', dataUrl);
-
-                // Show preview in modal grid too
-                const avatarGrid = document.querySelector('.avatar-grid');
-                if (avatarGrid) {
-                    const old = document.getElementById('uploaded-avatar-preview');
-                    if (old) old.remove();
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    avatarImage = e.target.result;
+                    selectedAvatar = 'custom';
+                    
+                    // Show preview in avatar grid
+                    const avatarGrid = document.querySelector('.avatar-grid');
+                    if (!avatarGrid) return;
+                    
+                    // Remove existing preview
+                    const oldPreview = document.getElementById('uploaded-avatar-preview');
+                    if (oldPreview) {
+                        oldPreview.remove();
+                    }
+                    
+                    // Create new preview
                     const preview = document.createElement('div');
                     preview.className = 'avatar-option selected';
                     preview.id = 'uploaded-avatar-preview';
-                    preview.style.cssText = 'width:56px;height:56px;border-radius:50%;overflow:hidden;border:3px solid var(--success);';
-                    preview.innerHTML = '<img src="' + dataUrl + '" style="width:100%;height:100%;object-fit:cover;">';
+                    preview.innerHTML = `<img src="${avatarImage}" style="width: 100%; height: 100%; object-fit: cover;">`;
                     avatarGrid.insertBefore(preview, avatarGrid.firstChild);
-                    document.querySelectorAll('.avatar-option').forEach(o => o.classList.remove('selected'));
+                    
+                    // Deselect other avatars
+                    document.querySelectorAll('.avatar-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
                     preview.classList.add('selected');
-                }
-                showNotification('Profile photo saved!');
-            };
-            reader.readAsDataURL(file);
+                };
+                reader.readAsDataURL(file);
+            }
         }
 
         function saveAvatar() {
             const profile = JSON.parse(localStorage.getItem('userProfile') || '{}');
-            if (selectedAvatar === 'custom' && avatarImage) {
+            
+            if (selectedAvatar === 'custom') {
                 profile.avatarImage = avatarImage;
-                profile.avatar = 'custom';
-                localStorage.setItem('localAvatarImage', avatarImage);
-            } else if (selectedAvatar !== 'custom') {
+                profile.avatar = 'user'; // default
+            } else {
                 profile.avatar = selectedAvatar;
                 profile.avatarImage = null;
-                localStorage.removeItem('localAvatarImage');
             }
+            
             localStorage.setItem('userProfile', JSON.stringify(profile));
             loadProfile();
             closeAvatarModal();
@@ -13376,7 +13074,6 @@
                 loadProfile();
                 updateHomeHero();
                 loadDailyChallenge();
-                renderNewHome();
                 updateHomeSummary();
                 updateStreak();
                 updateStats();
@@ -14764,7 +14461,10 @@
                     <div class="train-card-bg" style="background-image:url('${meta.img}');background-color:transparent"></div>
                     <div class="train-card-overlay"></div>
 
-
+                    <div class="train-card-badges">
+                        <span class="diff-badge ${diffCls}">${meta.diff}</span>
+                        ${isHot ? '<span class="diff-badge" style="background:rgba(255,107,26,.25);color:#ff6b1a">On Fire</span>' : ''}
+                    </div>
 
                     <div class="train-card-fav ${isFav?'active':''}"
                          onclick="event.stopPropagation();toggleFav('${k}')">
@@ -15134,17 +14834,7 @@
                 const data = {};
                 SYNC_KEYS.forEach(k => {
                     const v = localStorage.getItem(k);
-                    if (v) {
-                        if (k === 'userProfile') {
-                            // Strip avatarImage before syncing (too large for Firebase)
-                            const p = JSON.parse(v);
-                            const stripped = Object.assign({}, p);
-                            delete stripped.avatarImage;
-                            data[k] = stripped;
-                        } else {
-                            data[k] = JSON.parse(v);
-                        }
-                    }
+                    if (v) data[k] = JSON.parse(v);
                 });
                 // Daily challenge completions
                 const challenges = {};
@@ -15178,17 +14868,7 @@
                 const data   = snap.val();
                 SYNC_KEYS.forEach(k => {
                     if (data[k] !== undefined) {
-                        // For userProfile, merge carefully — preserve local avatarImage
-                        if (k === 'userProfile') {
-                            const localProfile = JSON.parse(localStorage.getItem('userProfile') || '{}');
-                            const cloudProfile = data[k];
-                            // Cloud wins for name/email/goals/level, but local wins for avatarImage
-                            const merged = Object.assign({}, localProfile, cloudProfile);
-                            if (localProfile.avatarImage) merged.avatarImage = localProfile.avatarImage;
-                            localStorage.setItem(k, JSON.stringify(merged));
-                        } else {
-                            localStorage.setItem(k, JSON.stringify(data[k]));
-                        }
+                        localStorage.setItem(k, JSON.stringify(data[k]));
                     }
                 });
                 // Restore challenge days
@@ -15252,14 +14932,8 @@
                     window._fbOnValue(cfgRef, snap => {
                         if (snap && snap.exists && snap.exists()) {
                             const val = snap.val();
-                            // Strip banner before saving/applying
-                            delete val.bannerText;
-                            delete val.bannerColor;
                             localStorage.setItem('adminConfig', JSON.stringify(val));
                             applyAdminConfig();
-                            // Remove any existing banner element
-                            const _ab = document.getElementById('admin-announcement-banner');
-                            if (_ab) _ab.remove();
                             showSync('synced');
                         }
                     });
@@ -15282,26 +14956,15 @@
                     window._fbOnValue(bcastRef, snap => {
                         if (snap && snap.exists && snap.exists()) {
                             const val = snap.val();
-                            // Broadcast banner permanently disabled
-                    const _bb = document.getElementById('admin-announcement-banner');
-                    if (_bb) _bb.remove();
+                            if (val && val.message) {
+                                showAnnouncementBanner(val.message, val.color || '#ff6b1a');
+                            }
                         }
                     });
                 } catch(e) { console.warn('Admin listener error:', e); }
             }
             applyAdminConfig();
             applyAdminImages();
-            applyAdminTypographyLayout();
-
-            // Sync Firebase auth name/email into userProfile
-            if (user.displayName || user.email) {
-                const p = JSON.parse(localStorage.getItem('userProfile') || '{}');
-                if (!p.name && user.displayName) p.name = user.displayName;
-                if (!p.email && user.email)       p.email = user.email;
-                if (user.displayName) p.name = user.displayName; // always use auth name
-                if (user.email)       p.email = user.email;
-                localStorage.setItem('userProfile', JSON.stringify(p));
-            }
 
             // Update profile UI
             const displayName = user.displayName || 'Athlete';
@@ -15369,8 +15032,6 @@
             if (tab === 'challenges') adminLoadChallenges();
             if (tab === 'users')      adminLoadUsers();
             if (tab === 'images')     switchImgTab('hero');
-            if (tab === 'colours')    adminLoadColours();
-            if (tab === 'branding')   adminLoadAll();
         }
 
         function adminLoadAll() {
@@ -15461,29 +15122,33 @@
                 });
             }
 
-            // Colours — apply ALL saved CSS variables
-            if (cfg.colours && Object.keys(cfg.colours).length) {
-                if (typeof _adColours !== 'undefined') _adColours = cfg.colours;
-                Object.entries(cfg.colours).forEach(([varName, val]) => {
-                    if (val && varName.startsWith('--')) {
-                        document.documentElement.style.setProperty(varName, val);
-                        // Derived values
-                        if (varName === '--success') {
-                            const hex = val.replace('#','');
-                            if (hex.length === 6) {
-                                const ri=parseInt(hex.slice(0,2),16), gi=parseInt(hex.slice(2,4),16), bi=parseInt(hex.slice(4,6),16);
-                                document.documentElement.style.setProperty('--success-glow',`rgba(${ri},${gi},${bi},0.25)`);
-                                document.documentElement.style.setProperty('--shadow-glow',`rgba(${ri},${gi},${bi},0.2)`);
-                            }
-                        }
-                        if (varName === '--primary') {
-                            document.body.style.background = val;
-                            const ac = document.querySelector('.app-container');
-                            if (ac) ac.style.background = val;
-                        }
-                    }
-                });
+            // Colours
+            if (cfg.colours) {
+                const r = document.documentElement;
+                if (cfg.colours.accent) {
+                    r.style.setProperty('--success', cfg.colours.accent);
+                    // Derive glow from accent
+                    const hex = cfg.colours.accent.replace('#','');
+                    const ri = parseInt(hex.slice(0,2),16), gi = parseInt(hex.slice(2,4),16), bi = parseInt(hex.slice(4,6),16);
+                    r.style.setProperty('--success-glow', `rgba(${ri},${gi},${bi},0.25)`);
+                }
+                if (cfg.colours.secondary) r.style.setProperty('--danger',  cfg.colours.secondary);
+                if (cfg.colours.bg) {
+                    r.style.setProperty('--primary', cfg.colours.bg);
+                    document.body.style.background = cfg.colours.bg;
+                    const appContainer = document.querySelector('.app-container');
+                    if (appContainer) appContainer.style.background = cfg.colours.bg;
+                }
+                if (cfg.colours.surface) {
+                    r.style.setProperty('--surface', cfg.colours.surface);
+                    // Derive surface-light from surface
+                    r.style.setProperty('--secondary', cfg.colours.surface);
+                }
+                if (cfg.colours.text) {
+                    r.style.setProperty('--text-primary', cfg.colours.text);
+                }
             }
+
             // Quotes
             if (cfg.quotes && cfg.quotes.length) {
                 window._adminQuotes = cfg.quotes;
@@ -15500,14 +15165,7 @@
             }
 
             // Announcement banner
-            // Announcement banner permanently disabled — clear it
-            if (cfg.bannerText) {
-                cfg.bannerText = '';
-                cfg.bannerColor = '';
-                localStorage.setItem('adminConfig', JSON.stringify(cfg));
-            }
-            const _ab = document.getElementById('admin-announcement-banner');
-            if (_ab) _ab.remove();
+            if (cfg.bannerText) showAnnouncementBanner(cfg.bannerText, cfg.bannerColor || '#ff6b1a');
 
             // Workout names
             if (cfg.workoutNames) {
@@ -15526,25 +15184,15 @@
         }
 
         function showAnnouncementBanner(text, color) {
-            return; // Announcement banner permanently disabled
             let banner = document.getElementById('admin-announcement-banner');
             if (!banner) {
                 banner = document.createElement('div');
                 banner.id = 'admin-announcement-banner';
-                banner.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:7999;padding:8px 40px 8px 16px;font-size:12px;font-weight:700;text-align:center;color:#000;';
-                // Close button
-                const close = document.createElement('button');
-                close.textContent = '×';
-                close.style.cssText = 'position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;font-size:18px;cursor:pointer;color:#000;opacity:.6;line-height:1;padding:0;';
-                close.onclick = () => { banner.style.display = 'none'; };
-                banner.appendChild(close);
+                banner.style.cssText = `position:fixed;top:0;left:0;right:0;z-index:7999;padding:10px 16px;font-size:12px;font-weight:700;text-align:center;color:#000;`;
                 document.body.insertBefore(banner, document.body.firstChild);
             }
             banner.style.background = color || '#ff6b1a';
-            // Set text without overwriting close button
-            const existing = banner.querySelector('button');
             banner.textContent = text;
-            if (existing) banner.appendChild(existing);
             banner.style.display = 'block';
         }
 
@@ -15586,12 +15234,50 @@
             showNotification('Nav labels saved and applied!');
         }
 
+        function adminPreviewColor() {
+            const accent  = document.getElementById('adm-color-accent').value;
+            const bg      = document.getElementById('adm-color-bg').value;
+            const surface = document.getElementById('adm-color-surface').value;
+            const text    = document.getElementById('adm-color-text').value;
+            const r = document.documentElement;
+            r.style.setProperty('--success', accent);
+            r.style.setProperty('--primary', bg);
+            r.style.setProperty('--surface', surface);
+            r.style.setProperty('--text-primary', text);
+        }
 
+        function adminSaveColours() {
+            const colours = {
+                accent:    document.getElementById('adm-color-accent').value,
+                secondary: document.getElementById('adm-color-secondary').value,
+                bg:        document.getElementById('adm-color-bg').value,
+                surface:   document.getElementById('adm-color-surface').value,
+                text:      document.getElementById('adm-color-text').value,
+            };
+            saveAdminConfig({ colours });
+            applyAdminConfig();
+            showNotification('Colours saved and applied!');
+        }
 
+        const COLOUR_PRESETS = {
+            orange: { accent:'#ff6b1a', secondary:'#ffd000', bg:'#0a0a0a', surface:'#1a1a1a', text:'#ffffff' },
+            blue:   { accent:'#42a5f5', secondary:'#80d8ff', bg:'#0a0f14', surface:'#0d1520', text:'#ffffff' },
+            green:  { accent:'#66bb6a', secondary:'#a5d6a7', bg:'#080e08', surface:'#0d1a0d', text:'#ffffff' },
+            purple: { accent:'#ab47bc', secondary:'#ce93d8', bg:'#0a080e', surface:'#14101a', text:'#ffffff' },
+            red:    { accent:'#ef5350', secondary:'#ffcdd2', bg:'#0e0808', surface:'#1a0d0d', text:'#ffffff' },
+            teal:   { accent:'#26a69a', secondary:'#80cbc4', bg:'#080e0e', surface:'#0d1a1a', text:'#ffffff' },
+        };
 
-
-
-
+        function adminApplyPreset(name) {
+            const p = COLOUR_PRESETS[name];
+            if (!p) return;
+            document.getElementById('adm-color-accent').value    = p.accent;
+            document.getElementById('adm-color-secondary').value = p.secondary;
+            document.getElementById('adm-color-bg').value        = p.bg;
+            document.getElementById('adm-color-surface').value   = p.surface;
+            document.getElementById('adm-color-text').value      = p.text;
+            adminSaveColours();
+        }
 
         function adminResetColours() {
             adminApplyPreset('orange');
@@ -15824,8 +15510,6 @@
             if (t) t.classList.add('active');
             if (p) p.classList.add('active');
             if (tab === 'hero')      adminLoadHeroImages();
-            if (tab === 'typography') adminLoadTypographyLayout();
-            if (tab === 'layout')     adminLoadTypographyLayout();
             if (tab === 'muscles')   adminLoadMuscleImages();
             if (tab === 'exercises') adminLoadExerciseImages();
         }
@@ -16099,546 +15783,6 @@
 
         // ── Load images panel when switching to it ──
 
-
-
-        // ══════════════════════════════════════════════════════
-        // HOME PAGE — REDESIGNED
-        // ══════════════════════════════════════════════════════
-
-        const FEATURED_WORKOUTS = [
-            { key:'chest',    name:'Chest Day',   label:'Push Day',   dur:25, cal:280, grad:'linear-gradient(145deg,#5a1010,#3a0808)' },
-            { key:'legs',     name:'Leg Day',     label:'Lower Body', dur:28, cal:300, grad:'linear-gradient(145deg,#0a3010,#062008)' },
-            { key:'abs',      name:'Core Blast',  label:'Core',       dur:18, cal:180, grad:'linear-gradient(145deg,#2a2800,#1a1800)' },
-            { key:'back',     name:'Back Power',  label:'Pull Day',   dur:25, cal:270, grad:'linear-gradient(145deg,#082828,#041818)' },
-            { key:'fullbody', name:'Full Body',   label:'Total Body', dur:35, cal:380, grad:'linear-gradient(145deg,#2a1400,#1a0c00)' },
-            { key:'cardio',   name:'Cardio HIIT', label:'Cardio',     dur:20, cal:300, grad:'linear-gradient(145deg,#001828,#001018)' },
-        ];
-
-        let _homeCatFilter = 'all';
-
-        function renderHomeWeekStrip() {
-            const strip = document.getElementById('home-week-strip');
-            if (!strip) return;
-            const history = JSON.parse(localStorage.getItem('workoutHistory') || '[]');
-            const today = new Date();
-            const todayIdx = today.getDay(); // 0=Sun
-            const DAYS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-            // Show 7 days: Mon-Sun of current week
-            const startOfWeek = new Date(today);
-            startOfWeek.setDate(today.getDate() - todayIdx + 1); // Mon
-            strip.innerHTML = '';
-            for (let i = 0; i < 7; i++) {
-                const d = new Date(startOfWeek);
-                d.setDate(startOfWeek.getDate() + i);
-                d.setHours(0,0,0,0);
-                const isToday = d.toDateString() === today.toDateString();
-                const hasWorkout = history.some(w => {
-                    const wd = new Date(w.date); wd.setHours(0,0,0,0);
-                    return wd.getTime() === d.getTime();
-                });
-                const div = document.createElement('div');
-                div.className = 'week-day' + (isToday?' today':'') + (hasWorkout?' has-workout':'');
-                div.innerHTML = `
-                    <div class="week-day-label">${DAYS[(i+1)%7]}</div>
-                    <div class="week-day-num">${d.getDate()}</div>
-                `;
-                strip.appendChild(div);
-            }
-        }
-
-        function renderHomeFeatured() {
-            const row = document.getElementById('home-featured-row');
-            if (!row) return;
-            const savedMuscles = JSON.parse(localStorage.getItem('adminImg_muscles') || '{}');
-            let list = FEATURED_WORKOUTS;
-            if (_homeCatFilter !== 'all') {
-                const map = { warmup:['fullbody','cardio'], cardio:['cardio'], strength:['chest','back','arms','shoulders','legs','abs','glutes'] };
-                const keys = map[_homeCatFilter] || [];
-                list = list.filter(w => keys.includes(w.key));
-            }
-            if (!list.length) list = FEATURED_WORKOUTS;
-            row.innerHTML = list.map(w => {
-                const imgSrc = (savedMuscles[w.key] || (window.MUSCLE_META && window.MUSCLE_META[w.key] && window.MUSCLE_META[w.key].img) || '');
-                const bgStyle = imgSrc
-                    ? `background-image:url('${imgSrc}');background-color:transparent`
-                    : `background:${w.grad}`;
-                return `
-                <div class="home-featured-card" onclick="startMuscleWorkout('${w.key}')">
-                    <div class="home-featured-card-bg" style="${bgStyle}"></div>
-                    <div class="home-featured-card-overlay"></div>
-                    <div class="home-featured-card-body">
-                        <div class="home-featured-card-name">${w.name}</div>
-                        <div class="home-featured-card-meta">
-                            <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm4.24 16L12 15.45 7.77 18l1.12-4.81-3.73-3.23 4.92-.42L12 5l1.92 4.53 4.92.42-3.73 3.23L16.23 18z"/></svg>
-                            ${w.dur} min
-                            <span style="margin:0 3px;opacity:.4">·</span>
-                            ${w.cal} cal
-                        </div>
-                    </div>
-                </div>`;
-            }).join('');
-        }
-
-        function renderHomeActivity() {
-            const list = document.getElementById('home-activity-list');
-            if (!list) return;
-            const history = JSON.parse(localStorage.getItem('workoutHistory') || '[]');
-            if (!history.length) {
-                list.innerHTML = `<div style="text-align:center;padding:20px 18px;color:var(--text-muted);font-size:13px">No workouts yet — start your first session!</div>`;
-                return;
-            }
-            const COLORS = ['#ff6b1a','#ffd000','#4fc3f7','#81c784','#ce93d8','#ef9a9a'];
-            list.innerHTML = history.slice(0,4).map((w,i) => {
-                const c = COLORS[i % COLORS.length];
-                const alpha = c.replace('#','');
-                return `
-                <div class="home-activity-row" onclick="showPage('profile')">
-                    <div class="home-activity-icon" style="background:${c}22">
-                        <svg viewBox="0 0 24 24" fill="${c}" width="22" height="22">
-                            <path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43l-1.43-1.44-2.85 2.85 1.44 1.43L3.43 9.14 2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43 1.44 1.43 2.85-2.85-1.44-1.43z"/>
-                        </svg>
-                    </div>
-                    <div class="home-activity-info">
-                        <div class="home-activity-name">${w.name || 'Workout'}</div>
-                        <div class="home-activity-time">${w.date || ''}</div>
-                    </div>
-                    <div class="home-activity-stat">
-                        <div class="home-activity-val" style="color:${c}">${w.calories || 0}</div>
-                        <div class="home-activity-unit">cal</div>
-                    </div>
-                </div>`;
-            }).join('');
-        }
-
-        function homeCatFilter(cat) {
-            _homeCatFilter = cat;
-            document.querySelectorAll('.home-cat-pill').forEach(p => p.classList.remove('active'));
-            const el = document.getElementById('hcat-' + cat);
-            if (el) el.classList.add('active');
-            renderHomeFeatured();
-        }
-        window.homeCatFilter = homeCatFilter;
-
-        function updateHomeGreeting() {
-            const h = new Date().getHours();
-            const greeting = h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening';
-            const subEl = document.getElementById('home-greeting-sub');
-            if (subEl) subEl.textContent = greeting;
-            const profile = JSON.parse(localStorage.getItem('userProfile') || '{}');
-            const nameEl = document.getElementById('home-greeting-name');
-            if (nameEl) nameEl.textContent = profile.name || 'Athlete';
-            // Avatar
-            const avatarEl = document.getElementById('home-avatar-btn');
-            if (avatarEl && profile.avatarImage) {
-                avatarEl.innerHTML = '<img src="' + profile.avatarImage + '" style="width:100%;height:100%;object-fit:cover;border-radius:50%">';
-            }
-        }
-
-        function renderNewHome() {
-            updateHomeGreeting();
-            renderHomeWeekStrip();
-            renderHomeFeatured();
-            renderHomeActivity();
-        }
-        window.renderNewHome = renderNewHome;
-
-
-        // ══════════════════════════════════════════════════════
-        // ADMIN FULL COLOUR CUSTOMIZER
-        // ══════════════════════════════════════════════════════
-
-        // All customizable CSS variables with labels, defaults, and groups
-        const ADM_COLOUR_DEFS = {
-            theme: [
-                { var: '--success',      label: 'Primary Accent',      default: '#ff6b1a', desc: 'Buttons, active states, highlights' },
-                { var: '--danger',       label: 'Secondary Accent',     default: '#ffd000', desc: 'Gold, badges, secondary highlights' },
-                { var: '--gold',         label: 'Gold Colour',          default: '#ffd000', desc: 'PR badges, top ranks' },
-            ],
-            text: [
-                { var: '--text-primary',   label: 'Primary Text',   default: '#ffffff', desc: 'Main headings and labels' },
-                { var: '--text-secondary', label: 'Secondary Text', default: '#a0a0a0', desc: 'Subheadings, descriptions' },
-                { var: '--text-muted',     label: 'Muted Text',     default: '#606060', desc: 'Timestamps, meta info' },
-            ],
-            surfaces: [
-                { var: '--primary',        label: 'App Background',     default: '#0a0a0a', desc: 'Main background colour' },
-                { var: '--secondary',      label: 'Secondary BG',       default: '#111111', desc: 'Secondary backgrounds' },
-                { var: '--surface',        label: 'Card Surface',       default: '#141414', desc: 'Card and panel backgrounds' },
-                { var: '--surface-light',  label: 'Light Surface',      default: '#1c1c1c', desc: 'Lighter card variant' },
-                { var: '--surface-hover',  label: 'Hover Surface',      default: '#222222', desc: 'Hovered elements' },
-                { var: '--accent',         label: 'Accent Surface',     default: '#1e1e1e', desc: 'Accent backgrounds' },
-            ],
-            buttons: [
-                { var: '--success',      label: 'Primary Button BG',    default: '#ff6b1a', desc: 'Main CTA buttons' },
-                { var: '--danger',       label: 'Secondary Button BG',  default: '#ffd000', desc: 'Secondary/warning buttons' },
-                { var: '--radius-sm',    label: 'Small Radius',         default: '12px',    desc: 'Button corner radius (small)', type: 'text' },
-                { var: '--radius-md',    label: 'Medium Radius',        default: '18px',    desc: 'Card corner radius', type: 'text' },
-                { var: '--radius-lg',    label: 'Large Radius',         default: '24px',    desc: 'Large card corner radius', type: 'text' },
-            ],
-            nav: [
-                { var: '--nav-bg',       label: 'Nav Background',       default: '#080808', desc: 'Bottom navigation background', css: '.bottom-nav { background: {val} !important; }' },
-                { var: '--nav-active',   label: 'Nav Active Icon',      default: '#ff6b1a', desc: 'Active tab icon colour',       css: '.nav-item.active { color: {val} !important; }' },
-                { var: '--nav-inactive', label: 'Nav Inactive Icon',    default: '#606060', desc: 'Inactive tab icon colour',     css: '.nav-item { color: {val}; }' },
-                { var: '--header-bg',    label: 'Header Background',    default: '#0a0a0a', desc: 'Top header background',       css: '.regular-header, .hero-header { background: {val} !important; }' },
-            ],
-            cards: [
-                { var: '--border',       label: 'Border Colour',        default: 'rgba(255,255,255,0.08)', desc: 'Default card borders', type: 'text' },
-                { var: '--border-strong',label: 'Strong Border',        default: 'rgba(255,255,255,0.14)', desc: 'Emphasised borders',   type: 'text' },
-                { var: '--card-shadow',  label: 'Card Shadow',          default: '0 8px 24px rgba(0,0,0,0.5)', desc: 'Card drop shadow', type: 'text', css: '.admin-workout-card, .home-featured-card, .train-muscle-card { box-shadow: {val}; }' },
-                { var: '--challenge-bg', label: 'Challenge Banner BG',  default: 'rgba(255,107,26,0.1)', desc: 'Daily challenge card bg', type: 'text', css: '.home-challenge-banner { background: {val} !important; }' },
-                { var: '--home-bg',      label: 'Home Header BG',       default: '#0a0a0a', desc: 'Home page background',        css: '#home-page { background: {val}; }' },
-            ],
-            typography: [],  // handled separately
-            layout: [],      // handled separately
-        };
-
-        let _adColours = {}; // current admin colour state
-
-        function switchColourTab(tab) {
-            document.querySelectorAll('.img-subtab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.img-panel').forEach(p => p.classList.remove('active'));
-            const t = document.getElementById('ctab-' + tab);
-            const p = document.getElementById('cpanel-' + tab);
-            if (t) t.classList.add('active');
-            if (p) p.classList.add('active');
-            adminRenderColourFields(tab);
-        }
-        window.switchColourTab = switchColourTab;
-
-        function adminRenderColourFields(group) {
-            const container = document.getElementById('clr-' + group + '-fields');
-            if (!container) return;
-            const defs = ADM_COLOUR_DEFS[group] || [];
-            container.innerHTML = defs.map(d => {
-                const saved = _adColours[d.var] || d.default;
-                const isText = d.type === 'text';
-                return `
-                <div class="admin-color-row" style="flex-direction:column;align-items:stretch;gap:6px;margin-bottom:14px">
-                    <div style="display:flex;align-items:center;justify-content:space-between">
-                        <div>
-                            <div style="font-size:12px;font-weight:800;color:#ccc">${d.label}</div>
-                            <div style="font-size:10px;color:#444;margin-top:1px">${d.desc}</div>
-                        </div>
-                        ${!isText ? `<input type="color" style="width:40px;height:40px;border-radius:10px;border:2px solid #333;cursor:pointer;flex-shrink:0" value="${saved.startsWith('#') ? saved : '#ff6b1a'}" id="clrinput-${d.var.replace(/[^a-zA-Z0-9]/g,'_')}" oninput="adminLiveColour('${d.var}', this.value, ${JSON.stringify(d.css||'')})">` : ''}
-                    </div>
-                    ${isText ? `<input type="text" class="admin-input" value="${saved}" id="clrinput-${d.var.replace(/[^a-zA-Z0-9]/g,'_')}" placeholder="${d.default}" oninput="adminLiveColour('${d.var}', this.value, ${JSON.stringify(d.css||'')})">` : `
-                    <input type="text" class="admin-input" style="font-size:11px;padding:7px 12px" value="${saved}" id="clrtext-${d.var.replace(/[^a-zA-Z0-9]/g,'_')}" placeholder="${d.default}" oninput="adminSyncColourText('${d.var}', this.value, '${d.var.replace(/[^a-zA-Z0-9]/g,'_')}')">`}
-                </div>`;
-            }).join('');
-        }
-
-        function adminSyncColourText(varName, val, safeId) {
-            // Sync text input → colour picker when valid hex
-            if (/^#[0-9a-fA-F]{6}$/.test(val)) {
-                const picker = document.getElementById('clrinput-' + safeId);
-                if (picker && picker.type === 'color') picker.value = val;
-            }
-            adminLiveColour(varName, val, '');
-        }
-        window.adminSyncColourText = adminSyncColourText;
-
-        function adminLiveColour(varName, val, customCss) {
-            if (!val) return;
-            _adColours[varName] = val;
-            const r = document.documentElement;
-            // Apply CSS variable
-            r.style.setProperty(varName, val);
-            // Apply custom CSS if provided
-            if (customCss && customCss !== 'undefined' && customCss !== '') {
-                const styleId = 'adm-custom-css-' + varName.replace(/[^a-zA-Z0-9]/g,'_');
-                let styleEl = document.getElementById(styleId);
-                if (!styleEl) {
-                    styleEl = document.createElement('style');
-                    styleEl.id = styleId;
-                    document.head.appendChild(styleEl);
-                }
-                styleEl.textContent = customCss.replace(/{val}/g, val);
-            }
-            // Special handling for body background
-            if (varName === '--primary') {
-                document.body.style.background = val;
-                const ac = document.querySelector('.app-container');
-                if (ac) ac.style.background = val;
-            }
-            // Update glow colours derived from accent
-            if (varName === '--success') {
-                const hex = val.replace('#','');
-                if (hex.length === 6) {
-                    const ri = parseInt(hex.slice(0,2),16);
-                    const gi = parseInt(hex.slice(2,4),16);
-                    const bi = parseInt(hex.slice(4,6),16);
-                    r.style.setProperty('--success-glow', 'rgba('+ri+','+gi+','+bi+',0.25)');
-                    r.style.setProperty('--shadow-glow',  'rgba('+ri+','+gi+','+bi+',0.2)');
-                    r.style.setProperty('--glow', '0 0 20px rgba('+ri+','+gi+','+bi+',0.1)');
-                }
-            }
-            // Update preview bar
-            const pb = document.getElementById('adm-preview-bar');
-            if (pb) pb.style.background = 'linear-gradient(90deg,'+(_adColours['--success']||'#ff6b1a')+','+(_adColours['--danger']||'#ffd000')+')';
-            // Also sync text input if colour picker changed
-            const safeVar = varName.replace(/[^a-zA-Z0-9]/g,'_');
-            const textInput = document.getElementById('clrtext-' + safeVar);
-            if (textInput) textInput.value = val;
-        }
-        window.adminLiveColour = adminLiveColour;
-
-        function adminApplyAllColours() {
-            // Read all current inputs across all groups
-            Object.entries(ADM_COLOUR_DEFS).forEach(([group, defs]) => {
-                defs.forEach(d => {
-                    const safeId = d.var.replace(/[^a-zA-Z0-9]/g,'_');
-                    const input = document.getElementById('clrinput-' + safeId) || document.getElementById('clrtext-' + safeId);
-                    if (input && input.value) {
-                        _adColours[d.var] = input.value;
-                        adminLiveColour(d.var, input.value, d.css || '');
-                    }
-                });
-            });
-            saveAdminConfig({ colours: _adColours });
-            showNotification('All colours saved and applied!');
-        }
-        window.adminApplyAllColours = adminApplyAllColours;
-
-        function adminResetAllColours() {
-            _adColours = {};
-            Object.entries(ADM_COLOUR_DEFS).forEach(([group, defs]) => {
-                defs.forEach(d => {
-                    document.documentElement.style.removeProperty(d.var);
-                    const safeId = d.var.replace(/[^a-zA-Z0-9]/g,'_');
-                    const input = document.getElementById('clrinput-' + safeId);
-                    if (input) input.value = d.default.startsWith('#') ? d.default : '#ff6b1a';
-                    const textInput = document.getElementById('clrtext-' + safeId);
-                    if (textInput) textInput.value = d.default;
-                    // Remove any custom style elements
-                    const styleEl = document.getElementById('adm-custom-css-' + safeId);
-                    if (styleEl) styleEl.remove();
-                });
-            });
-            document.body.style.background = '#000';
-            saveAdminConfig({ colours: {} });
-            showNotification('Colours reset to defaults!');
-        }
-        window.adminResetAllColours = adminResetAllColours;
-
-        const COLOUR_PRESETS = {
-            orange: { '--success':'#ff6b1a','--danger':'#ffd000','--gold':'#ffd000','--primary':'#0a0a0a','--surface':'#141414','--surface-light':'#1c1c1c','--surface-hover':'#222222','--text-primary':'#ffffff','--text-secondary':'#a0a0a0','--text-muted':'#606060' },
-            blue:   { '--success':'#42a5f5','--danger':'#80d8ff','--gold':'#80d8ff','--primary':'#0a0f14','--surface':'#0d1520','--surface-light':'#111c28','--surface-hover':'#14202e','--text-primary':'#ffffff','--text-secondary':'#90b8d0','--text-muted':'#506070' },
-            green:  { '--success':'#66bb6a','--danger':'#a5d6a7','--gold':'#a5d6a7','--primary':'#080e08','--surface':'#0d1a0d','--surface-light':'#112011','--surface-hover':'#162816','--text-primary':'#ffffff','--text-secondary':'#90c090','--text-muted':'#507050' },
-            purple: { '--success':'#ab47bc','--danger':'#ce93d8','--gold':'#ce93d8','--primary':'#0a080e','--surface':'#14101a','--surface-light':'#1a1522','--surface-hover':'#201a2a','--text-primary':'#ffffff','--text-secondary':'#b090c0','--text-muted':'#705080' },
-            red:    { '--success':'#ef5350','--danger':'#ffcdd2','--gold':'#ffcdd2','--primary':'#0e0808','--surface':'#1a0d0d','--surface-light':'#221212','--surface-hover':'#281818','--text-primary':'#ffffff','--text-secondary':'#c09090','--text-muted':'#705050' },
-            teal:   { '--success':'#26a69a','--danger':'#80cbc4','--gold':'#80cbc4','--primary':'#080e0e','--surface':'#0d1a1a','--surface-light':'#112020','--surface-hover':'#162828','--text-primary':'#ffffff','--text-secondary':'#90c0be','--text-muted':'#507070' },
-            pink:   { '--success':'#f48fb1','--danger':'#f8bbd0','--gold':'#f8bbd0','--primary':'#0e080c','--surface':'#1a0d14','--surface-light':'#22121c','--surface-hover':'#281824','--text-primary':'#ffffff','--text-secondary':'#c090a8','--text-muted':'#705060' },
-            gold:   { '--success':'#ffcc02','--danger':'#ffe57f','--gold':'#ffe57f','--primary':'#0c0a00','--surface':'#1a1600','--surface-light':'#221e00','--surface-hover':'#282400','--text-primary':'#ffffff','--text-secondary':'#c0b050','--text-muted':'#706030' },
-            white:  { '--success':'#ffffff','--danger':'#e0e0e0','--gold':'#e0e0e0','--primary':'#0a0a0a','--surface':'#181818','--surface-light':'#202020','--surface-hover':'#282828','--text-primary':'#ffffff','--text-secondary':'#b0b0b0','--text-muted':'#707070' },
-        };
-
-        function adminApplyPreset(name) {
-            const p = COLOUR_PRESETS[name];
-            if (!p) return;
-            _adColours = { ..._adColours, ...p };
-            Object.entries(p).forEach(([v, val]) => adminLiveColour(v, val, ''));
-            // Refresh current visible inputs
-            const curTab = document.querySelector('.img-subtab.active');
-            if (curTab) {
-                const tabName = curTab.id.replace('ctab-','');
-                adminRenderColourFields(tabName);
-            }
-            saveAdminConfig({ colours: _adColours });
-            showNotification(name.charAt(0).toUpperCase()+name.slice(1)+' theme applied!');
-        }
-
-        // Load saved colours into _adColours and apply on panel open
-        function adminLoadColours() {
-            const cfg = getAdminConfig();
-            _adColours = cfg.colours || {};
-            // Render the active tab
-            const activeTab = document.querySelector('#apanel-colours .img-subtab.active');
-            const tabName = activeTab ? activeTab.id.replace('ctab-','') : 'theme';
-            adminRenderColourFields(tabName);
-            // Update preview bar
-            const pb = document.getElementById('adm-preview-bar');
-            if (pb) pb.style.background = 'linear-gradient(90deg,'+(_adColours['--success']||'#ff6b1a')+','+(_adColours['--danger']||'#ffd000')+')';
-        }
-        window.adminLoadColours = adminLoadColours;
-
-
-        // ── Typography ──
-        function adminApplyFont(family) {
-            const link = document.getElementById('adm-google-font') || (() => {
-                const l = document.createElement('link');
-                l.id = 'adm-google-font'; l.rel = 'stylesheet';
-                document.head.appendChild(l); return l;
-            })();
-            link.href = `https://fonts.googleapis.com/css2?family=${family.replace(/ /g,'+')}:wght@400;500;600;700;800;900&display=swap`;
-            const s = document.createElement('style');
-            s.id = 'adm-font-override';
-            const existing = document.getElementById('adm-font-override');
-            if (existing) existing.remove();
-            s.textContent = `* { font-family: '${family}', -apple-system, sans-serif !important; }`;
-            document.head.appendChild(s);
-            saveAdminConfig({ fontFamily: family });
-        }
-        window.adminApplyFont = adminApplyFont;
-
-        function adminApplyFontSize(val) {
-            document.getElementById('adm-font-size-val').textContent = val + 'px';
-            document.documentElement.style.setProperty('--font-base', val + 'px');
-            const s = document.getElementById('adm-fontsize-override') || document.createElement('style');
-            s.id = 'adm-fontsize-override';
-            s.textContent = `body, .content { font-size: ${val}px; }`;
-            document.head.appendChild(s);
-        }
-        window.adminApplyFontSize = adminApplyFontSize;
-
-        function adminApplyFontWeight(val) {
-            document.documentElement.style.setProperty('--font-weight-body', val);
-        }
-        window.adminApplyFontWeight = adminApplyFontWeight;
-
-        function adminApplyHeadingScale(val) {
-            document.getElementById('adm-heading-scale-val').textContent = val + '×';
-            document.documentElement.style.setProperty('--heading-scale', val);
-            const s = document.getElementById('adm-headingscale-override') || document.createElement('style');
-            s.id = 'adm-headingscale-override';
-            s.textContent = `h1,h2,h3,.train-card-name,.home-section-title,.home-greeting-name { transform: scale(${val}); transform-origin: left center; }`;
-            document.head.appendChild(s);
-        }
-        window.adminApplyHeadingScale = adminApplyHeadingScale;
-
-        function adminApplyLetterSpacing(val) {
-            const s = document.getElementById('adm-letterspacing-override') || document.createElement('style');
-            s.id = 'adm-letterspacing-override';
-            s.textContent = `body, p, span, div { letter-spacing: ${val}; }`;
-            document.head.appendChild(s);
-        }
-        window.adminApplyLetterSpacing = adminApplyLetterSpacing;
-
-        function adminSaveTypography() {
-            const cfg = {
-                fontFamily:    document.getElementById('adm-font-family')?.value,
-                fontSize:      document.getElementById('adm-font-size')?.value,
-                fontWeight:    document.getElementById('adm-font-weight')?.value,
-                headingScale:  document.getElementById('adm-heading-scale')?.value,
-                letterSpacing: document.getElementById('adm-letter-spacing')?.value,
-            };
-            saveAdminConfig({ typography: cfg });
-            showNotification('Typography saved!');
-        }
-        window.adminSaveTypography = adminSaveTypography;
-
-        // ── Layout ──
-        function adminApplyRadius(val) {
-            document.getElementById('adm-radius-val').textContent = val + 'px';
-            const r = document.documentElement;
-            r.style.setProperty('--radius-sm', Math.max(0, val-6) + 'px');
-            r.style.setProperty('--radius-md', val + 'px');
-            r.style.setProperty('--radius-lg', Math.min(48, parseInt(val)+6) + 'px');
-            r.style.setProperty('--radius-xl', Math.min(56, parseInt(val)+14) + 'px');
-            saveAdminConfig({ radiusMd: val });
-        }
-        window.adminApplyRadius = adminApplyRadius;
-
-        function adminApplySpacing(val) {
-            document.getElementById('adm-spacing-val').textContent = val + 'px';
-            const s = document.getElementById('adm-spacing-override') || document.createElement('style');
-            s.id = 'adm-spacing-override';
-            s.textContent = `.content > .page { padding-left: ${val}px; padding-right: ${val}px; } .home-header, .home-cat-pills, .home-featured-row, .home-section-header { padding-left: ${val}px !important; padding-right: ${val}px !important; }`;
-            document.head.appendChild(s);
-        }
-        window.adminApplySpacing = adminApplySpacing;
-
-        function adminToggleElement(selector, show) {
-            const els = document.querySelectorAll(selector.startsWith('.') ? selector : '#' + selector);
-            els.forEach(el => el.style.display = show ? '' : 'none');
-            const cfg = getAdminConfig();
-            if (!cfg.hiddenElements) cfg.hiddenElements = [];
-            if (!show) { if (!cfg.hiddenElements.includes(selector)) cfg.hiddenElements.push(selector); }
-            else cfg.hiddenElements = cfg.hiddenElements.filter(s => s !== selector);
-            saveAdminConfig({ hiddenElements: cfg.hiddenElements });
-        }
-        window.adminToggleElement = adminToggleElement;
-
-        function adminToggleAnimations(enabled) {
-            const s = document.getElementById('adm-animation-override') || document.createElement('style');
-            s.id = 'adm-animation-override';
-            s.textContent = enabled ? '' : `*, *::before, *::after { animation: none !important; transition: none !important; }`;
-            document.head.appendChild(s);
-            saveAdminConfig({ animationsEnabled: enabled });
-        }
-        window.adminToggleAnimations = adminToggleAnimations;
-
-        function adminSaveLayout() {
-            const cfg = {
-                radius:     document.getElementById('adm-radius')?.value,
-                spacing:    document.getElementById('adm-spacing')?.value,
-                animations: document.getElementById('adm-animations')?.checked,
-                showWeekStrip:  document.getElementById('adm-show-weekstrip')?.checked,
-                showChallenge:  document.getElementById('adm-show-challenge')?.checked,
-                showCatPills:   document.getElementById('adm-show-catpills')?.checked,
-            };
-            saveAdminConfig({ layout: cfg });
-            showNotification('Layout settings saved!');
-        }
-        window.adminSaveLayout = adminSaveLayout;
-
-        // ── Apply typography + layout on login ──
-        function applyAdminTypographyLayout() {
-            const cfg = getAdminConfig();
-            if (cfg.fontFamily) adminApplyFont(cfg.fontFamily);
-            if (cfg.typography) {
-                if (cfg.typography.fontFamily)    adminApplyFont(cfg.typography.fontFamily);
-                if (cfg.typography.fontSize)      adminApplyFontSize(cfg.typography.fontSize);
-                if (cfg.typography.fontWeight)    adminApplyFontWeight(cfg.typography.fontWeight);
-                if (cfg.typography.headingScale)  adminApplyHeadingScale(cfg.typography.headingScale);
-                if (cfg.typography.letterSpacing) adminApplyLetterSpacing(cfg.typography.letterSpacing);
-            }
-            if (cfg.radiusMd) adminApplyRadius(cfg.radiusMd);
-            if (cfg.layout) {
-                if (cfg.layout.radius  !== undefined) adminApplyRadius(cfg.layout.radius);
-                if (cfg.layout.spacing !== undefined) adminApplySpacing(cfg.layout.spacing);
-                if (cfg.layout.animations !== undefined) adminToggleAnimations(cfg.layout.animations);
-                if (cfg.layout.showWeekStrip === false) adminToggleElement('home-week-strip', false);
-                if (cfg.layout.showChallenge === false) adminToggleElement('daily-challenge-card', false);
-                if (cfg.layout.showCatPills  === false) adminToggleElement('.home-cat-pills', false);
-            }
-            if (cfg.hiddenElements) {
-                cfg.hiddenElements.forEach(sel => adminToggleElement(sel, false));
-            }
-        }
-        window.applyAdminTypographyLayout = applyAdminTypographyLayout;
-
-        // Load typography/layout values into admin inputs
-        function adminLoadTypographyLayout() {
-            const cfg = getAdminConfig();
-            const t = cfg.typography || {};
-            const l = cfg.layout || {};
-            if (document.getElementById('adm-font-family') && t.fontFamily) {
-                document.getElementById('adm-font-family').value = t.fontFamily;
-            }
-            if (document.getElementById('adm-font-size') && t.fontSize) {
-                document.getElementById('adm-font-size').value = t.fontSize;
-                document.getElementById('adm-font-size-val').textContent = t.fontSize + 'px';
-            }
-            if (document.getElementById('adm-font-weight') && t.fontWeight) {
-                document.getElementById('adm-font-weight').value = t.fontWeight;
-            }
-            if (document.getElementById('adm-heading-scale') && t.headingScale) {
-                document.getElementById('adm-heading-scale').value = t.headingScale;
-                document.getElementById('adm-heading-scale-val').textContent = t.headingScale + '×';
-            }
-            if (document.getElementById('adm-letter-spacing') && t.letterSpacing) {
-                document.getElementById('adm-letter-spacing').value = t.letterSpacing;
-            }
-            if (document.getElementById('adm-radius') && (l.radius || cfg.radiusMd)) {
-                const r = l.radius || cfg.radiusMd;
-                document.getElementById('adm-radius').value = r;
-                document.getElementById('adm-radius-val').textContent = r + 'px';
-            }
-            if (document.getElementById('adm-spacing') && l.spacing) {
-                document.getElementById('adm-spacing').value = l.spacing;
-                document.getElementById('adm-spacing-val').textContent = l.spacing + 'px';
-            }
-        }
-        window.adminLoadTypographyLayout = adminLoadTypographyLayout;
 
         // ==================== MAKE FUNCTIONS GLOBAL ====================
         window.showPage = showPage;

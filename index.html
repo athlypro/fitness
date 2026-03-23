@@ -10358,7 +10358,9 @@
             if (bannerEl) bannerEl.src = HERO_IMAGES[dayIdx % HERO_IMAGES.length];
 
             // Random motivational quote
-            const QUOTES = [("The only bad workout is the one that didn't happen.", 'Unknown'), ('Push yourself because no one else is going to do it for you.', 'Unknown'), ("Your body can stand almost anything. It's your mind you have to convince.", 'Unknown'), ('Success starts with self-discipline.', 'Unknown'), ("Don't wish for it. Work for it.", 'Unknown'), ("The pain you feel today is the strength you'll feel tomorrow.", 'Unknown'), ('Sweat is just fat crying.', 'Unknown'), ('Train insane or remain the same.', 'Unknown')];
+            const DEFAULT_QUOTES = [["The only bad workout is the one that didn't happen.", 'Unknown'], ['Push yourself because no one else is going to do it for you.', 'Unknown'], ["Your body can stand almost anything. It's your mind you have to convince.", 'Unknown'], ['Success starts with self-discipline.', 'Unknown'], ["Don't wish for it. Work for it.", 'Unknown'], ["The pain you feel today is the strength you'll feel tomorrow.", 'Unknown'], ['Sweat is just fat crying.', 'Unknown'], ['Train insane or remain the same.', 'Unknown']];
+            const adminQ = window._adminQuotes;
+            const QUOTES = (adminQ && adminQ.length) ? adminQ.map(t => [t, 'Admin']) : DEFAULT_QUOTES;
             const q = QUOTES[Math.floor(Math.random() * QUOTES.length)];
             const qt = document.getElementById('hero-quote-text');
             const qa = document.getElementById('hero-quote-author');
@@ -14943,14 +14945,28 @@
             // Colours
             if (cfg.colours) {
                 const r = document.documentElement;
-                if (cfg.colours.accent)    r.style.setProperty('--success', cfg.colours.accent);
+                if (cfg.colours.accent) {
+                    r.style.setProperty('--success', cfg.colours.accent);
+                    // Derive glow from accent
+                    const hex = cfg.colours.accent.replace('#','');
+                    const ri = parseInt(hex.slice(0,2),16), gi = parseInt(hex.slice(2,4),16), bi = parseInt(hex.slice(4,6),16);
+                    r.style.setProperty('--success-glow', `rgba(${ri},${gi},${bi},0.25)`);
+                }
                 if (cfg.colours.secondary) r.style.setProperty('--danger',  cfg.colours.secondary);
-                if (cfg.colours.bg)        r.style.setProperty('--primary', cfg.colours.bg);
-                if (cfg.colours.surface)   r.style.setProperty('--surface', cfg.colours.surface);
-                if (cfg.colours.text)      r.style.setProperty('--text-primary', cfg.colours.text);
-                document.body.style.background = cfg.colours.bg || '#000';
-                const appContainer = document.querySelector('.app-container');
-                if (appContainer) appContainer.style.background = cfg.colours.bg || '#0a0a0a';
+                if (cfg.colours.bg) {
+                    r.style.setProperty('--primary', cfg.colours.bg);
+                    document.body.style.background = cfg.colours.bg;
+                    const appContainer = document.querySelector('.app-container');
+                    if (appContainer) appContainer.style.background = cfg.colours.bg;
+                }
+                if (cfg.colours.surface) {
+                    r.style.setProperty('--surface', cfg.colours.surface);
+                    // Derive surface-light from surface
+                    r.style.setProperty('--secondary', cfg.colours.surface);
+                }
+                if (cfg.colours.text) {
+                    r.style.setProperty('--text-primary', cfg.colours.text);
+                }
             }
 
             // Quotes
@@ -15006,8 +15022,11 @@
             const tagline = document.getElementById('adm-tagline').value.trim();
             if (!name) { showNotification('App name cannot be empty'); return; }
             saveAdminConfig({ appName: name, tagline });
-            applyAdminConfig();
-            showNotification('Branding saved!');
+            // Apply immediately
+            document.querySelectorAll('.auth-app-name').forEach(el => el.textContent = name);
+            document.querySelectorAll('.auth-tagline').forEach(el => el.textContent = tagline);
+            document.title = name;
+            showNotification('Branding saved! Name: ' + name);
         }
 
         function adminSaveQuotes() {
@@ -15026,8 +15045,13 @@
                 if (el && el.value.trim()) navLabels[n] = el.value.trim();
             });
             saveAdminConfig({ navLabels });
-            applyAdminConfig();
-            showNotification('Nav labels saved!');
+            // Apply immediately to nav spans
+            const navItems = document.querySelectorAll('.nav-item span');
+            const labelKeys = ['home','train','plan','me'];
+            navItems.forEach((el, i) => {
+                if (navLabels[labelKeys[i]]) el.textContent = navLabels[labelKeys[i]];
+            });
+            showNotification('Nav labels saved and applied!');
         }
 
         function adminPreviewColor() {
@@ -15276,6 +15300,14 @@
         window.adminSaveChallenges    = adminSaveChallenges;
         window.adminBroadcast         = adminBroadcast;
         window.adminExportDB          = adminExportDB;
+        window.checkAdmin             = checkAdmin;
+        window.applyAdminConfig       = applyAdminConfig;
+        window.getAdminConfig         = getAdminConfig;
+        window.saveAdminConfig        = saveAdminConfig;
+        window.adminLoadAll           = adminLoadAll;
+        window.adminLoadWorkouts      = adminLoadWorkouts;
+        window.adminLoadUsers         = adminLoadUsers;
+        window.showAnnouncementBanner = showAnnouncementBanner;
 
         // ==================== MAKE FUNCTIONS GLOBAL ====================
         window.showPage = showPage;

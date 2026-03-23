@@ -14924,15 +14924,44 @@
             // Check if admin
             checkAdmin(user.email);
 
-            // Load and apply admin config from Firebase
-            if (window._fbDb) {
+            // ── Real-time admin config listener (fires for ALL users immediately when admin changes anything) ──
+            if (window._fbDb && window._fbOnValue && window._fbRef) {
                 try {
-                    const cfgRef  = window._fbRef(window._fbDb, 'adminConfig');
-                    const cfgSnap = await window._fbGet(cfgRef);
-                    if (cfgSnap.exists()) {
-                        localStorage.setItem('adminConfig', JSON.stringify(cfgSnap.val()));
-                    }
-                } catch(e) {}
+                    // Config (colours, text, branding, challenges etc.)
+                    const cfgRef = window._fbRef(window._fbDb, 'adminConfig');
+                    window._fbOnValue(cfgRef, snap => {
+                        if (snap && snap.exists && snap.exists()) {
+                            const val = snap.val();
+                            localStorage.setItem('adminConfig', JSON.stringify(val));
+                            applyAdminConfig();
+                            showSync('synced');
+                        }
+                    });
+
+                    // Images (hero, muscle cards, exercise thumbs/forms)
+                    const imgRef = window._fbRef(window._fbDb, 'adminImages');
+                    window._fbOnValue(imgRef, snap => {
+                        if (snap && snap.exists && snap.exists()) {
+                            const val = snap.val();
+                            if (val.hero)    localStorage.setItem('adminImg_hero',    JSON.stringify(val.hero));
+                            if (val.muscles) localStorage.setItem('adminImg_muscles', JSON.stringify(val.muscles));
+                            if (val.thumbs)  localStorage.setItem('adminImg_thumbs',  JSON.stringify(val.thumbs));
+                            if (val.forms)   localStorage.setItem('adminImg_forms',   JSON.stringify(val.forms));
+                            applyAdminImages();
+                        }
+                    });
+
+                    // Broadcast messages
+                    const bcastRef = window._fbRef(window._fbDb, 'broadcast');
+                    window._fbOnValue(bcastRef, snap => {
+                        if (snap && snap.exists && snap.exists()) {
+                            const val = snap.val();
+                            if (val && val.message) {
+                                showAnnouncementBanner(val.message, val.color || '#ff6b1a');
+                            }
+                        }
+                    });
+                } catch(e) { console.warn('Admin listener error:', e); }
             }
             applyAdminConfig();
             applyAdminImages();
@@ -15061,10 +15090,13 @@
             const cfg = getAdminConfig();
             Object.assign(cfg, updates);
             localStorage.setItem('adminConfig', JSON.stringify(cfg));
-            // Push to Firebase under /adminConfig so all users see it
-            if (_fbUid && window._fbDb) {
+            // Push to Firebase /adminConfig — onValue listeners on all clients fire instantly
+            if (window._fbDb && window._fbRef && window._fbSet) {
                 const r = window._fbRef(window._fbDb, 'adminConfig');
-                window._fbSet(r, cfg).catch(e => console.error('Admin config sync:', e));
+                window._fbSet(r, cfg)
+                    .then(() => showSync('synced'))
+                    .catch(e => { console.error('Admin config sync:', e); showSync('error'); });
+                showSync('syncing');
             }
         }
 
@@ -15402,13 +15434,15 @@
         function adminBroadcast() {
             const msg = document.getElementById('adm-broadcast').value.trim();
             if (!msg) { showNotification('Enter a message first'); return; }
-            // Save broadcast to Firebase so other users see it on next load
-            if (_fbUid && window._fbDb) {
+            const color = '#ff6b1a';
+            // Push to Firebase — onValue listener fires instantly on all connected clients
+            if (window._fbDb && window._fbRef && window._fbSet) {
                 const r = window._fbRef(window._fbDb, 'broadcast');
-                window._fbSet(r, { message: msg, timestamp: Date.now() });
+                window._fbSet(r, { message: msg, color, timestamp: Date.now() })
+                    .then(() => showNotification('Broadcast sent to all users!'))
+                    .catch(() => showNotification('Broadcast saved locally'));
             }
-            showAnnouncementBanner(msg, '#ff6b1a');
-            showNotification('Broadcast sent!');
+            showAnnouncementBanner(msg, color);
         }
 
         function adminExportDB() {
@@ -15513,12 +15547,25 @@
                 while (saved.length <= dayIndex) saved.push(null);
                 saved[dayIndex] = e.target.result;
                 localStorage.setItem(ADMIN_IMG_HERO, JSON.stringify(saved));
-                // Update preview
                 const prev = document.getElementById('hero-prev-' + dayIndex);
                 if (prev) prev.src = e.target.result;
-                // Apply immediately
                 applyAdminImages();
-                showNotification('Hero image updated!');
+                
+                // Push images to Firebase so all clients get real-time update
+                if (window._fbDb && window._fbRef && window._fbSet) {
+                    const imgData = {
+                        hero:    JSON.parse(localStorage.getItem('adminImg_hero')    || '[]'),
+                        muscles: JSON.parse(localStorage.getItem('adminImg_muscles') || '{}'),
+                        thumbs:  JSON.parse(localStorage.getItem('adminImg_thumbs')  || '{}'),
+                        forms:   JSON.parse(localStorage.getItem('adminImg_forms')   || '{}'),
+                    };
+                    const imgRef = window._fbRef(window._fbDb, 'adminImages');
+                    window._fbSet(imgRef, imgData)
+                        .then(() => showSync('synced'))
+                        .catch(e => console.error('Image sync error:', e));
+                    showSync('syncing');
+                }
+                showNotification('Hero image updated — syncing to all users...');
             };
             reader.readAsDataURL(file);
             event.target.value = '';
@@ -15568,10 +15615,24 @@
                 localStorage.setItem(ADMIN_IMG_MUSCLES, JSON.stringify(saved));
                 const prev = document.getElementById('mimg-prev-' + key);
                 if (prev) prev.src = e.target.result;
-                // Update MUSCLE_META immediately
                 if (MUSCLE_META[key]) MUSCLE_META[key].img = e.target.result;
                 renderTrainCards();
-                showNotification(MUSCLE_LABELS[key] + ' card image updated!');
+                
+                // Push images to Firebase so all clients get real-time update
+                if (window._fbDb && window._fbRef && window._fbSet) {
+                    const imgData = {
+                        hero:    JSON.parse(localStorage.getItem('adminImg_hero')    || '[]'),
+                        muscles: JSON.parse(localStorage.getItem('adminImg_muscles') || '{}'),
+                        thumbs:  JSON.parse(localStorage.getItem('adminImg_thumbs')  || '{}'),
+                        forms:   JSON.parse(localStorage.getItem('adminImg_forms')   || '{}'),
+                    };
+                    const imgRef = window._fbRef(window._fbDb, 'adminImages');
+                    window._fbSet(imgRef, imgData)
+                        .then(() => showSync('synced'))
+                        .catch(e => console.error('Image sync error:', e));
+                    showSync('syncing');
+                }
+                showNotification(MUSCLE_LABELS[key] + ' image updated — syncing to all users...');
             };
             reader.readAsDataURL(file);
             event.target.value = '';
@@ -15632,12 +15693,25 @@
                 const saved = JSON.parse(localStorage.getItem(ADMIN_IMG_THUMBS) || '{}');
                 saved[name] = e.target.result;
                 localStorage.setItem(ADMIN_IMG_THUMBS, JSON.stringify(saved));
-                // Update preview in admin
                 const prev = document.getElementById('ethumb-' + safeId);
                 if (prev) prev.src = e.target.result;
-                // Update live EXERCISE_THUMBS
                 EXERCISE_THUMBS[name] = e.target.result;
-                showNotification(name + ' thumbnail updated!');
+                
+                // Push images to Firebase so all clients get real-time update
+                if (window._fbDb && window._fbRef && window._fbSet) {
+                    const imgData = {
+                        hero:    JSON.parse(localStorage.getItem('adminImg_hero')    || '[]'),
+                        muscles: JSON.parse(localStorage.getItem('adminImg_muscles') || '{}'),
+                        thumbs:  JSON.parse(localStorage.getItem('adminImg_thumbs')  || '{}'),
+                        forms:   JSON.parse(localStorage.getItem('adminImg_forms')   || '{}'),
+                    };
+                    const imgRef = window._fbRef(window._fbDb, 'adminImages');
+                    window._fbSet(imgRef, imgData)
+                        .then(() => showSync('synced'))
+                        .catch(e => console.error('Image sync error:', e));
+                    showSync('syncing');
+                }
+                showNotification(name + ' thumbnail updated — syncing...');
             };
             reader.readAsDataURL(file);
             event.target.value = '';
@@ -15654,9 +15728,23 @@
                 localStorage.setItem(ADMIN_IMG_FORMS, JSON.stringify(saved));
                 const prev = document.getElementById('eform-' + safeId);
                 if (prev) prev.src = e.target.result;
-                // Update live EXERCISE_IMAGES
                 EXERCISE_IMAGES[name] = e.target.result;
-                showNotification(name + ' form image updated!');
+                
+                // Push images to Firebase so all clients get real-time update
+                if (window._fbDb && window._fbRef && window._fbSet) {
+                    const imgData = {
+                        hero:    JSON.parse(localStorage.getItem('adminImg_hero')    || '[]'),
+                        muscles: JSON.parse(localStorage.getItem('adminImg_muscles') || '{}'),
+                        thumbs:  JSON.parse(localStorage.getItem('adminImg_thumbs')  || '{}'),
+                        forms:   JSON.parse(localStorage.getItem('adminImg_forms')   || '{}'),
+                    };
+                    const imgRef = window._fbRef(window._fbDb, 'adminImages');
+                    window._fbSet(imgRef, imgData)
+                        .then(() => showSync('synced'))
+                        .catch(e => console.error('Image sync error:', e));
+                    showSync('syncing');
+                }
+                showNotification(name + ' form image updated — syncing...');
             };
             reader.readAsDataURL(file);
             event.target.value = '';

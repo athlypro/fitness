@@ -7769,6 +7769,8 @@
                     <div class="img-subtab"        onclick="switchColourTab('buttons')"  id="ctab-buttons">Buttons</div>
                     <div class="img-subtab"        onclick="switchColourTab('nav')"      id="ctab-nav">Nav</div>
                     <div class="img-subtab"        onclick="switchColourTab('cards')"    id="ctab-cards">Cards</div>
+                    <div class="img-subtab"        onclick="switchColourTab('typography')" id="ctab-typography">Font</div>
+                    <div class="img-subtab"        onclick="switchColourTab('layout')"    id="ctab-layout">Layout</div>
                 </div>
 
                 <!-- THEME tab -->
@@ -7826,6 +7828,100 @@
                     <div class="admin-section-title">Cards & Borders</div>
                     <div id="clr-cards-fields"></div>
                     <button class="admin-save-btn full" onclick="adminApplyAllColours()" style="margin-top:8px">Apply & Save</button>
+                </div>
+
+
+                <!-- TYPOGRAPHY tab -->
+                <div class="img-panel" id="cpanel-typography">
+                    <div class="admin-section-title">Font & Typography</div>
+                    <div class="admin-field">
+                        <label>Font Family</label>
+                        <select class="admin-input" id="adm-font-family" onchange="adminApplyFont(this.value)">
+                            <option value="Inter">Inter (Default)</option>
+                            <option value="Poppins">Poppins</option>
+                            <option value="Roboto">Roboto</option>
+                            <option value="Nunito">Nunito</option>
+                            <option value="DM Sans">DM Sans</option>
+                            <option value="Space Grotesk">Space Grotesk</option>
+                            <option value="Outfit">Outfit</option>
+                        </select>
+                    </div>
+                    <div class="admin-field">
+                        <label>Base Font Size</label>
+                        <div style="display:flex;align-items:center;gap:10px">
+                            <input type="range" id="adm-font-size" min="12" max="18" value="14" step="1"
+                                style="flex:1;accent-color:var(--success)" oninput="adminApplyFontSize(this.value)">
+                            <span id="adm-font-size-val" style="font-size:12px;color:#888;min-width:28px">14px</span>
+                        </div>
+                    </div>
+                    <div class="admin-field">
+                        <label>Font Weight (Body)</label>
+                        <select class="admin-input" id="adm-font-weight" onchange="adminApplyFontWeight(this.value)">
+                            <option value="400">Regular (400)</option>
+                            <option value="500" selected>Medium (500)</option>
+                            <option value="600">Semi-Bold (600)</option>
+                            <option value="700">Bold (700)</option>
+                        </select>
+                    </div>
+                    <div class="admin-field">
+                        <label>Heading Size Multiplier</label>
+                        <div style="display:flex;align-items:center;gap:10px">
+                            <input type="range" id="adm-heading-scale" min="0.8" max="1.5" value="1" step="0.05"
+                                style="flex:1;accent-color:var(--success)" oninput="adminApplyHeadingScale(this.value)">
+                            <span id="adm-heading-scale-val" style="font-size:12px;color:#888;min-width:32px">1×</span>
+                        </div>
+                    </div>
+                    <div class="admin-field">
+                        <label>Letter Spacing</label>
+                        <select class="admin-input" id="adm-letter-spacing" onchange="adminApplyLetterSpacing(this.value)">
+                            <option value="normal">Normal</option>
+                            <option value="0.02em">Wide (0.02em)</option>
+                            <option value="0.05em">Wider (0.05em)</option>
+                            <option value="-0.02em">Tight (-0.02em)</option>
+                        </select>
+                    </div>
+                    <button class="admin-save-btn full" onclick="adminSaveTypography()" style="margin-top:8px">Save Typography</button>
+                </div>
+
+                <!-- LAYOUT tab -->
+                <div class="img-panel" id="cpanel-layout">
+                    <div class="admin-section-title">Layout & Spacing</div>
+                    <div class="admin-field">
+                        <label>Card Corner Radius</label>
+                        <div style="display:flex;align-items:center;gap:10px">
+                            <input type="range" id="adm-radius" min="0" max="32" value="18" step="2"
+                                style="flex:1;accent-color:var(--success)" oninput="adminApplyRadius(this.value)">
+                            <span id="adm-radius-val" style="font-size:12px;color:#888;min-width:32px">18px</span>
+                        </div>
+                    </div>
+                    <div class="admin-field">
+                        <label>Content Padding</label>
+                        <div style="display:flex;align-items:center;gap:10px">
+                            <input type="range" id="adm-spacing" min="8" max="32" value="18" step="2"
+                                style="flex:1;accent-color:var(--success)" oninput="adminApplySpacing(this.value)">
+                            <span id="adm-spacing-val" style="font-size:12px;color:#888;min-width:32px">18px</span>
+                        </div>
+                    </div>
+                    <div class="admin-section-title" style="margin-top:16px">Element Visibility</div>
+                    <div style="display:flex;flex-direction:column;gap:8px">
+                        <label style="display:flex;align-items:center;justify-content:space-between;background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:12px 14px;cursor:pointer">
+                            <span style="font-size:13px;font-weight:700;color:#ccc">Show Week Strip</span>
+                            <input type="checkbox" id="adm-show-weekstrip" checked onchange="adminToggleElement('home-week-strip', this.checked)" style="accent-color:var(--success);width:18px;height:18px">
+                        </label>
+                        <label style="display:flex;align-items:center;justify-content:space-between;background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:12px 14px;cursor:pointer">
+                            <span style="font-size:13px;font-weight:700;color:#ccc">Show Daily Challenge</span>
+                            <input type="checkbox" id="adm-show-challenge" checked onchange="adminToggleElement('daily-challenge-card', this.checked)" style="accent-color:var(--success);width:18px;height:18px">
+                        </label>
+                        <label style="display:flex;align-items:center;justify-content:space-between;background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:12px 14px;cursor:pointer">
+                            <span style="font-size:13px;font-weight:700;color:#ccc">Show Category Pills</span>
+                            <input type="checkbox" id="adm-show-catpills" checked onchange="adminToggleElement('.home-cat-pills', this.checked)" style="accent-color:var(--success);width:18px;height:18px">
+                        </label>
+                        <label style="display:flex;align-items:center;justify-content:space-between;background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:12px 14px;cursor:pointer">
+                            <span style="font-size:13px;font-weight:700;color:#ccc">Enable Animations</span>
+                            <input type="checkbox" id="adm-animations" checked onchange="adminToggleAnimations(this.checked)" style="accent-color:var(--success);width:18px;height:18px">
+                        </label>
+                    </div>
+                    <button class="admin-save-btn full" onclick="adminSaveLayout()" style="margin-top:12px">Save Layout Settings</button>
                 </div>
 
             </div>
@@ -15195,6 +15291,7 @@
             }
             applyAdminConfig();
             applyAdminImages();
+            applyAdminTypographyLayout();
 
             // Sync Firebase auth name/email into userProfile
             if (user.displayName || user.email) {
@@ -15273,6 +15370,7 @@
             if (tab === 'users')      adminLoadUsers();
             if (tab === 'images')     switchImgTab('hero');
             if (tab === 'colours')    adminLoadColours();
+            if (tab === 'branding')   adminLoadAll();
         }
 
         function adminLoadAll() {
@@ -15363,33 +15461,29 @@
                 });
             }
 
-            // Colours
-            if (cfg.colours) {
-                const r = document.documentElement;
-                if (cfg.colours.accent) {
-                    r.style.setProperty('--success', cfg.colours.accent);
-                    // Derive glow from accent
-                    const hex = cfg.colours.accent.replace('#','');
-                    const ri = parseInt(hex.slice(0,2),16), gi = parseInt(hex.slice(2,4),16), bi = parseInt(hex.slice(4,6),16);
-                    r.style.setProperty('--success-glow', `rgba(${ri},${gi},${bi},0.25)`);
-                }
-                if (cfg.colours.secondary) r.style.setProperty('--danger',  cfg.colours.secondary);
-                if (cfg.colours.bg) {
-                    r.style.setProperty('--primary', cfg.colours.bg);
-                    document.body.style.background = cfg.colours.bg;
-                    const appContainer = document.querySelector('.app-container');
-                    if (appContainer) appContainer.style.background = cfg.colours.bg;
-                }
-                if (cfg.colours.surface) {
-                    r.style.setProperty('--surface', cfg.colours.surface);
-                    // Derive surface-light from surface
-                    r.style.setProperty('--secondary', cfg.colours.surface);
-                }
-                if (cfg.colours && cfg.colours.text) {
-                    document.documentElement.style.setProperty('--text-primary', cfg.colours.text);
-                } // end legacy
+            // Colours — apply ALL saved CSS variables
+            if (cfg.colours && Object.keys(cfg.colours).length) {
+                if (typeof _adColours !== 'undefined') _adColours = cfg.colours;
+                Object.entries(cfg.colours).forEach(([varName, val]) => {
+                    if (val && varName.startsWith('--')) {
+                        document.documentElement.style.setProperty(varName, val);
+                        // Derived values
+                        if (varName === '--success') {
+                            const hex = val.replace('#','');
+                            if (hex.length === 6) {
+                                const ri=parseInt(hex.slice(0,2),16), gi=parseInt(hex.slice(2,4),16), bi=parseInt(hex.slice(4,6),16);
+                                document.documentElement.style.setProperty('--success-glow',`rgba(${ri},${gi},${bi},0.25)`);
+                                document.documentElement.style.setProperty('--shadow-glow',`rgba(${ri},${gi},${bi},0.2)`);
+                            }
+                        }
+                        if (varName === '--primary') {
+                            document.body.style.background = val;
+                            const ac = document.querySelector('.app-container');
+                            if (ac) ac.style.background = val;
+                        }
+                    }
+                });
             }
-
             // Quotes
             if (cfg.quotes && cfg.quotes.length) {
                 window._adminQuotes = cfg.quotes;
@@ -15730,6 +15824,8 @@
             if (t) t.classList.add('active');
             if (p) p.classList.add('active');
             if (tab === 'hero')      adminLoadHeroImages();
+            if (tab === 'typography') adminLoadTypographyLayout();
+            if (tab === 'layout')     adminLoadTypographyLayout();
             if (tab === 'muscles')   adminLoadMuscleImages();
             if (tab === 'exercises') adminLoadExerciseImages();
         }
@@ -16191,6 +16287,8 @@
                 { var: '--challenge-bg', label: 'Challenge Banner BG',  default: 'rgba(255,107,26,0.1)', desc: 'Daily challenge card bg', type: 'text', css: '.home-challenge-banner { background: {val} !important; }' },
                 { var: '--home-bg',      label: 'Home Header BG',       default: '#0a0a0a', desc: 'Home page background',        css: '#home-page { background: {val}; }' },
             ],
+            typography: [],  // handled separately
+            layout: [],      // handled separately
         };
 
         let _adColours = {}; // current admin colour state
@@ -16361,6 +16459,186 @@
             if (pb) pb.style.background = 'linear-gradient(90deg,'+(_adColours['--success']||'#ff6b1a')+','+(_adColours['--danger']||'#ffd000')+')';
         }
         window.adminLoadColours = adminLoadColours;
+
+
+        // ── Typography ──
+        function adminApplyFont(family) {
+            const link = document.getElementById('adm-google-font') || (() => {
+                const l = document.createElement('link');
+                l.id = 'adm-google-font'; l.rel = 'stylesheet';
+                document.head.appendChild(l); return l;
+            })();
+            link.href = `https://fonts.googleapis.com/css2?family=${family.replace(/ /g,'+')}:wght@400;500;600;700;800;900&display=swap`;
+            const s = document.createElement('style');
+            s.id = 'adm-font-override';
+            const existing = document.getElementById('adm-font-override');
+            if (existing) existing.remove();
+            s.textContent = `* { font-family: '${family}', -apple-system, sans-serif !important; }`;
+            document.head.appendChild(s);
+            saveAdminConfig({ fontFamily: family });
+        }
+        window.adminApplyFont = adminApplyFont;
+
+        function adminApplyFontSize(val) {
+            document.getElementById('adm-font-size-val').textContent = val + 'px';
+            document.documentElement.style.setProperty('--font-base', val + 'px');
+            const s = document.getElementById('adm-fontsize-override') || document.createElement('style');
+            s.id = 'adm-fontsize-override';
+            s.textContent = `body, .content { font-size: ${val}px; }`;
+            document.head.appendChild(s);
+        }
+        window.adminApplyFontSize = adminApplyFontSize;
+
+        function adminApplyFontWeight(val) {
+            document.documentElement.style.setProperty('--font-weight-body', val);
+        }
+        window.adminApplyFontWeight = adminApplyFontWeight;
+
+        function adminApplyHeadingScale(val) {
+            document.getElementById('adm-heading-scale-val').textContent = val + '×';
+            document.documentElement.style.setProperty('--heading-scale', val);
+            const s = document.getElementById('adm-headingscale-override') || document.createElement('style');
+            s.id = 'adm-headingscale-override';
+            s.textContent = `h1,h2,h3,.train-card-name,.home-section-title,.home-greeting-name { transform: scale(${val}); transform-origin: left center; }`;
+            document.head.appendChild(s);
+        }
+        window.adminApplyHeadingScale = adminApplyHeadingScale;
+
+        function adminApplyLetterSpacing(val) {
+            const s = document.getElementById('adm-letterspacing-override') || document.createElement('style');
+            s.id = 'adm-letterspacing-override';
+            s.textContent = `body, p, span, div { letter-spacing: ${val}; }`;
+            document.head.appendChild(s);
+        }
+        window.adminApplyLetterSpacing = adminApplyLetterSpacing;
+
+        function adminSaveTypography() {
+            const cfg = {
+                fontFamily:    document.getElementById('adm-font-family')?.value,
+                fontSize:      document.getElementById('adm-font-size')?.value,
+                fontWeight:    document.getElementById('adm-font-weight')?.value,
+                headingScale:  document.getElementById('adm-heading-scale')?.value,
+                letterSpacing: document.getElementById('adm-letter-spacing')?.value,
+            };
+            saveAdminConfig({ typography: cfg });
+            showNotification('Typography saved!');
+        }
+        window.adminSaveTypography = adminSaveTypography;
+
+        // ── Layout ──
+        function adminApplyRadius(val) {
+            document.getElementById('adm-radius-val').textContent = val + 'px';
+            const r = document.documentElement;
+            r.style.setProperty('--radius-sm', Math.max(0, val-6) + 'px');
+            r.style.setProperty('--radius-md', val + 'px');
+            r.style.setProperty('--radius-lg', Math.min(48, parseInt(val)+6) + 'px');
+            r.style.setProperty('--radius-xl', Math.min(56, parseInt(val)+14) + 'px');
+            saveAdminConfig({ radiusMd: val });
+        }
+        window.adminApplyRadius = adminApplyRadius;
+
+        function adminApplySpacing(val) {
+            document.getElementById('adm-spacing-val').textContent = val + 'px';
+            const s = document.getElementById('adm-spacing-override') || document.createElement('style');
+            s.id = 'adm-spacing-override';
+            s.textContent = `.content > .page { padding-left: ${val}px; padding-right: ${val}px; } .home-header, .home-cat-pills, .home-featured-row, .home-section-header { padding-left: ${val}px !important; padding-right: ${val}px !important; }`;
+            document.head.appendChild(s);
+        }
+        window.adminApplySpacing = adminApplySpacing;
+
+        function adminToggleElement(selector, show) {
+            const els = document.querySelectorAll(selector.startsWith('.') ? selector : '#' + selector);
+            els.forEach(el => el.style.display = show ? '' : 'none');
+            const cfg = getAdminConfig();
+            if (!cfg.hiddenElements) cfg.hiddenElements = [];
+            if (!show) { if (!cfg.hiddenElements.includes(selector)) cfg.hiddenElements.push(selector); }
+            else cfg.hiddenElements = cfg.hiddenElements.filter(s => s !== selector);
+            saveAdminConfig({ hiddenElements: cfg.hiddenElements });
+        }
+        window.adminToggleElement = adminToggleElement;
+
+        function adminToggleAnimations(enabled) {
+            const s = document.getElementById('adm-animation-override') || document.createElement('style');
+            s.id = 'adm-animation-override';
+            s.textContent = enabled ? '' : `*, *::before, *::after { animation: none !important; transition: none !important; }`;
+            document.head.appendChild(s);
+            saveAdminConfig({ animationsEnabled: enabled });
+        }
+        window.adminToggleAnimations = adminToggleAnimations;
+
+        function adminSaveLayout() {
+            const cfg = {
+                radius:     document.getElementById('adm-radius')?.value,
+                spacing:    document.getElementById('adm-spacing')?.value,
+                animations: document.getElementById('adm-animations')?.checked,
+                showWeekStrip:  document.getElementById('adm-show-weekstrip')?.checked,
+                showChallenge:  document.getElementById('adm-show-challenge')?.checked,
+                showCatPills:   document.getElementById('adm-show-catpills')?.checked,
+            };
+            saveAdminConfig({ layout: cfg });
+            showNotification('Layout settings saved!');
+        }
+        window.adminSaveLayout = adminSaveLayout;
+
+        // ── Apply typography + layout on login ──
+        function applyAdminTypographyLayout() {
+            const cfg = getAdminConfig();
+            if (cfg.fontFamily) adminApplyFont(cfg.fontFamily);
+            if (cfg.typography) {
+                if (cfg.typography.fontFamily)    adminApplyFont(cfg.typography.fontFamily);
+                if (cfg.typography.fontSize)      adminApplyFontSize(cfg.typography.fontSize);
+                if (cfg.typography.fontWeight)    adminApplyFontWeight(cfg.typography.fontWeight);
+                if (cfg.typography.headingScale)  adminApplyHeadingScale(cfg.typography.headingScale);
+                if (cfg.typography.letterSpacing) adminApplyLetterSpacing(cfg.typography.letterSpacing);
+            }
+            if (cfg.radiusMd) adminApplyRadius(cfg.radiusMd);
+            if (cfg.layout) {
+                if (cfg.layout.radius  !== undefined) adminApplyRadius(cfg.layout.radius);
+                if (cfg.layout.spacing !== undefined) adminApplySpacing(cfg.layout.spacing);
+                if (cfg.layout.animations !== undefined) adminToggleAnimations(cfg.layout.animations);
+                if (cfg.layout.showWeekStrip === false) adminToggleElement('home-week-strip', false);
+                if (cfg.layout.showChallenge === false) adminToggleElement('daily-challenge-card', false);
+                if (cfg.layout.showCatPills  === false) adminToggleElement('.home-cat-pills', false);
+            }
+            if (cfg.hiddenElements) {
+                cfg.hiddenElements.forEach(sel => adminToggleElement(sel, false));
+            }
+        }
+        window.applyAdminTypographyLayout = applyAdminTypographyLayout;
+
+        // Load typography/layout values into admin inputs
+        function adminLoadTypographyLayout() {
+            const cfg = getAdminConfig();
+            const t = cfg.typography || {};
+            const l = cfg.layout || {};
+            if (document.getElementById('adm-font-family') && t.fontFamily) {
+                document.getElementById('adm-font-family').value = t.fontFamily;
+            }
+            if (document.getElementById('adm-font-size') && t.fontSize) {
+                document.getElementById('adm-font-size').value = t.fontSize;
+                document.getElementById('adm-font-size-val').textContent = t.fontSize + 'px';
+            }
+            if (document.getElementById('adm-font-weight') && t.fontWeight) {
+                document.getElementById('adm-font-weight').value = t.fontWeight;
+            }
+            if (document.getElementById('adm-heading-scale') && t.headingScale) {
+                document.getElementById('adm-heading-scale').value = t.headingScale;
+                document.getElementById('adm-heading-scale-val').textContent = t.headingScale + '×';
+            }
+            if (document.getElementById('adm-letter-spacing') && t.letterSpacing) {
+                document.getElementById('adm-letter-spacing').value = t.letterSpacing;
+            }
+            if (document.getElementById('adm-radius') && (l.radius || cfg.radiusMd)) {
+                const r = l.radius || cfg.radiusMd;
+                document.getElementById('adm-radius').value = r;
+                document.getElementById('adm-radius-val').textContent = r + 'px';
+            }
+            if (document.getElementById('adm-spacing') && l.spacing) {
+                document.getElementById('adm-spacing').value = l.spacing;
+                document.getElementById('adm-spacing-val').textContent = l.spacing + 'px';
+            }
+        }
+        window.adminLoadTypographyLayout = adminLoadTypographyLayout;
 
         // ==================== MAKE FUNCTIONS GLOBAL ====================
         window.showPage = showPage;

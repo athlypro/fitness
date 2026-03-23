@@ -7020,6 +7020,175 @@
         }
         .auth-user-name { font-size: 12px; font-weight: 700; color: rgba(255,255,255,.8); max-width: 80px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
+    
+        /* ════════════════════════════════════════
+           ADMIN PANEL
+           ════════════════════════════════════════ */
+        .admin-panel {
+            position: fixed; inset: 0; z-index: 9500;
+            background: #080808; display: flex; flex-direction: column;
+            overflow: hidden;
+        }
+        .admin-panel.hidden { display: none; }
+
+        /* ── Admin header ── */
+        .admin-header {
+            background: #111; border-bottom: 1px solid #222;
+            padding: 14px 18px; display: flex; align-items: center; gap: 12px;
+            flex-shrink: 0;
+        }
+        .admin-logo {
+            width: 34px; height: 34px; border-radius: 10px;
+            background: linear-gradient(135deg,#ff6b1a,#ffd000);
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+        }
+        .admin-logo svg { width: 18px; height: 18px; fill: #000; }
+        .admin-title { font-size: 16px; font-weight: 900; color: #fff; flex: 1; }
+        .admin-badge {
+            font-size: 9px; font-weight: 800; letter-spacing: .08em;
+            text-transform: uppercase; background: #ff6b1a; color: #000;
+            padding: 3px 8px; border-radius: 5px;
+        }
+        .admin-close-btn {
+            width: 32px; height: 32px; border-radius: 9px;
+            background: rgba(255,255,255,.07); border: 1px solid #222;
+            color: #fff; cursor: pointer; display: flex;
+            align-items: center; justify-content: center; flex-shrink: 0;
+        }
+
+        /* ── Tab bar ── */
+        .admin-tabs {
+            display: flex; background: #0e0e0e; border-bottom: 1px solid #1a1a1a;
+            overflow-x: auto; scrollbar-width: none; flex-shrink: 0;
+        }
+        .admin-tabs::-webkit-scrollbar { display: none; }
+        .admin-tab {
+            flex: 0 0 auto; padding: 12px 18px; font-size: 12px; font-weight: 700;
+            color: #444; cursor: pointer; border-bottom: 2px solid transparent;
+            white-space: nowrap; transition: all .2s;
+        }
+        .admin-tab.active { color: #ff6b1a; border-bottom-color: #ff6b1a; }
+        .admin-tab:hover { color: #888; }
+
+        /* ── Content area ── */
+        .admin-content {
+            flex: 1; overflow-y: auto; padding: 20px 18px 32px;
+            scrollbar-width: thin; scrollbar-color: #222 transparent;
+        }
+        .admin-section { margin-bottom: 28px; }
+        .admin-section-title {
+            font-size: 11px; font-weight: 800; letter-spacing: .1em;
+            text-transform: uppercase; color: #444; margin-bottom: 14px;
+            padding-bottom: 8px; border-bottom: 1px solid #1a1a1a;
+        }
+        .admin-panel-inner { display: none; }
+        .admin-panel-inner.active { display: block; }
+
+        /* ── Field ── */
+        .admin-field { margin-bottom: 14px; }
+        .admin-field label {
+            display: block; font-size: 11px; font-weight: 700;
+            color: #555; margin-bottom: 6px; text-transform: uppercase; letter-spacing: .05em;
+        }
+        .admin-input {
+            width: 100%; padding: 11px 14px; background: #111;
+            border: 1px solid #222; border-radius: 11px; color: #fff;
+            font-size: 13px; font-weight: 500; outline: none;
+            transition: border-color .2s; box-sizing: border-box;
+        }
+        .admin-input:focus { border-color: #ff6b1a; }
+        .admin-textarea {
+            width: 100%; padding: 11px 14px; background: #111;
+            border: 1px solid #222; border-radius: 11px; color: #fff;
+            font-size: 13px; font-weight: 500; outline: none; resize: vertical;
+            min-height: 80px; box-sizing: border-box; transition: border-color .2s;
+        }
+        .admin-textarea:focus { border-color: #ff6b1a; }
+
+        /* ── Colour picker row ── */
+        .admin-color-row {
+            display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+        }
+        .admin-color-label { font-size: 12px; font-weight: 600; color: #666; flex: 1; }
+        .admin-color-swatch {
+            width: 36px; height: 36px; border-radius: 9px; cursor: pointer;
+            border: 2px solid #333; flex-shrink: 0; transition: transform .15s;
+        }
+        .admin-color-swatch:hover { transform: scale(1.1); }
+        .admin-color-input { width: 90px; }
+        .admin-color-preview {
+            width: 36px; height: 36px; border-radius: 9px;
+            border: 2px solid #333; flex-shrink: 0;
+        }
+
+        /* ── Save button ── */
+        .admin-save-btn {
+            padding: 12px 20px; background: #ff6b1a; color: #000;
+            border: none; border-radius: 11px; font-size: 13px; font-weight: 900;
+            cursor: pointer; transition: all .2s; letter-spacing: -.1px;
+        }
+        .admin-save-btn:hover { background: #ff7c35; transform: translateY(-1px); }
+        .admin-save-btn.full { width: 100%; padding: 14px; font-size: 14px; margin-top: 6px; }
+        .admin-save-btn.secondary {
+            background: #1a1a1a; color: #fff; border: 1px solid #333;
+            box-shadow: none;
+        }
+        .admin-save-btn.secondary:hover { background: #222; transform: none; }
+
+        /* ── Workout editor card ── */
+        .admin-workout-card {
+            background: #111; border: 1px solid #1e1e1e; border-radius: 14px;
+            padding: 14px; margin-bottom: 10px;
+        }
+        .admin-workout-name {
+            font-size: 14px; font-weight: 800; color: #fff; margin-bottom: 10px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .admin-workout-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+        /* ── Exercise row ── */
+        .admin-ex-row {
+            display: flex; align-items: center; gap: 8px;
+            background: #0d0d0d; border: 1px solid #1a1a1a;
+            border-radius: 10px; padding: 10px 12px; margin-bottom: 6px;
+        }
+        .admin-ex-name { flex: 1; font-size: 12px; font-weight: 700; color: #ccc; }
+        .admin-ex-val {
+            width: 44px; padding: 5px 6px; background: #1a1a1a;
+            border: 1px solid #252525; border-radius: 7px; color: #fff;
+            font-size: 12px; font-weight: 700; text-align: center; outline: none;
+        }
+        .admin-ex-label { font-size: 9px; color: #444; text-transform: uppercase; letter-spacing: .04em; margin-right: 2px; }
+
+        /* ── Nav link editor ── */
+        .admin-nav-row {
+            display: flex; align-items: center; gap: 10px;
+            background: #111; border: 1px solid #1e1e1e;
+            border-radius: 11px; padding: 12px 14px; margin-bottom: 8px;
+        }
+        .admin-nav-icon { width: 28px; height: 28px; border-radius: 7px; background: rgba(255,107,26,.15); display: flex; align-items: center; justify-content: center; color: #ff6b1a; flex-shrink: 0; }
+
+        /* ── Status ── */
+        .admin-status {
+            padding: 8px 12px; border-radius: 9px; font-size: 12px; font-weight: 700;
+            margin-top: 8px; display: none;
+        }
+        .admin-status.show { display: block; }
+        .admin-status.ok  { background: rgba(129,199,132,.12); color: #81c784; border: 1px solid rgba(129,199,132,.25); }
+        .admin-status.err { background: rgba(239,154,154,.12); color: #ef9a9a; border: 1px solid rgba(239,154,154,.25); }
+
+        /* ── Admin fab button (only for admin) ── */
+        .admin-fab {
+            position: fixed; bottom: 84px; right: 16px; z-index: 8000;
+            width: 44px; height: 44px; border-radius: 14px;
+            background: linear-gradient(135deg,#ff6b1a,#ffd000);
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; box-shadow: 0 4px 16px rgba(255,107,26,.5);
+            transition: all .2s; display: none;
+        }
+        .admin-fab:hover { transform: scale(1.08); }
+        .admin-fab svg { width: 20px; height: 20px; fill: #000; }
+
     </style>
 
     <!-- Firebase SDK -->
@@ -7182,6 +7351,208 @@
   <symbol id="fa-arrows-up-down" viewBox="0 0 24 24"><path d="M12 2L8 6h3v12H8l4 4 4-4h-3V6h3z"/></symbol>
   <symbol id="fa-camera" viewBox="0 0 24 24"><path d="M12 15.2A3.2 3.2 0 018.8 12 3.2 3.2 0 0112 8.8a3.2 3.2 0 013.2 3.2 3.2 3.2 0 01-3.2 3.2M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9z"/></symbol>
 </svg>
+
+
+    <!-- ══════════════════════════════════════
+         ADMIN PANEL
+    ══════════════════════════════════════ -->
+    <div id="admin-panel" class="admin-panel hidden">
+        <div class="admin-header">
+            <div class="admin-logo">
+                <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+            </div>
+            <div class="admin-title">Admin Panel</div>
+            <span class="admin-badge">Super Admin</span>
+            <button class="admin-close-btn" onclick="closeAdminPanel()">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+            </button>
+        </div>
+
+        <div class="admin-tabs">
+            <div class="admin-tab active" onclick="switchAdminTab('branding')"   id="atab-branding">Branding</div>
+            <div class="admin-tab"        onclick="switchAdminTab('colours')"    id="atab-colours">Colours</div>
+            <div class="admin-tab"        onclick="switchAdminTab('content')"    id="atab-content">Content</div>
+            <div class="admin-tab"        onclick="switchAdminTab('workouts')"   id="atab-workouts">Workouts</div>
+            <div class="admin-tab"        onclick="switchAdminTab('challenges')" id="atab-challenges">Challenges</div>
+            <div class="admin-tab"        onclick="switchAdminTab('users')"      id="atab-users">Users</div>
+        </div>
+
+        <div class="admin-content">
+
+            <!-- ── BRANDING ── -->
+            <div class="admin-panel-inner active" id="apanel-branding">
+                <div class="admin-section">
+                    <div class="admin-section-title">App Identity</div>
+                    <div class="admin-field">
+                        <label>App Name</label>
+                        <input class="admin-input" id="adm-app-name" placeholder="Athly">
+                    </div>
+                    <div class="admin-field">
+                        <label>Tagline</label>
+                        <input class="admin-input" id="adm-tagline" placeholder="Your personal fitness companion">
+                    </div>
+                    <button class="admin-save-btn full" onclick="adminSaveBranding()">Save Branding</button>
+                </div>
+
+                <div class="admin-section">
+                    <div class="admin-section-title">Hero Banner Text</div>
+                    <div class="admin-field">
+                        <label>Motivational Quotes (one per line)</label>
+                        <textarea class="admin-textarea" id="adm-quotes" rows="6" placeholder="One quote per line..."></textarea>
+                    </div>
+                    <button class="admin-save-btn full" onclick="adminSaveQuotes()">Save Quotes</button>
+                </div>
+
+                <div class="admin-section">
+                    <div class="admin-section-title">Navigation Labels</div>
+                    <div class="admin-nav-row">
+                        <div class="admin-nav-icon"><svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M12 3L4 9v12h5v-7h6v7h5V9z"/></svg></div>
+                        <input class="admin-input" id="adm-nav-home" placeholder="Home" style="flex:1">
+                    </div>
+                    <div class="admin-nav-row">
+                        <div class="admin-nav-icon"><svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg></div>
+                        <input class="admin-input" id="adm-nav-train" placeholder="Train" style="flex:1">
+                    </div>
+                    <div class="admin-nav-row">
+                        <div class="admin-nav-icon"><svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M19 3h-1V1h-2v2H8V1H6v2H5C3.9 3 3 3.9 3 5v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg></div>
+                        <input class="admin-input" id="adm-nav-plan" placeholder="Plan" style="flex:1">
+                    </div>
+                    <div class="admin-nav-row">
+                        <div class="admin-nav-icon"><svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12z"/></svg></div>
+                        <input class="admin-input" id="adm-nav-me" placeholder="Me" style="flex:1">
+                    </div>
+                    <button class="admin-save-btn full" onclick="adminSaveNav()">Save Nav Labels</button>
+                </div>
+            </div>
+
+            <!-- ── COLOURS ── -->
+            <div class="admin-panel-inner" id="apanel-colours">
+                <div class="admin-section">
+                    <div class="admin-section-title">Theme Colours</div>
+                    <div class="admin-color-row">
+                        <div class="admin-color-label">Primary Accent (buttons, highlights)</div>
+                        <input type="color" class="admin-color-swatch" id="adm-color-accent" value="#ff6b1a" oninput="adminPreviewColor()">
+                    </div>
+                    <div class="admin-color-row">
+                        <div class="admin-color-label">Secondary Accent (gold/yellow)</div>
+                        <input type="color" class="admin-color-swatch" id="adm-color-secondary" value="#ffd000" oninput="adminPreviewColor()">
+                    </div>
+                    <div class="admin-color-row">
+                        <div class="admin-color-label">Background</div>
+                        <input type="color" class="admin-color-swatch" id="adm-color-bg" value="#0a0a0a" oninput="adminPreviewColor()">
+                    </div>
+                    <div class="admin-color-row">
+                        <div class="admin-color-label">Surface (cards)</div>
+                        <input type="color" class="admin-color-swatch" id="adm-color-surface" value="#1a1a1a" oninput="adminPreviewColor()">
+                    </div>
+                    <div class="admin-color-row">
+                        <div class="admin-color-label">Text Primary</div>
+                        <input type="color" class="admin-color-swatch" id="adm-color-text" value="#ffffff" oninput="adminPreviewColor()">
+                    </div>
+                    <div style="display:flex;gap:8px;margin-top:8px">
+                        <button class="admin-save-btn" onclick="adminSaveColours()" style="flex:1">Apply & Save</button>
+                        <button class="admin-save-btn secondary" onclick="adminResetColours()" style="flex:1">Reset Default</button>
+                    </div>
+                </div>
+
+                <div class="admin-section">
+                    <div class="admin-section-title">Colour Presets</div>
+                    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+                        <button class="admin-save-btn secondary" onclick="adminApplyPreset('orange')" style="background:#ff6b1a22;border-color:#ff6b1a44;color:#ff6b1a">Orange</button>
+                        <button class="admin-save-btn secondary" onclick="adminApplyPreset('blue')" style="background:#1565c022;border-color:#1565c044;color:#42a5f5">Blue</button>
+                        <button class="admin-save-btn secondary" onclick="adminApplyPreset('green')" style="background:#1b5e2022;border-color:#1b5e2044;color:#66bb6a">Green</button>
+                        <button class="admin-save-btn secondary" onclick="adminApplyPreset('purple')" style="background:#4a148c22;border-color:#4a148c44;color:#ab47bc">Purple</button>
+                        <button class="admin-save-btn secondary" onclick="adminApplyPreset('red')" style="background:#b71c1c22;border-color:#b71c1c44;color:#ef5350">Red</button>
+                        <button class="admin-save-btn secondary" onclick="adminApplyPreset('teal')" style="background:#00695c22;border-color:#00695c44;color:#26a69a">Teal</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── CONTENT ── -->
+            <div class="admin-panel-inner" id="apanel-content">
+                <div class="admin-section">
+                    <div class="admin-section-title">Coaching Tips (shown during rest)</div>
+                    <div class="admin-field">
+                        <label>Tips (one per line)</label>
+                        <textarea class="admin-textarea" id="adm-tips" rows="8"></textarea>
+                    </div>
+                    <button class="admin-save-btn full" onclick="adminSaveTips()">Save Tips</button>
+                </div>
+
+                <div class="admin-section">
+                    <div class="admin-section-title">Today's Workout Section</div>
+                    <div class="admin-field">
+                        <label>Section Eyebrow Label</label>
+                        <input class="admin-input" id="adm-today-eyebrow" placeholder="Today's Workout">
+                    </div>
+                    <button class="admin-save-btn full" onclick="adminSaveHomeContent()">Save Home Content</button>
+                </div>
+
+                <div class="admin-section">
+                    <div class="admin-section-title">Announcement Banner</div>
+                    <div class="admin-field">
+                        <label>Banner Text (empty = hidden)</label>
+                        <input class="admin-input" id="adm-banner-text" placeholder="e.g. New program added!">
+                    </div>
+                    <div class="admin-field">
+                        <label>Banner Colour</label>
+                        <input type="color" class="admin-color-swatch" id="adm-banner-color" value="#ff6b1a" style="width:100%;height:38px;border-radius:11px">
+                    </div>
+                    <button class="admin-save-btn full" onclick="adminSaveBanner()">Save Banner</button>
+                </div>
+            </div>
+
+            <!-- ── WORKOUTS ── -->
+            <div class="admin-panel-inner" id="apanel-workouts">
+                <div class="admin-section">
+                    <div class="admin-section-title">Workout Names & Descriptions</div>
+                    <div id="adm-workout-list"><!-- populated by JS --></div>
+                    <button class="admin-save-btn full" onclick="adminSaveWorkouts()">Save Workout Names</button>
+                </div>
+            </div>
+
+            <!-- ── CHALLENGES ── -->
+            <div class="admin-panel-inner" id="apanel-challenges">
+                <div class="admin-section">
+                    <div class="admin-section-title">Daily Challenges</div>
+                    <div class="admin-field" style="margin-bottom:6px">
+                        <label>Challenges (JSON — one object per line)</label>
+                    </div>
+                    <div id="adm-challenges-list"><!-- populated by JS --></div>
+                    <button class="admin-save-btn full" onclick="adminAddChallenge()">+ Add Challenge</button>
+                    <button class="admin-save-btn full secondary" onclick="adminSaveChallenges()" style="margin-top:8px">Save All Challenges</button>
+                </div>
+            </div>
+
+            <!-- ── USERS ── -->
+            <div class="admin-panel-inner" id="apanel-users">
+                <div class="admin-section">
+                    <div class="admin-section-title">App Statistics</div>
+                    <div id="adm-stats-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
+                        <!-- populated by JS -->
+                    </div>
+                </div>
+                <div class="admin-section">
+                    <div class="admin-section-title">Push Notification to All Users</div>
+                    <div class="admin-field">
+                        <label>Message</label>
+                        <input class="admin-input" id="adm-broadcast" placeholder="e.g. New workout plans added!">
+                    </div>
+                    <button class="admin-save-btn full" onclick="adminBroadcast()">Send Broadcast</button>
+                </div>
+                <div class="admin-section">
+                    <div class="admin-section-title">Database</div>
+                    <button class="admin-save-btn full secondary" onclick="adminExportDB()">Export All Data (JSON)</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Admin FAB (floating button — only shown to admin) -->
+    <div class="admin-fab" id="admin-fab" onclick="openAdminPanel()">
+        <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+    </div>
 
     <!-- ── Firebase Auth Screen ── -->
     <div id="auth-screen" class="auth-screen">
@@ -12734,7 +13105,8 @@
 
         function loadDailyChallenge() {
             const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(),0,0)) / 86400000);
-            const challenge = DAILY_CHALLENGES[dayOfYear % DAILY_CHALLENGES.length];
+            const _challenges = (window._adminChallenges && window._adminChallenges.length) ? window._adminChallenges : DAILY_CHALLENGES;
+            const challenge = _challenges[dayOfYear % _challenges.length];
             const todayKey = 'challenge_' + new Date().toDateString();
             const done = localStorage.getItem(todayKey) === 'done';
 
@@ -12763,7 +13135,8 @@
             const todayKey = 'challenge_' + new Date().toDateString();
             if (localStorage.getItem(todayKey) === 'done') return;
             const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(),0,0)) / 86400000);
-            const challenge = DAILY_CHALLENGES[dayOfYear % DAILY_CHALLENGES.length];
+            const _challenges = (window._adminChallenges && window._adminChallenges.length) ? window._adminChallenges : DAILY_CHALLENGES;
+            const challenge = _challenges[dayOfYear % _challenges.length];
             localStorage.setItem(todayKey, 'done');
             loadDailyChallenge();
             startMuscleWorkout(challenge.muscle);
@@ -14065,7 +14438,8 @@
         ];
 
         function showCoachingTip() {
-            const tip = COACHING_TIPS[Math.floor(Math.random() * COACHING_TIPS.length)];
+            const _tips = (window._adminTips && window._adminTips.length) ? window._adminTips : COACHING_TIPS;
+            const tip = _tips[Math.floor(Math.random() * _tips.length)];
             const el = document.getElementById('coaching-tip-text');
             if (el) el.textContent = tip;
         }
@@ -14399,6 +14773,21 @@
             // Hide auth screen, show app
             hideAuthScreen();
 
+            // Check if admin
+            checkAdmin(user.email);
+
+            // Load and apply admin config from Firebase
+            if (window._fbDb) {
+                try {
+                    const cfgRef  = window._fbRef(window._fbDb, 'adminConfig');
+                    const cfgSnap = await window._fbGet(cfgRef);
+                    if (cfgSnap.exists()) {
+                        localStorage.setItem('adminConfig', JSON.stringify(cfgSnap.val()));
+                    }
+                } catch(e) {}
+            }
+            applyAdminConfig();
+
             // Update profile UI
             const displayName = user.displayName || 'Athlete';
             const emailShort  = user.email || '';
@@ -14429,6 +14818,464 @@
         window.authGoogleSignIn = authGoogleSignIn;
         window.authSignOutUser  = authSignOutUser;
         window.syncToFirebase   = syncToFirebase;
+
+
+        // ══════════════════════════════════════════════════════
+        // ADMIN PANEL
+        // ══════════════════════════════════════════════════════
+        const ADMIN_EMAIL = 'athlypro@gmail.com';
+        let isAdmin = false;
+
+        function checkAdmin(email) {
+            isAdmin = email && email.toLowerCase() === ADMIN_EMAIL.toLowerCase();
+            const fab = document.getElementById('admin-fab');
+            if (fab) fab.style.display = isAdmin ? 'flex' : 'none';
+        }
+
+        function openAdminPanel() {
+            const panel = document.getElementById('admin-panel');
+            if (!isAdmin) return;
+            panel.classList.remove('hidden');
+            adminLoadAll();
+        }
+
+        function closeAdminPanel() {
+            document.getElementById('admin-panel').classList.add('hidden');
+        }
+
+        function switchAdminTab(tab) {
+            document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.admin-panel-inner').forEach(p => p.classList.remove('active'));
+            const tabEl   = document.getElementById('atab-' + tab);
+            const panelEl = document.getElementById('apanel-' + tab);
+            if (tabEl)   tabEl.classList.add('active');
+            if (panelEl) panelEl.classList.add('active');
+            if (tab === 'workouts')   adminLoadWorkouts();
+            if (tab === 'challenges') adminLoadChallenges();
+            if (tab === 'users')      adminLoadUsers();
+        }
+
+        function adminLoadAll() {
+            // Branding
+            const cfg = getAdminConfig();
+            const appNameEl = document.getElementById('adm-app-name');
+            const taglineEl = document.getElementById('adm-tagline');
+            if (appNameEl) appNameEl.value = cfg.appName || 'Athly';
+            if (taglineEl) taglineEl.value = cfg.tagline || 'Your personal fitness companion';
+
+            // Nav labels
+            const navLabels = cfg.navLabels || {};
+            ['home','train','plan','me'].forEach(n => {
+                const el = document.getElementById('adm-nav-' + n);
+                if (el) el.value = navLabels[n] || n.charAt(0).toUpperCase()+n.slice(1);
+            });
+
+            // Colours
+            const colours = cfg.colours || {};
+            document.getElementById('adm-color-accent').value    = colours.accent    || '#ff6b1a';
+            document.getElementById('adm-color-secondary').value = colours.secondary || '#ffd000';
+            document.getElementById('adm-color-bg').value        = colours.bg        || '#0a0a0a';
+            document.getElementById('adm-color-surface').value   = colours.surface   || '#1a1a1a';
+            document.getElementById('adm-color-text').value      = colours.text      || '#ffffff';
+
+            // Quotes
+            const quotesEl = document.getElementById('adm-quotes');
+            if (quotesEl) {
+                const quotes = cfg.quotes || [];
+                quotesEl.value = quotes.length ? quotes.join('\n') : '';
+            }
+
+            // Tips
+            const tipsEl = document.getElementById('adm-tips');
+            if (tipsEl) {
+                const tips = cfg.tips || [];
+                tipsEl.value = tips.length ? tips.join('\n') : '';
+            }
+
+            // Home content
+            const eyebrow = document.getElementById('adm-today-eyebrow');
+            if (eyebrow) eyebrow.value = cfg.todayEyebrow || "Today's Workout";
+
+            // Banner
+            const bannerText  = document.getElementById('adm-banner-text');
+            const bannerColor = document.getElementById('adm-banner-color');
+            if (bannerText)  bannerText.value  = cfg.bannerText  || '';
+            if (bannerColor) bannerColor.value = cfg.bannerColor || '#ff6b1a';
+        }
+
+        function getAdminConfig() {
+            try { return JSON.parse(localStorage.getItem('adminConfig') || '{}'); }
+            catch { return {}; }
+        }
+        function saveAdminConfig(updates) {
+            const cfg = getAdminConfig();
+            Object.assign(cfg, updates);
+            localStorage.setItem('adminConfig', JSON.stringify(cfg));
+            // Push to Firebase under /adminConfig so all users see it
+            if (_fbUid && window._fbDb) {
+                const r = window._fbRef(window._fbDb, 'adminConfig');
+                window._fbSet(r, cfg).catch(e => console.error('Admin config sync:', e));
+            }
+        }
+
+        // ── Apply admin config across the app ──
+        function applyAdminConfig() {
+            const cfg = getAdminConfig();
+
+            // App name
+            if (cfg.appName) {
+                document.querySelectorAll('.auth-app-name').forEach(el => el.textContent = cfg.appName);
+                document.title = cfg.appName;
+            }
+            if (cfg.tagline) {
+                document.querySelectorAll('.auth-tagline').forEach(el => el.textContent = cfg.tagline);
+            }
+
+            // Nav labels
+            if (cfg.navLabels) {
+                const navItems = document.querySelectorAll('.nav-item span');
+                const labels   = ['home','train','plan','me'];
+                navItems.forEach((el, i) => {
+                    if (cfg.navLabels[labels[i]]) el.textContent = cfg.navLabels[labels[i]];
+                });
+            }
+
+            // Colours
+            if (cfg.colours) {
+                const r = document.documentElement;
+                if (cfg.colours.accent)    r.style.setProperty('--success', cfg.colours.accent);
+                if (cfg.colours.secondary) r.style.setProperty('--danger',  cfg.colours.secondary);
+                if (cfg.colours.bg)        r.style.setProperty('--primary', cfg.colours.bg);
+                if (cfg.colours.surface)   r.style.setProperty('--surface', cfg.colours.surface);
+                if (cfg.colours.text)      r.style.setProperty('--text-primary', cfg.colours.text);
+                document.body.style.background = cfg.colours.bg || '#000';
+                const appContainer = document.querySelector('.app-container');
+                if (appContainer) appContainer.style.background = cfg.colours.bg || '#0a0a0a';
+            }
+
+            // Quotes
+            if (cfg.quotes && cfg.quotes.length) {
+                window._adminQuotes = cfg.quotes;
+            }
+
+            // Tips
+            if (cfg.tips && cfg.tips.length) {
+                window._adminTips = cfg.tips;
+            }
+
+            // Today eyebrow
+            if (cfg.todayEyebrow) {
+                document.querySelectorAll('.todays-cta-eyebrow').forEach(el => el.textContent = cfg.todayEyebrow);
+            }
+
+            // Announcement banner
+            if (cfg.bannerText) showAnnouncementBanner(cfg.bannerText, cfg.bannerColor || '#ff6b1a');
+
+            // Workout names
+            if (cfg.workoutNames) {
+                Object.entries(cfg.workoutNames).forEach(([key, data]) => {
+                    if (muscleWorkouts[key]) {
+                        if (data.name) muscleWorkouts[key].name = data.name;
+                    }
+                });
+            }
+
+            // Challenges
+            if (cfg.challenges && cfg.challenges.length) {
+                window._adminChallenges = cfg.challenges;
+                loadDailyChallenge();
+            }
+        }
+
+        function showAnnouncementBanner(text, color) {
+            let banner = document.getElementById('admin-announcement-banner');
+            if (!banner) {
+                banner = document.createElement('div');
+                banner.id = 'admin-announcement-banner';
+                banner.style.cssText = `position:fixed;top:0;left:0;right:0;z-index:7999;padding:10px 16px;font-size:12px;font-weight:700;text-align:center;color:#000;`;
+                document.body.insertBefore(banner, document.body.firstChild);
+            }
+            banner.style.background = color || '#ff6b1a';
+            banner.textContent = text;
+            banner.style.display = 'block';
+        }
+
+        // ── SAVE FUNCTIONS ──
+        function adminSaveBranding() {
+            const name    = document.getElementById('adm-app-name').value.trim();
+            const tagline = document.getElementById('adm-tagline').value.trim();
+            if (!name) { showNotification('App name cannot be empty'); return; }
+            saveAdminConfig({ appName: name, tagline });
+            applyAdminConfig();
+            showNotification('Branding saved!');
+        }
+
+        function adminSaveQuotes() {
+            const raw = document.getElementById('adm-quotes').value;
+            const quotes = raw.split('\n').map(s => s.trim()).filter(Boolean);
+            if (!quotes.length) { showNotification('Add at least one quote'); return; }
+            saveAdminConfig({ quotes });
+            window._adminQuotes = quotes;
+            showNotification(quotes.length + ' quotes saved!');
+        }
+
+        function adminSaveNav() {
+            const navLabels = {};
+            ['home','train','plan','me'].forEach(n => {
+                const el = document.getElementById('adm-nav-' + n);
+                if (el && el.value.trim()) navLabels[n] = el.value.trim();
+            });
+            saveAdminConfig({ navLabels });
+            applyAdminConfig();
+            showNotification('Nav labels saved!');
+        }
+
+        function adminPreviewColor() {
+            const accent  = document.getElementById('adm-color-accent').value;
+            const bg      = document.getElementById('adm-color-bg').value;
+            const surface = document.getElementById('adm-color-surface').value;
+            const text    = document.getElementById('adm-color-text').value;
+            const r = document.documentElement;
+            r.style.setProperty('--success', accent);
+            r.style.setProperty('--primary', bg);
+            r.style.setProperty('--surface', surface);
+            r.style.setProperty('--text-primary', text);
+        }
+
+        function adminSaveColours() {
+            const colours = {
+                accent:    document.getElementById('adm-color-accent').value,
+                secondary: document.getElementById('adm-color-secondary').value,
+                bg:        document.getElementById('adm-color-bg').value,
+                surface:   document.getElementById('adm-color-surface').value,
+                text:      document.getElementById('adm-color-text').value,
+            };
+            saveAdminConfig({ colours });
+            applyAdminConfig();
+            showNotification('Colours saved and applied!');
+        }
+
+        const COLOUR_PRESETS = {
+            orange: { accent:'#ff6b1a', secondary:'#ffd000', bg:'#0a0a0a', surface:'#1a1a1a', text:'#ffffff' },
+            blue:   { accent:'#42a5f5', secondary:'#80d8ff', bg:'#0a0f14', surface:'#0d1520', text:'#ffffff' },
+            green:  { accent:'#66bb6a', secondary:'#a5d6a7', bg:'#080e08', surface:'#0d1a0d', text:'#ffffff' },
+            purple: { accent:'#ab47bc', secondary:'#ce93d8', bg:'#0a080e', surface:'#14101a', text:'#ffffff' },
+            red:    { accent:'#ef5350', secondary:'#ffcdd2', bg:'#0e0808', surface:'#1a0d0d', text:'#ffffff' },
+            teal:   { accent:'#26a69a', secondary:'#80cbc4', bg:'#080e0e', surface:'#0d1a1a', text:'#ffffff' },
+        };
+
+        function adminApplyPreset(name) {
+            const p = COLOUR_PRESETS[name];
+            if (!p) return;
+            document.getElementById('adm-color-accent').value    = p.accent;
+            document.getElementById('adm-color-secondary').value = p.secondary;
+            document.getElementById('adm-color-bg').value        = p.bg;
+            document.getElementById('adm-color-surface').value   = p.surface;
+            document.getElementById('adm-color-text').value      = p.text;
+            adminSaveColours();
+        }
+
+        function adminResetColours() {
+            adminApplyPreset('orange');
+        }
+
+        function adminSaveTips() {
+            const raw  = document.getElementById('adm-tips').value;
+            const tips = raw.split('\n').map(s => s.trim()).filter(Boolean);
+            saveAdminConfig({ tips });
+            window._adminTips = tips;
+            showNotification(tips.length + ' tips saved!');
+        }
+
+        function adminSaveHomeContent() {
+            const eyebrow = document.getElementById('adm-today-eyebrow').value.trim();
+            saveAdminConfig({ todayEyebrow: eyebrow });
+            applyAdminConfig();
+            showNotification('Home content saved!');
+        }
+
+        function adminSaveBanner() {
+            const text  = document.getElementById('adm-banner-text').value.trim();
+            const color = document.getElementById('adm-banner-color').value;
+            saveAdminConfig({ bannerText: text, bannerColor: color });
+            if (text) showAnnouncementBanner(text, color);
+            else {
+                const b = document.getElementById('admin-announcement-banner');
+                if (b) b.style.display = 'none';
+            }
+            showNotification(text ? 'Banner saved!' : 'Banner hidden');
+        }
+
+        // ── Workouts editor ──
+        function adminLoadWorkouts() {
+            const container = document.getElementById('adm-workout-list');
+            if (!container) return;
+            const cfg = getAdminConfig();
+            const savedNames = cfg.workoutNames || {};
+            container.innerHTML = Object.entries(muscleWorkouts).map(([key, mw]) => `
+                <div class="admin-workout-card">
+                    <div class="admin-workout-name">
+                        ${key.toUpperCase()}
+                    </div>
+                    <div class="admin-field">
+                        <label>Display Name</label>
+                        <input class="admin-input" id="adm-wname-${key}"
+                            value="${(savedNames[key] && savedNames[key].name) || mw.name}"
+                            placeholder="${mw.name}">
+                    </div>
+                    <div class="admin-workout-grid">
+                        <div class="admin-field">
+                            <label>Duration (min)</label>
+                            <input class="admin-input" id="adm-wdur-${key}" type="number" value="${mw.duration}">
+                        </div>
+                        <div class="admin-field">
+                            <label>Calories</label>
+                            <input class="admin-input" id="adm-wcal-${key}" type="number" value="${mw.calories}">
+                        </div>
+                    </div>
+                </div>`).join('');
+        }
+
+        function adminSaveWorkouts() {
+            const workoutNames = {};
+            Object.keys(muscleWorkouts).forEach(key => {
+                const name = document.getElementById('adm-wname-' + key)?.value.trim();
+                const dur  = parseInt(document.getElementById('adm-wdur-'  + key)?.value) || 0;
+                const cal  = parseInt(document.getElementById('adm-wcal-'  + key)?.value) || 0;
+                workoutNames[key] = { name, dur, cal };
+                if (name) muscleWorkouts[key].name = name;
+                if (dur)  muscleWorkouts[key].duration = dur;
+                if (cal)  muscleWorkouts[key].calories = cal;
+            });
+            saveAdminConfig({ workoutNames });
+            showNotification('Workout data saved!');
+        }
+
+        // ── Challenges editor ──
+        function adminLoadChallenges() {
+            const container = document.getElementById('adm-challenges-list');
+            if (!container) return;
+            const cfg = getAdminConfig();
+            const challenges = cfg.challenges || DAILY_CHALLENGES;
+            container.innerHTML = challenges.map((c, i) => `
+                <div class="admin-workout-card" id="adm-ch-${i}">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+                        <div style="font-size:11px;font-weight:800;color:#555;text-transform:uppercase;letter-spacing:.06em">Challenge ${i+1}</div>
+                        <button onclick="adminDeleteChallenge(${i})" style="background:rgba(239,83,80,.1);border:1px solid rgba(239,83,80,.2);color:#ef9a9a;border-radius:7px;padding:4px 10px;font-size:11px;font-weight:700;cursor:pointer">Remove</button>
+                    </div>
+                    <div class="admin-field"><label>Name</label><input class="admin-input" id="adm-chn-${i}" value="${c.name}"></div>
+                    <div class="admin-field"><label>Description</label><input class="admin-input" id="adm-chd-${i}" value="${c.desc}"></div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                        <div class="admin-field"><label>Reps Label</label><input class="admin-input" id="adm-chr-${i}" value="${c.reps}"></div>
+                        <div class="admin-field"><label>Time Label</label><input class="admin-input" id="adm-cht-${i}" value="${c.time}"></div>
+                    </div>
+                </div>`).join('');
+        }
+
+        function adminAddChallenge() {
+            const cfg = getAdminConfig();
+            const challenges = cfg.challenges || [...DAILY_CHALLENGES];
+            challenges.push({ name: 'New Challenge', desc: 'Description here', reps: '10 reps', time: '5 min', muscle: 'fullbody' });
+            saveAdminConfig({ challenges });
+            adminLoadChallenges();
+        }
+
+        function adminDeleteChallenge(i) {
+            const cfg = getAdminConfig();
+            const challenges = cfg.challenges || [...DAILY_CHALLENGES];
+            challenges.splice(i, 1);
+            saveAdminConfig({ challenges });
+            adminLoadChallenges();
+            showNotification('Challenge removed');
+        }
+
+        function adminSaveChallenges() {
+            const cfg = getAdminConfig();
+            const existing = cfg.challenges || [...DAILY_CHALLENGES];
+            const saved = existing.map((c, i) => ({
+                ...c,
+                name: document.getElementById('adm-chn-' + i)?.value || c.name,
+                desc: document.getElementById('adm-chd-' + i)?.value || c.desc,
+                reps: document.getElementById('adm-chr-' + i)?.value || c.reps,
+                time: document.getElementById('adm-cht-' + i)?.value || c.time,
+            }));
+            saveAdminConfig({ challenges: saved });
+            window._adminChallenges = saved;
+            loadDailyChallenge();
+            showNotification(saved.length + ' challenges saved!');
+        }
+
+        // ── Users / stats panel ──
+        function adminLoadUsers() {
+            const history  = JSON.parse(localStorage.getItem('workoutHistory') || '[]');
+            const badges   = JSON.parse(localStorage.getItem('earnedBadges') || '[]');
+            const profile  = JSON.parse(localStorage.getItem('userProfile') || '{}');
+            const grid     = document.getElementById('adm-stats-grid');
+            if (!grid) return;
+            const stats = [
+                { label: 'Total Workouts', val: history.length },
+                { label: 'Badges Earned',  val: badges.length },
+                { label: 'Account Name',   val: profile.name || '—' },
+                { label: 'Joined',         val: profile.createdAt || '—' },
+                { label: 'Calories Burned',val: history.reduce((s,w) => s+(w.calories||0),0) },
+                { label: 'Active Minutes', val: history.reduce((s,w) => s+(w.duration||0),0) },
+            ];
+            grid.innerHTML = stats.map(s => `
+                <div style="background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:14px;text-align:center">
+                    <div style="font-size:20px;font-weight:900;color:#ff6b1a;letter-spacing:-.4px">${s.val}</div>
+                    <div style="font-size:10px;font-weight:700;color:#444;text-transform:uppercase;letter-spacing:.06em;margin-top:4px">${s.label}</div>
+                </div>`).join('');
+        }
+
+        function adminBroadcast() {
+            const msg = document.getElementById('adm-broadcast').value.trim();
+            if (!msg) { showNotification('Enter a message first'); return; }
+            // Save broadcast to Firebase so other users see it on next load
+            if (_fbUid && window._fbDb) {
+                const r = window._fbRef(window._fbDb, 'broadcast');
+                window._fbSet(r, { message: msg, timestamp: Date.now() });
+            }
+            showAnnouncementBanner(msg, '#ff6b1a');
+            showNotification('Broadcast sent!');
+        }
+
+        function adminExportDB() {
+            const data = {};
+            const keys = ['workoutHistory','userProfile','workoutPlanner','savedPlans',
+                          'bmiData','userGoals','bodyMeasurements','personalRecords',
+                          'earnedBadges','streak','trainFavourites','adminConfig'];
+            keys.forEach(k => {
+                const v = localStorage.getItem(k);
+                if (v) try { data[k] = JSON.parse(v); } catch { data[k] = v; }
+            });
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'athly_export_' + new Date().toISOString().slice(0,10) + '.json';
+            a.click();
+            showNotification('Exported!');
+        }
+
+        window.openAdminPanel         = openAdminPanel;
+        window.closeAdminPanel        = closeAdminPanel;
+        window.switchAdminTab         = switchAdminTab;
+        window.adminSaveBranding      = adminSaveBranding;
+        window.adminSaveQuotes        = adminSaveQuotes;
+        window.adminSaveNav           = adminSaveNav;
+        window.adminPreviewColor      = adminPreviewColor;
+        window.adminSaveColours       = adminSaveColours;
+        window.adminApplyPreset       = adminApplyPreset;
+        window.adminResetColours      = adminResetColours;
+        window.adminSaveTips          = adminSaveTips;
+        window.adminSaveHomeContent   = adminSaveHomeContent;
+        window.adminSaveBanner        = adminSaveBanner;
+        window.adminSaveWorkouts      = adminSaveWorkouts;
+        window.adminLoadChallenges    = adminLoadChallenges;
+        window.adminAddChallenge      = adminAddChallenge;
+        window.adminDeleteChallenge   = adminDeleteChallenge;
+        window.adminSaveChallenges    = adminSaveChallenges;
+        window.adminBroadcast         = adminBroadcast;
+        window.adminExportDB          = adminExportDB;
 
         // ==================== MAKE FUNCTIONS GLOBAL ====================
         window.showPage = showPage;

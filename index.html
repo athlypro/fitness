@@ -7291,6 +7291,199 @@
         }
         .img-clear-btn:hover { background: rgba(239,83,80,.2); }
 
+    
+        /* ════════════════════════════════════════
+           HOME PAGE REDESIGN (reference-inspired)
+           ════════════════════════════════════════ */
+
+        /* ── New hero header ── */
+        .home-header {
+            padding: 16px 18px 12px;
+            display: flex; align-items: center; justify-content: space-between;
+            flex-shrink: 0;
+        }
+        .home-header-left { flex: 1; }
+        .home-greeting-sub {
+            font-size: 12px; font-weight: 600;
+            color: var(--text-muted); margin-bottom: 3px;
+        }
+        .home-greeting-name {
+            font-size: 22px; font-weight: 900; color: var(--text-primary);
+            letter-spacing: -.5px; line-height: 1;
+        }
+        .home-greeting-wave { margin-left: 4px; }
+        .home-header-right {
+            display: flex; align-items: center; gap: 10px;
+        }
+        .home-header-icon-btn {
+            width: 38px; height: 38px; border-radius: 50%;
+            background: var(--surface); border: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; color: var(--text-muted); flex-shrink: 0;
+            transition: all .2s;
+        }
+        .home-header-icon-btn:hover { border-color: var(--success); color: var(--success); }
+        .home-header-avatar {
+            width: 40px; height: 40px; border-radius: 50%;
+            background: linear-gradient(135deg,var(--success),#ffd000);
+            border: 2px solid var(--success);
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; overflow: hidden; flex-shrink: 0;
+        }
+        .home-header-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .home-header-avatar svg { width: 20px; height: 20px; fill: #000; }
+
+        /* ── Week day strip ── */
+        .week-strip {
+            padding: 4px 18px 14px;
+            display: flex; align-items: center; gap: 4px;
+            overflow-x: auto; scrollbar-width: none;
+        }
+        .week-strip::-webkit-scrollbar { display: none; }
+        .week-day {
+            flex: 0 0 auto; display: flex; flex-direction: column;
+            align-items: center; gap: 4px; cursor: pointer;
+            min-width: 36px;
+        }
+        .week-day-label {
+            font-size: 9px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: .06em; color: var(--text-muted);
+        }
+        .week-day-num {
+            width: 32px; height: 32px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 13px; font-weight: 800; color: var(--text-muted);
+            transition: all .2s;
+        }
+        .week-day.today .week-day-num {
+            background: var(--success); color: #000;
+            box-shadow: 0 3px 10px rgba(255,107,26,.4);
+        }
+        .week-day.has-workout .week-day-num {
+            color: var(--text-primary);
+        }
+        .week-day.has-workout::after {
+            content: ''; width: 4px; height: 4px; border-radius: 50%;
+            background: var(--success); margin-top: -2px;
+        }
+
+        /* ── Challenge banner (new style) ── */
+        .home-challenge-banner {
+            margin: 0 18px 14px;
+            background: linear-gradient(135deg, rgba(255,107,26,.15), rgba(255,208,0,.08));
+            border: 1px solid rgba(255,107,26,.3);
+            border-radius: 18px; padding: 14px 16px;
+            display: flex; align-items: center; gap: 12px;
+            cursor: pointer; transition: all .2s;
+        }
+        .home-challenge-banner:hover { border-color: var(--success); transform: translateY(-2px); }
+        .home-challenge-banner-icon {
+            width: 44px; height: 44px; border-radius: 14px;
+            background: var(--success); display: flex;
+            align-items: center; justify-content: center; flex-shrink: 0;
+        }
+        .home-challenge-banner-icon svg { width: 22px; height: 22px; fill: #000; }
+        .home-challenge-banner-info { flex: 1; min-width: 0; }
+        .home-challenge-banner-title {
+            font-size: 15px; font-weight: 900; color: var(--text-primary);
+            letter-spacing: -.3px; margin-bottom: 2px;
+        }
+        .home-challenge-banner-sub {
+            font-size: 12px; color: var(--text-muted); font-weight: 500;
+        }
+        .home-challenge-start-btn {
+            background: var(--success); color: #000; font-size: 12px; font-weight: 900;
+            padding: 8px 14px; border-radius: 10px; white-space: nowrap;
+            letter-spacing: .02em; flex-shrink: 0;
+            box-shadow: 0 3px 10px rgba(255,107,26,.35);
+        }
+
+        /* ── Workout category pills ── */
+        .home-cat-pills {
+            display: flex; gap: 8px; padding: 0 18px 16px;
+            overflow-x: auto; scrollbar-width: none;
+        }
+        .home-cat-pills::-webkit-scrollbar { display: none; }
+        .home-cat-pill {
+            flex: 0 0 auto; display: flex; align-items: center; gap: 7px;
+            padding: 9px 16px; border-radius: 50px;
+            background: var(--surface); border: 1px solid var(--border);
+            font-size: 13px; font-weight: 700; color: var(--text-muted);
+            cursor: pointer; transition: all .2s; white-space: nowrap;
+        }
+        .home-cat-pill.active {
+            background: var(--success); border-color: var(--success); color: #000;
+            box-shadow: 0 3px 12px rgba(255,107,26,.3);
+        }
+        .home-cat-pill svg { width: 14px; height: 14px; }
+
+        /* ── Featured workout cards (image-bg horizontal scroll) ── */
+        .home-section-header {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 18px 12px;
+        }
+        .home-section-title {
+            font-size: 17px; font-weight: 900; color: var(--text-primary); letter-spacing: -.3px;
+        }
+        .home-section-link {
+            font-size: 12px; font-weight: 700; color: var(--success);
+            text-decoration: none; cursor: pointer;
+        }
+        .home-featured-row {
+            display: flex; gap: 12px; padding: 0 18px 18px;
+            overflow-x: auto; scrollbar-width: none;
+        }
+        .home-featured-row::-webkit-scrollbar { display: none; }
+        .home-featured-card {
+            flex: 0 0 140px; height: 160px; border-radius: 18px;
+            overflow: hidden; position: relative; cursor: pointer;
+            transition: transform .25s;
+        }
+        .home-featured-card:hover { transform: scale(1.03); }
+        .home-featured-card-bg {
+            position: absolute; inset: 0;
+            background-size: cover; background-position: center;
+            transition: transform .4s;
+        }
+        .home-featured-card:hover .home-featured-card-bg { transform: scale(1.06); }
+        .home-featured-card-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(180deg,rgba(0,0,0,.05) 0%,rgba(0,0,0,.75) 100%);
+        }
+        .home-featured-card-body {
+            position: absolute; bottom: 0; left: 0; right: 0; padding: 12px;
+        }
+        .home-featured-card-name {
+            font-size: 13px; font-weight: 900; color: #fff;
+            letter-spacing: -.2px; margin-bottom: 4px; line-height: 1.2;
+        }
+        .home-featured-card-meta {
+            display: flex; align-items: center; gap: 5px;
+            font-size: 10px; color: rgba(255,255,255,.65); font-weight: 600;
+        }
+        .home-featured-card-meta svg { width: 10px; height: 10px; fill: rgba(255,255,255,.65); }
+
+        /* ── Recent Activity section ── */
+        .home-activity-row {
+            display: flex; align-items: center;
+            padding: 12px 18px; cursor: pointer;
+            border-radius: 16px; margin: 0 18px 8px;
+            background: var(--surface); border: 1px solid var(--border);
+            transition: all .2s;
+        }
+        .home-activity-row:hover { border-color: rgba(255,107,26,.25); background: var(--surface-hover); }
+        .home-activity-icon {
+            width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center; margin-right: 12px;
+        }
+        .home-activity-icon svg { width: 22px; height: 22px; }
+        .home-activity-info { flex: 1; min-width: 0; }
+        .home-activity-name { font-size: 14px; font-weight: 800; color: var(--text-primary); margin-bottom: 2px; }
+        .home-activity-time { font-size: 11px; color: var(--text-muted); font-weight: 500; }
+        .home-activity-stat { text-align: right; flex-shrink: 0; }
+        .home-activity-val { font-size: 22px; font-weight: 900; color: var(--text-primary); letter-spacing: -.5px; line-height: 1; }
+        .home-activity-unit { font-size: 10px; color: var(--text-muted); font-weight: 600; margin-top: 2px; }
+
     </style>
 
     <!-- Firebase SDK -->
@@ -7859,7 +8052,7 @@
             <svg class="svg-icon" data-icon="fa-check-circle" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><use href="#fa-check-circle"/></svg> <span id="notification-message"></span>
         </div>
 
-        <!-- Hero Header - Fixed at top -->
+        <!-- Hero Header - Fixed at top (hidden for home, shown for other pages) -->
         <div id="hero-header" class="hero-header">
             <div class="header-top">
                 <div class="header-greeting">
@@ -7911,143 +8104,101 @@
             <!-- Home Page -->
             <div id="home-page" class="page active-page">
 
-                <!-- Hero Cards Row -->
-                <div class="hero-cards-row">
-
-                    <!-- Motivational Quote Card -->
-                    <div class="hero-quote-card">
-                        <img class="hero-banner-img" id="hero-banner-img" src="" alt="" aria-hidden="true">
-                        <div class="hero-quote-icon">
-                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z" fill="currentColor"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z" fill="currentColor"/></svg>
-                        </div>
-                        <p class="hero-quote-text" id="hero-quote-text">"The only bad workout is the one that didn't happen."</p>
-                        <span class="hero-quote-author" id="hero-quote-author">— Unknown</span>
+                <!-- ── Top Header ── -->
+                <div class="home-header">
+                    <div class="home-header-left">
+                        <div class="home-greeting-sub" id="home-greeting-sub">Good morning</div>
+                        <div class="home-greeting-name"><span id="home-greeting-name">Athlete</span> <span class="home-greeting-wave">👋</span></div>
                     </div>
-
-                    <!-- Streak Banner + Weekly Progress Ring Row -->
-                    <div class="hero-stats-row">
-                        <!-- Streak Banner -->
-                        <div class="hero-streak-banner">
-                            <div class="hero-streak-flame">
-                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67z"/></svg>
-                            </div>
-                            <div class="hero-streak-info">
-                                <div class="hero-streak-number" id="home-streak-count">0</div>
-                                <div class="hero-streak-label">Day Streak</div>
-                            </div>
+                    <div class="home-header-right">
+                        <div class="home-header-icon-btn" onclick="showPage('profile')">
+                            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
                         </div>
-
-                        <!-- Weekly Progress Ring -->
-                        <div class="hero-ring-card" onclick="startTodaysWorkout()">
-                            <svg class="hero-ring-svg" viewBox="0 0 80 80">
-                                <circle cx="40" cy="40" r="32" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="7"/>
-                                <circle id="hero-ring-progress" cx="40" cy="40" r="32" fill="none"
-                                    stroke="#ff6b1a" stroke-width="7"
-                                    stroke-linecap="round"
-                                    stroke-dasharray="201"
-                                    stroke-dashoffset="201"
-                                    transform="rotate(-90 40 40)"
-                                    style="transition:stroke-dashoffset 1s ease"/>
-                                <text x="40" y="36" text-anchor="middle" fill="#fff" font-size="13" font-weight="900" font-family="Inter,sans-serif" id="hero-ring-num">0</text>
-                                <text x="40" y="49" text-anchor="middle" fill="rgba(255,255,255,0.45)" font-size="7" font-weight="700" font-family="Inter,sans-serif">/ 7 days</text>
-                            </svg>
-                            <div class="hero-ring-label">This Week</div>
+                        <div class="home-header-icon-btn" onclick="showPage('profile')">
+                            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67z"/></svg>
+                        </div>
+                        <div class="home-header-avatar" id="home-avatar-btn" onclick="showPage('profile')">
+                            <svg viewBox="0 0 24 24" fill="#000" width="20" height="20"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
                         </div>
                     </div>
                 </div>
 
-
-                <!-- Daily Challenge -->
-                <div class="daily-challenge-card" onclick="doChallenge()" id="daily-challenge-card">
-                    <div class="challenge-eyebrow"><svg viewBox="0 0 24 24" fill="#4fc3f7" width="10" height="10" style="vertical-align:1px"><circle cx="12" cy="12" r="6"/></svg> Daily Challenge</div>
-                    <div class="challenge-name" id="challenge-name">Loading...</div>
-                    <div class="challenge-desc" id="challenge-desc"></div>
-                    <div class="challenge-meta-row">
-                        <span class="challenge-pill" id="challenge-reps"></span>
-                        <span class="challenge-pill" id="challenge-time"></span>
-                        <span class="challenge-done-badge" id="challenge-done">✓ Done</span>
-                        <span class="challenge-cta" id="challenge-cta-btn">Start →</span>
-                    </div>
+                <!-- ── Week Day Strip ── -->
+                <div class="week-strip" id="home-week-strip">
+                    <!-- Populated by JS -->
                 </div>
 
-                <!-- Today Workout CTA (kept functional, restyled) -->
-                <div id="workout-of-the-day" class="todays-workout-cta" onclick="startTodaysWorkout()">
-                    <div class="todays-cta-left">
-                        <div class="todays-cta-eyebrow">Today's Workout</div>
-                        <div class="todays-cta-name" id="todays-workout-desc">Loading...</div>
-                        <div class="todays-cta-meta" id="todays-workout-meta">
-                            <span><svg class="svg-icon" data-icon="fa-clock" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><use href="#fa-clock"/></svg> <span id="todays-duration">0</span> min</span>
-                            <span><svg class="svg-icon" data-icon="fa-fire" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><use href="#fa-fire"/></svg> <span id="todays-calories">0</span> cal</span>
-                        </div>
+                <!-- ── Challenge Banner ── -->
+                <div class="home-challenge-banner" id="daily-challenge-card" onclick="doChallenge()">
+                    <div class="home-challenge-banner-icon">
+                        <svg viewBox="0 0 24 24"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2z"/></svg>
                     </div>
-                    <div class="todays-cta-btn">
-                        <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M8 5v14l11-7z"/></svg>
+                    <div class="home-challenge-banner-info">
+                        <div class="home-challenge-banner-title" id="challenge-name">Daily Challenge</div>
+                        <div class="home-challenge-banner-sub" id="challenge-desc">Loading your challenge...</div>
+                        <!-- hidden elements preserved for JS compatibility -->
+                        <span id="challenge-reps" style="display:none"></span>
+                        <span id="challenge-time" style="display:none"></span>
+                        <span id="challenge-done" style="display:none"></span>
                     </div>
+                    <div class="home-challenge-start-btn" id="challenge-cta-btn">START</div>
                 </div>
 
-                <!-- Quick Start Workouts -->
-                <div class="section-title">
-                    <h2>Quick Start</h2>
-                    <a href="#" onclick="showPage('workout'); return false;">See all</a>
-                </div>
-                <div class="hscroll-row">
-                    <div class="hscroll-card" onclick="startMuscleWorkout('fullbody')">
-                        <div class="hscroll-card-icon" style="background:linear-gradient(135deg,#ff6b1a22,#ff6b1a11)">
-                            <svg viewBox="0 0 24 24" fill="#ff6b1a" width="26" height="26"><path d="M12 2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 7h-6v13h-2v-6h-2v6H9V9H3V7h18v2z"/></svg>
-                        </div>
-                        <div class="hscroll-card-name">Full Body</div>
-                        <div class="hscroll-card-meta">20 min · 250 cal</div>
-                        <div class="hscroll-card-tag">Beginner</div>
+                <!-- ── Category Pills ── -->
+                <div class="home-cat-pills">
+                    <div class="home-cat-pill active" onclick="homeCatFilter('all')" id="hcat-all">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 7h-6v13h-2v-6h-2v6H9V9H3V7h18v2z"/></svg>
+                        All
                     </div>
-                    <div class="hscroll-card" onclick="startMuscleWorkout('abs')">
-                        <div class="hscroll-card-icon" style="background:linear-gradient(135deg,#ffd00022,#ffd00011)">
-                            <svg viewBox="0 0 24 24" fill="#ffd000" width="26" height="26"><path d="M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9l1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z"/></svg>
-                        </div>
-                        <div class="hscroll-card-name">Core</div>
-                        <div class="hscroll-card-meta">15 min · 150 cal</div>
-                        <div class="hscroll-card-tag">All Levels</div>
+                    <div class="home-cat-pill" onclick="homeCatFilter('warmup')" id="hcat-warmup">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9l1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z"/></svg>
+                        Warm Up
                     </div>
-                    <div class="hscroll-card" onclick="startMuscleWorkout('arms')">
-                        <div class="hscroll-card-icon" style="background:linear-gradient(135deg,#ff6b1a22,#ff6b1a11)">
-                            <svg viewBox="0 0 24 24" fill="#ff6b1a" width="26" height="26"><path d="M21 7c0-1.1-.9-2-2-2h-2.27c.17-.31.27-.66.27-1 0-1.2-1.02-2-2-2-1.03 0-2 .81-2 2v1.54c-.23-.06-.48-.1-.73-.1C11.22 5.44 10 6.47 10 7.73v.27c-.25-.06-.5-.1-.75-.1-1.03 0-2.25.8-2.25 2.1v.5c-.27-.06-.53-.1-.78-.1-1.14 0-2.22.83-2.22 2.17V17c0 2.21 1.79 4 4 4h3.79c.98 0 1.96-.32 2.75-.9L19 15.16V9c0-1.1-.9-2-2-2z"/></svg>
-                        </div>
-                        <div class="hscroll-card-name">Arms</div>
-                        <div class="hscroll-card-meta">18 min · 180 cal</div>
-                        <div class="hscroll-card-tag">Intermediate</div>
+                    <div class="home-cat-pill" onclick="homeCatFilter('cardio')" id="hcat-cardio">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg>
+                        Cardio
                     </div>
-                    <div class="hscroll-card" onclick="startMuscleWorkout('legs')">
-                        <div class="hscroll-card-icon" style="background:linear-gradient(135deg,#ffd00022,#ffd00011)">
-                            <svg viewBox="0 0 24 24" fill="#ffd000" width="26" height="26"><path d="M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9l1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z"/></svg>
-                        </div>
-                        <div class="hscroll-card-name">Legs</div>
-                        <div class="hscroll-card-meta">22 min · 220 cal</div>
-                        <div class="hscroll-card-tag">Beginner</div>
-                    </div>
-                    <div class="hscroll-card" onclick="startMuscleWorkout('cardio')">
-                        <div class="hscroll-card-icon" style="background:linear-gradient(135deg,#ff6b1a22,#ff6b1a11)">
-                            <svg viewBox="0 0 24 24" fill="#ff6b1a" width="26" height="26"><path d="M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9l1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z"/></svg>
-                        </div>
-                        <div class="hscroll-card-name">Cardio</div>
-                        <div class="hscroll-card-meta">15 min · 200 cal</div>
-                        <div class="hscroll-card-tag">All Levels</div>
-                    </div>
-                    <div class="hscroll-card" onclick="startMuscleWorkout('chest')">
-                        <div class="hscroll-card-icon" style="background:linear-gradient(135deg,#ffd00022,#ffd00011)">
-                            <svg viewBox="0 0 24 24" fill="#ffd000" width="26" height="26"><path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"/></svg>
-                        </div>
-                        <div class="hscroll-card-name">Chest</div>
-                        <div class="hscroll-card-meta">25 min · 280 cal</div>
-                        <div class="hscroll-card-tag">Intermediate</div>
+                    <div class="home-cat-pill" onclick="homeCatFilter('strength')" id="hcat-strength">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43l-1.43-1.44-2.85 2.85 1.44 1.43L3.43 9.14 2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43 1.44 1.43 2.85-2.85-1.44-1.43z"/></svg>
+                        Strength
                     </div>
                 </div>
 
-                <!-- Recent Workouts -->
-                <div class="section-title">
-                    <h2>Recent Workouts</h2>
+                <!-- ── Featured Workouts ── -->
+                <div class="home-section-header">
+                    <div class="home-section-title">Featured</div>
+                    <div class="home-section-link" onclick="showPage('workout')">See all</div>
                 </div>
-                <div id="recent-workouts">
-                    <!-- Populated by JavaScript -->
+                <div class="home-featured-row" id="home-featured-row">
+                    <!-- Populated by JS -->
                 </div>
+
+                <!-- ── Recent Activity ── -->
+                <div class="home-section-header" style="margin-top:4px">
+                    <div class="home-section-title">Recent Activity</div>
+                    <div class="home-section-link" onclick="showAllWorkouts()">
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14" style="vertical-align:-2px"><path d="M3 18h13v-2H3v2zm0-5h10v-2H3v2zm0-7v2h13V6H3zm18 9.59L17.42 12 21 8.41 19.59 7l-5 5 5 5L21 15.59z"/></svg>
+                    </div>
+                </div>
+                <div id="home-activity-list">
+                    <!-- Populated by JS -->
+                </div>
+
+                <!-- hidden elements for JS compatibility -->
+                <div style="display:none">
+                    <div id="hero-ring-progress"></div>
+                    <div id="hero-ring-num"></div>
+                    <div id="home-streak-count"></div>
+                    <img id="hero-banner-img" src="" alt="">
+                    <div id="hero-quote-text"></div>
+                    <div id="hero-quote-author"></div>
+                    <div id="workout-of-the-day"></div>
+                    <div id="todays-workout-desc"></div>
+                    <div id="todays-duration"></div>
+                    <div id="todays-calories"></div>
+                    <div id="recent-workouts"></div>
+                </div>
+
             </div>
 
 
@@ -10616,6 +10767,7 @@
             updateHomeHero();
             loadDailyChallenge();
             checkAndAwardBadges();
+            renderNewHome();
             // Show home page with hero header
             showPage('home');
             
@@ -13074,6 +13226,7 @@
                 loadProfile();
                 updateHomeHero();
                 loadDailyChallenge();
+                renderNewHome();
                 updateHomeSummary();
                 updateStreak();
                 updateStats();
@@ -15783,6 +15936,148 @@
 
         // ── Load images panel when switching to it ──
 
+
+
+        // ══════════════════════════════════════════════════════
+        // HOME PAGE — REDESIGNED
+        // ══════════════════════════════════════════════════════
+
+        const FEATURED_WORKOUTS = [
+            { key:'chest',    name:'Chest Day',   label:'Push Day',   dur:25, cal:280, grad:'linear-gradient(145deg,#5a1010,#3a0808)' },
+            { key:'legs',     name:'Leg Day',     label:'Lower Body', dur:28, cal:300, grad:'linear-gradient(145deg,#0a3010,#062008)' },
+            { key:'abs',      name:'Core Blast',  label:'Core',       dur:18, cal:180, grad:'linear-gradient(145deg,#2a2800,#1a1800)' },
+            { key:'back',     name:'Back Power',  label:'Pull Day',   dur:25, cal:270, grad:'linear-gradient(145deg,#082828,#041818)' },
+            { key:'fullbody', name:'Full Body',   label:'Total Body', dur:35, cal:380, grad:'linear-gradient(145deg,#2a1400,#1a0c00)' },
+            { key:'cardio',   name:'Cardio HIIT', label:'Cardio',     dur:20, cal:300, grad:'linear-gradient(145deg,#001828,#001018)' },
+        ];
+
+        let _homeCatFilter = 'all';
+
+        function renderHomeWeekStrip() {
+            const strip = document.getElementById('home-week-strip');
+            if (!strip) return;
+            const history = JSON.parse(localStorage.getItem('workoutHistory') || '[]');
+            const today = new Date();
+            const todayIdx = today.getDay(); // 0=Sun
+            const DAYS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+            // Show 7 days: Mon-Sun of current week
+            const startOfWeek = new Date(today);
+            startOfWeek.setDate(today.getDate() - todayIdx + 1); // Mon
+            strip.innerHTML = '';
+            for (let i = 0; i < 7; i++) {
+                const d = new Date(startOfWeek);
+                d.setDate(startOfWeek.getDate() + i);
+                d.setHours(0,0,0,0);
+                const isToday = d.toDateString() === today.toDateString();
+                const hasWorkout = history.some(w => {
+                    const wd = new Date(w.date); wd.setHours(0,0,0,0);
+                    return wd.getTime() === d.getTime();
+                });
+                const div = document.createElement('div');
+                div.className = 'week-day' + (isToday?' today':'') + (hasWorkout?' has-workout':'');
+                div.innerHTML = `
+                    <div class="week-day-label">${DAYS[(i+1)%7]}</div>
+                    <div class="week-day-num">${d.getDate()}</div>
+                `;
+                strip.appendChild(div);
+            }
+        }
+
+        function renderHomeFeatured() {
+            const row = document.getElementById('home-featured-row');
+            if (!row) return;
+            const savedMuscles = JSON.parse(localStorage.getItem('adminImg_muscles') || '{}');
+            let list = FEATURED_WORKOUTS;
+            if (_homeCatFilter !== 'all') {
+                const map = { warmup:['fullbody','cardio'], cardio:['cardio'], strength:['chest','back','arms','shoulders','legs','abs','glutes'] };
+                const keys = map[_homeCatFilter] || [];
+                list = list.filter(w => keys.includes(w.key));
+            }
+            if (!list.length) list = FEATURED_WORKOUTS;
+            row.innerHTML = list.map(w => {
+                const imgSrc = (savedMuscles[w.key] || (window.MUSCLE_META && window.MUSCLE_META[w.key] && window.MUSCLE_META[w.key].img) || '');
+                const bgStyle = imgSrc
+                    ? `background-image:url('${imgSrc}');background-color:transparent`
+                    : `background:${w.grad}`;
+                return `
+                <div class="home-featured-card" onclick="startMuscleWorkout('${w.key}')">
+                    <div class="home-featured-card-bg" style="${bgStyle}"></div>
+                    <div class="home-featured-card-overlay"></div>
+                    <div class="home-featured-card-body">
+                        <div class="home-featured-card-name">${w.name}</div>
+                        <div class="home-featured-card-meta">
+                            <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm4.24 16L12 15.45 7.77 18l1.12-4.81-3.73-3.23 4.92-.42L12 5l1.92 4.53 4.92.42-3.73 3.23L16.23 18z"/></svg>
+                            ${w.dur} min
+                            <span style="margin:0 3px;opacity:.4">·</span>
+                            ${w.cal} cal
+                        </div>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        function renderHomeActivity() {
+            const list = document.getElementById('home-activity-list');
+            if (!list) return;
+            const history = JSON.parse(localStorage.getItem('workoutHistory') || '[]');
+            if (!history.length) {
+                list.innerHTML = `<div style="text-align:center;padding:20px 18px;color:var(--text-muted);font-size:13px">No workouts yet — start your first session!</div>`;
+                return;
+            }
+            const COLORS = ['#ff6b1a','#ffd000','#4fc3f7','#81c784','#ce93d8','#ef9a9a'];
+            list.innerHTML = history.slice(0,4).map((w,i) => {
+                const c = COLORS[i % COLORS.length];
+                const alpha = c.replace('#','');
+                return `
+                <div class="home-activity-row" onclick="showPage('profile')">
+                    <div class="home-activity-icon" style="background:${c}22">
+                        <svg viewBox="0 0 24 24" fill="${c}" width="22" height="22">
+                            <path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43l-1.43-1.44-2.85 2.85 1.44 1.43L3.43 9.14 2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43 1.44 1.43 2.85-2.85-1.44-1.43z"/>
+                        </svg>
+                    </div>
+                    <div class="home-activity-info">
+                        <div class="home-activity-name">${w.name || 'Workout'}</div>
+                        <div class="home-activity-time">${w.date || ''}</div>
+                    </div>
+                    <div class="home-activity-stat">
+                        <div class="home-activity-val" style="color:${c}">${w.calories || 0}</div>
+                        <div class="home-activity-unit">cal</div>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        function homeCatFilter(cat) {
+            _homeCatFilter = cat;
+            document.querySelectorAll('.home-cat-pill').forEach(p => p.classList.remove('active'));
+            const el = document.getElementById('hcat-' + cat);
+            if (el) el.classList.add('active');
+            renderHomeFeatured();
+        }
+        window.homeCatFilter = homeCatFilter;
+
+        function updateHomeGreeting() {
+            const h = new Date().getHours();
+            const greeting = h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening';
+            const subEl = document.getElementById('home-greeting-sub');
+            if (subEl) subEl.textContent = greeting;
+            const profile = JSON.parse(localStorage.getItem('userProfile') || '{}');
+            const nameEl = document.getElementById('home-greeting-name');
+            if (nameEl) nameEl.textContent = profile.name || 'Athlete';
+            // Avatar
+            const avatarEl = document.getElementById('home-avatar-btn');
+            if (avatarEl && profile.avatarImage) {
+                avatarEl.innerHTML = '<img src="' + profile.avatarImage + '" style="width:100%;height:100%;object-fit:cover;border-radius:50%">';
+            }
+        }
+
+        function renderNewHome() {
+            updateHomeGreeting();
+            renderHomeWeekStrip();
+            renderHomeFeatured();
+            renderHomeActivity();
+        }
+        window.renderNewHome = renderNewHome;
 
         // ==================== MAKE FUNCTIONS GLOBAL ====================
         window.showPage = showPage;

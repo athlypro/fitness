@@ -92,7 +92,7 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            border-bottom: 1px solid rgba(255,255,255,0.06);
+            border-bottom: none;
         }
 
         .header-top {
@@ -3877,7 +3877,7 @@
             display: flex;
             justify-content: space-around;
             padding: 16px 0 14px;
-            border-top: 1px solid var(--border);
+            border-top: none;
             z-index: 100;
             flex-shrink: 0;
             position: sticky;
@@ -4478,7 +4478,7 @@
 
         .app-container {
             background: #0a0a0a;
-            box-shadow: 0 0 80px rgba(0,0,0,0.9), 0 0 0 1px rgba(255,255,255,0.04);
+            box-shadow: 0 0 80px rgba(0,0,0,0.9);
         }
 
         /* ---- Scrollbar ---- */
@@ -5393,30 +5393,30 @@
 
         /* ── Global ── */
         body { background: #050505; }
-        .app-container { box-shadow: 0 0 80px rgba(0,0,0,0.9), 0 0 0 1px rgba(255,255,255,0.04); background:#0a0a0a; }
+        .app-container { box-shadow: 0 0 80px rgba(0,0,0,0.9); background:#0a0a0a; }
         .content::-webkit-scrollbar { width:3px; }
         .content::-webkit-scrollbar-thumb { background:rgba(255,255,255,0.12); border-radius:10px; }
 
         /* ── Headers ── */
-        .hero-header { background:#0a0a0a; border-bottom:1px solid var(--border); }
+        .hero-header { background:#0a0a0a; border-bottom: none; }
         .header-greeting p { font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--success); margin-bottom:3px; }
         .header-greeting h1 { font-size:24px; font-weight:900; letter-spacing:-.5px; color:#fff; background:none; -webkit-text-fill-color:#fff; }
         .header-streak { background:rgba(255,107,26,.12); border:1px solid rgba(255,107,26,.3); color:var(--success); font-weight:700; }
         .header-avatar { border:2px solid var(--border); border-radius:50%; overflow:hidden; }
         .header-avatar:hover { border-color:var(--success); }
         .summary-item { background:rgba(255,255,255,.04); border:1px solid var(--border); border-radius:14px; position:relative; overflow:hidden; }
-        .summary-item::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--success),var(--danger)); opacity:0; transition:.3s; }
-        .summary-item:hover::before { opacity:1; }
+        .summary-item::before { display: none; }
+        .summary-item:hover::before { display: none; }
         .summary-value { font-size:19px; font-weight:900; letter-spacing:-.5px; }
         .summary-label { font-size:10px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--text-muted); }
 
-        .regular-header { background:rgba(10,10,10,.97); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border-bottom:1px solid var(--border); }
+        .regular-header { background:rgba(10,10,10,.97); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border-bottom: none; }
         .regular-header h2 { font-size:17px; font-weight:800; letter-spacing:-.3px; color:#fff; background:none; -webkit-text-fill-color:#fff; }
         .back-btn { background:rgba(255,255,255,.07); border:1px solid var(--border); border-radius:10px; }
         .back-btn:hover { background:rgba(255,255,255,.12); transform:none; }
 
         /* ── Bottom Nav ── */
-        .bottom-nav { background:rgba(8,8,8,.97); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); border-top:1px solid var(--border); padding:10px 8px 14px; }
+        .bottom-nav { background:rgba(8,8,8,.97); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); border-top: none; padding:10px 8px 14px; }
         .nav-item { color:#3a3a3a; border-radius:14px; transition:all .2s; padding:6px 4px; }
         .nav-item .svg-icon { width:26px; height:26px; margin-bottom:4px; }
         .nav-item span { font-size:11px; font-weight:700; letter-spacing:.01em; }
@@ -7402,7 +7402,7 @@
         .home-challenge-banner {
             margin: 0 18px 14px;
             background: linear-gradient(135deg, rgba(255,107,26,.15), rgba(255,208,0,.08));
-            border: 1px solid rgba(255,107,26,.3);
+            border: none;
             border-radius: 18px; padding: 14px 16px;
             display: flex; align-items: center; gap: 12px;
             cursor: pointer; transition: all .2s;
@@ -7517,7 +7517,7 @@
 
     
         /* ── Ensure no banner renders when empty ── */
-        #admin-announcement-banner:empty { display: none !important; }
+        #admin-announcement-banner { display: none !important; height: 0 !important; padding: 0 !important; margin: 0 !important; border: none !important; }
 </style>
 
     <!-- Firebase SDK -->
@@ -10702,9 +10702,9 @@
 
         document.addEventListener('DOMContentLoaded', function() {
             console.log('App initializing...');
-            // Hide announcement banner until valid text is confirmed
+            // Permanently hide announcement banner on startup
             const _initBanner = document.getElementById('admin-announcement-banner');
-            if (_initBanner) _initBanner.style.display = 'none';
+            if (_initBanner) { _initBanner.style.display = 'none'; _initBanner.remove(); }
             
             // Initialize all data
             initializeData();
@@ -15139,9 +15139,7 @@
                     window._fbOnValue(bcastRef, snap => {
                         if (snap && snap.exists && snap.exists()) {
                             const val = snap.val();
-                            if (val && val.message && val.message.trim()) {
-                                showAnnouncementBanner(val.message, val.color || '#ff6b1a');
-                            }
+                            // Broadcast banner disabled
                         }
                     });
                 } catch(e) { console.warn('Admin listener error:', e); }
@@ -15358,8 +15356,7 @@
             }
 
             // Announcement banner
-            // Banner only shown if explicitly non-empty
-if (cfg.bannerText && cfg.bannerText.trim().length > 0) showAnnouncementBanner(cfg.bannerText, cfg.bannerColor || '#ff6b1a');
+            // Announcement banner disabled
 
             // Workout names
             if (cfg.workoutNames) {
@@ -15378,8 +15375,7 @@ if (cfg.bannerText && cfg.bannerText.trim().length > 0) showAnnouncementBanner(c
         }
 
         function showAnnouncementBanner(text, color) {
-            // Never show empty banners
-            if (!text || !text.trim()) return;
+            return; // Announcement banner permanently disabled
             let banner = document.getElementById('admin-announcement-banner');
             if (!banner) {
                 banner = document.createElement('div');

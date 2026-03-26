@@ -92,7 +92,7 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            border-bottom: none;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
         }
 
         .header-top {
@@ -3392,37 +3392,6 @@
             margin-bottom: 16px;
             position: relative;
         }
-        #profile-name-display {
-            font-size: 22px;
-            font-weight: 900;
-            color: var(--text-primary) !important;
-            -webkit-text-fill-color: var(--text-primary) !important;
-            background: none !important;
-            letter-spacing: -.4px;
-            margin-bottom: 6px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid rgba(255,255,255,0.12);
-            display: inline-block;
-            min-width: 140px;
-        }
-        #profile-email-display {
-            font-size: 13px;
-            font-weight: 500;
-            color: rgba(255,255,255,0.55) !important;
-            margin-top: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-        }
-        #profile-email-display::before {
-            content: '';
-            display: inline-block;
-            width: 6px; height: 6px;
-            border-radius: 50%;
-            background: var(--success);
-            flex-shrink: 0;
-        }
 
         .profile-avatar-large {
             width: 100px;
@@ -3877,7 +3846,7 @@
             display: flex;
             justify-content: space-around;
             padding: 16px 0 14px;
-            border-top: none;
+            border-top: 1px solid var(--border);
             z-index: 100;
             flex-shrink: 0;
             position: sticky;
@@ -4478,7 +4447,7 @@
 
         .app-container {
             background: #0a0a0a;
-            box-shadow: 0 0 80px rgba(0,0,0,0.9);
+            box-shadow: 0 0 80px rgba(0,0,0,0.9), 0 0 0 1px rgba(255,255,255,0.04);
         }
 
         /* ---- Scrollbar ---- */
@@ -5393,30 +5362,30 @@
 
         /* ── Global ── */
         body { background: #050505; }
-        .app-container { box-shadow: 0 0 80px rgba(0,0,0,0.9); background:#0a0a0a; }
+        .app-container { box-shadow: 0 0 80px rgba(0,0,0,0.9), 0 0 0 1px rgba(255,255,255,0.04); background:#0a0a0a; }
         .content::-webkit-scrollbar { width:3px; }
         .content::-webkit-scrollbar-thumb { background:rgba(255,255,255,0.12); border-radius:10px; }
 
         /* ── Headers ── */
-        .hero-header { background:#0a0a0a; border-bottom: none; }
+        .hero-header { background:#0a0a0a; border-bottom:1px solid var(--border); }
         .header-greeting p { font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--success); margin-bottom:3px; }
         .header-greeting h1 { font-size:24px; font-weight:900; letter-spacing:-.5px; color:#fff; background:none; -webkit-text-fill-color:#fff; }
         .header-streak { background:rgba(255,107,26,.12); border:1px solid rgba(255,107,26,.3); color:var(--success); font-weight:700; }
         .header-avatar { border:2px solid var(--border); border-radius:50%; overflow:hidden; }
         .header-avatar:hover { border-color:var(--success); }
         .summary-item { background:rgba(255,255,255,.04); border:1px solid var(--border); border-radius:14px; position:relative; overflow:hidden; }
-        .summary-item::before { display: none; }
-        .summary-item:hover::before { display: none; }
+        .summary-item::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--success),var(--danger)); opacity:0; transition:.3s; }
+        .summary-item:hover::before { opacity:1; }
         .summary-value { font-size:19px; font-weight:900; letter-spacing:-.5px; }
         .summary-label { font-size:10px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--text-muted); }
 
-        .regular-header { background:rgba(10,10,10,.97); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border-bottom: none; }
+        .regular-header { background:rgba(10,10,10,.97); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border-bottom:1px solid var(--border); }
         .regular-header h2 { font-size:17px; font-weight:800; letter-spacing:-.3px; color:#fff; background:none; -webkit-text-fill-color:#fff; }
         .back-btn { background:rgba(255,255,255,.07); border:1px solid var(--border); border-radius:10px; }
         .back-btn:hover { background:rgba(255,255,255,.12); transform:none; }
 
         /* ── Bottom Nav ── */
-        .bottom-nav { background:rgba(8,8,8,.97); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); border-top: none; padding:10px 8px 14px; }
+        .bottom-nav { background:rgba(8,8,8,.97); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); border-top:1px solid var(--border); padding:10px 8px 14px; }
         .nav-item { color:#3a3a3a; border-radius:14px; transition:all .2s; padding:6px 4px; }
         .nav-item .svg-icon { width:26px; height:26px; margin-bottom:4px; }
         .nav-item span { font-size:11px; font-weight:700; letter-spacing:.01em; }
@@ -5782,7 +5751,7 @@
         }
         .rm-field input:focus { border-color: var(--success); box-shadow: 0 0 0 3px rgba(255,107,26,.15); }
         .rm-result {
-            background: rgba(255,107,26,.1);
+            background: linear-gradient(135deg, rgba(255,107,26,.15), rgba(255,208,0,.08));
             border: 1px solid rgba(255,107,26,.3); border-radius: 18px;
             padding: 20px; text-align: center; margin: 20px 0;
         }
@@ -7051,802 +7020,7 @@
         }
         .auth-user-name { font-size: 12px; font-weight: 700; color: rgba(255,255,255,.8); max-width: 80px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-    
-        /* ════════════════════════════════════════
-           ADMIN PANEL
-           ════════════════════════════════════════ */
-        .admin-panel {
-            position: fixed; inset: 0; z-index: 9500;
-            background: #080808; display: flex; flex-direction: column;
-            overflow: hidden;
-        }
-        .admin-panel.hidden { display: none; }
-
-        /* ── Admin header ── */
-        .admin-header {
-            background: #111; border-bottom: 1px solid #222;
-            padding: 14px 18px; display: flex; align-items: center; gap: 12px;
-            flex-shrink: 0;
-        }
-        .admin-logo {
-            width: 34px; height: 34px; border-radius: 10px;
-            background: linear-gradient(135deg,#ff6b1a,#ffd000);
-            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-        }
-        .admin-logo svg { width: 18px; height: 18px; fill: #000; }
-        .admin-title { font-size: 16px; font-weight: 900; color: #fff; flex: 1; }
-        .admin-badge {
-            font-size: 9px; font-weight: 800; letter-spacing: .08em;
-            text-transform: uppercase; background: #ff6b1a; color: #000;
-            padding: 3px 8px; border-radius: 5px;
-        }
-        .admin-close-btn {
-            width: 32px; height: 32px; border-radius: 9px;
-            background: rgba(255,255,255,.07); border: 1px solid #222;
-            color: #fff; cursor: pointer; display: flex;
-            align-items: center; justify-content: center; flex-shrink: 0;
-        }
-
-        /* ── Tab bar ── */
-        .admin-tabs {
-            display: flex; background: #0e0e0e; border-bottom: 1px solid #1a1a1a;
-            overflow-x: auto; scrollbar-width: none; flex-shrink: 0;
-        }
-        .admin-tabs::-webkit-scrollbar { display: none; }
-        .admin-tab {
-            flex: 0 0 auto; padding: 12px 18px; font-size: 12px; font-weight: 700;
-            color: #444; cursor: pointer; border-bottom: 2px solid transparent;
-            white-space: nowrap; transition: all .2s;
-        }
-        .admin-tab.active { color: #ff6b1a; border-bottom-color: #ff6b1a; }
-        .admin-tab:hover { color: #888; }
-
-        /* ── Content area ── */
-        .admin-content {
-            flex: 1; overflow-y: auto; padding: 20px 18px 32px;
-            scrollbar-width: thin; scrollbar-color: #222 transparent;
-        }
-        .admin-section { margin-bottom: 28px; }
-        .admin-section-title {
-            font-size: 11px; font-weight: 800; letter-spacing: .1em;
-            text-transform: uppercase; color: #444; margin-bottom: 14px;
-            padding-bottom: 8px; border-bottom: 1px solid #1a1a1a;
-        }
-        .admin-panel-inner { display: none; }
-        .admin-panel-inner.active { display: block; }
-
-        /* ── Field ── */
-        .admin-field { margin-bottom: 14px; }
-        .admin-field label {
-            display: block; font-size: 11px; font-weight: 700;
-            color: #555; margin-bottom: 6px; text-transform: uppercase; letter-spacing: .05em;
-        }
-        .admin-input {
-            width: 100%; padding: 11px 14px; background: #111;
-            border: 1px solid #222; border-radius: 11px; color: #fff;
-            font-size: 13px; font-weight: 500; outline: none;
-            transition: border-color .2s; box-sizing: border-box;
-        }
-        .admin-input:focus { border-color: #ff6b1a; }
-        .admin-textarea {
-            width: 100%; padding: 11px 14px; background: #111;
-            border: 1px solid #222; border-radius: 11px; color: #fff;
-            font-size: 13px; font-weight: 500; outline: none; resize: vertical;
-            min-height: 80px; box-sizing: border-box; transition: border-color .2s;
-        }
-        .admin-textarea:focus { border-color: #ff6b1a; }
-
-        /* ── Colour picker row ── */
-        .admin-color-row {
-            display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
-        }
-        .admin-color-label { font-size: 12px; font-weight: 600; color: #666; flex: 1; }
-        .admin-color-swatch {
-            width: 36px; height: 36px; border-radius: 9px; cursor: pointer;
-            border: 2px solid #333; flex-shrink: 0; transition: transform .15s;
-        }
-        .admin-color-swatch:hover { transform: scale(1.1); }
-        .admin-color-input { width: 90px; }
-        .admin-color-preview {
-            width: 36px; height: 36px; border-radius: 9px;
-            border: 2px solid #333; flex-shrink: 0;
-        }
-
-        /* ── Save button ── */
-        .admin-save-btn {
-            padding: 12px 20px; background: #ff6b1a; color: #000;
-            border: none; border-radius: 11px; font-size: 13px; font-weight: 900;
-            cursor: pointer; transition: all .2s; letter-spacing: -.1px;
-        }
-        .admin-save-btn:hover { background: #ff7c35; transform: translateY(-1px); }
-        .admin-save-btn.full { width: 100%; padding: 14px; font-size: 14px; margin-top: 6px; }
-        .admin-save-btn.secondary {
-            background: #1a1a1a; color: #fff; border: 1px solid #333;
-            box-shadow: none;
-        }
-        .admin-save-btn.secondary:hover { background: #222; transform: none; }
-
-        /* ── Workout editor card ── */
-        .admin-workout-card {
-            background: #111; border: 1px solid #1e1e1e; border-radius: 14px;
-            padding: 14px; margin-bottom: 10px;
-        }
-        .admin-workout-name {
-            font-size: 14px; font-weight: 800; color: #fff; margin-bottom: 10px;
-            display: flex; align-items: center; justify-content: space-between;
-        }
-        .admin-workout-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-
-        /* ── Exercise row ── */
-        .admin-ex-row {
-            display: flex; align-items: center; gap: 8px;
-            background: #0d0d0d; border: 1px solid #1a1a1a;
-            border-radius: 10px; padding: 10px 12px; margin-bottom: 6px;
-        }
-        .admin-ex-name { flex: 1; font-size: 12px; font-weight: 700; color: #ccc; }
-        .admin-ex-val {
-            width: 44px; padding: 5px 6px; background: #1a1a1a;
-            border: 1px solid #252525; border-radius: 7px; color: #fff;
-            font-size: 12px; font-weight: 700; text-align: center; outline: none;
-        }
-        .admin-ex-label { font-size: 9px; color: #444; text-transform: uppercase; letter-spacing: .04em; margin-right: 2px; }
-
-        /* ── Nav link editor ── */
-        .admin-nav-row {
-            display: flex; align-items: center; gap: 10px;
-            background: #111; border: 1px solid #1e1e1e;
-            border-radius: 11px; padding: 12px 14px; margin-bottom: 8px;
-        }
-        .admin-nav-icon { width: 28px; height: 28px; border-radius: 7px; background: rgba(255,107,26,.15); display: flex; align-items: center; justify-content: center; color: #ff6b1a; flex-shrink: 0; }
-
-        /* ── Status ── */
-        .admin-status {
-            padding: 8px 12px; border-radius: 9px; font-size: 12px; font-weight: 700;
-            margin-top: 8px; display: none;
-        }
-        .admin-status.show { display: block; }
-        .admin-status.ok  { background: rgba(129,199,132,.12); color: #81c784; border: 1px solid rgba(129,199,132,.25); }
-        .admin-status.err { background: rgba(239,154,154,.12); color: #ef9a9a; border: 1px solid rgba(239,154,154,.25); }
-
-        /* ── Admin fab button (only for admin) ── */
-        .admin-fab {
-            position: fixed; bottom: 84px; right: 16px; z-index: 8000;
-            width: 44px; height: 44px; border-radius: 14px;
-            background: linear-gradient(135deg,#ff6b1a,#ffd000);
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; box-shadow: 0 4px 16px rgba(255,107,26,.5);
-            transition: all .2s; display: none;
-        }
-        .admin-fab:hover { transform: scale(1.08); }
-        .admin-fab svg { width: 20px; height: 20px; fill: #000; }
-
-    
-        /* ════════════════════════════════════════
-           ADMIN IMAGE MANAGER
-           ════════════════════════════════════════ */
-        .img-zone-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px;
-        }
-        .img-zone-card {
-            background: #111; border: 1px solid #222; border-radius: 14px;
-            overflow: hidden; cursor: pointer; position: relative;
-            transition: all .2s;
-        }
-        .img-zone-card:hover { border-color: #ff6b1a; }
-        .img-zone-card.wide { grid-column: 1 / -1; }
-        .img-zone-preview {
-            width: 100%; aspect-ratio: 16/9; object-fit: cover;
-            display: block; background: #0d0d0d;
-        }
-        .img-zone-preview.square { aspect-ratio: 1; }
-        .img-zone-preview.banner { aspect-ratio: 3/1; }
-        .img-zone-label {
-            padding: 8px 10px; font-size: 11px; font-weight: 700;
-            color: #666; text-transform: uppercase; letter-spacing: .06em;
-            display: flex; align-items: center; justify-content: space-between;
-        }
-        .img-zone-label span { color: #333; font-size: 10px; font-weight: 600; text-transform: none; letter-spacing: 0; }
-        .img-zone-upload-overlay {
-            position: absolute; inset: 0; background: rgba(255,107,26,.12);
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            gap: 6px; opacity: 0; transition: opacity .2s; cursor: pointer;
-        }
-        .img-zone-card:hover .img-zone-upload-overlay { opacity: 1; }
-        .img-zone-upload-overlay svg { width: 28px; height: 28px; fill: #ff6b1a; }
-        .img-zone-upload-overlay span { font-size: 11px; font-weight: 700; color: #ff6b1a; }
-        .img-zone-card input[type=file] { display: none; }
-
-        /* Upload-all grid: exercise list */
-        .img-ex-list { display: flex; flex-direction: column; gap: 8px; max-height: 480px; overflow-y: auto; padding-right: 4px; }
-        .img-ex-row {
-            display: flex; align-items: center; gap: 10px;
-            background: #111; border: 1px solid #1e1e1e; border-radius: 12px; padding: 8px 10px;
-        }
-        .img-ex-thumb-wrap { position: relative; width: 52px; height: 52px; flex-shrink: 0; cursor: pointer; }
-        .img-ex-thumb-wrap img { width: 52px; height: 52px; border-radius: 10px; object-fit: cover; border: 1px solid #2a2a2a; }
-        .img-ex-thumb-overlay {
-            position: absolute; inset: 0; border-radius: 10px;
-            background: rgba(255,107,26,.5); display: flex; align-items: center;
-            justify-content: center; opacity: 0; transition: opacity .15s;
-        }
-        .img-ex-thumb-wrap:hover .img-ex-thumb-overlay { opacity: 1; }
-        .img-ex-thumb-overlay svg { width: 18px; height: 18px; fill: #fff; }
-        .img-ex-thumb-wrap input[type=file] { display: none; }
-        .img-ex-info { flex: 1; min-width: 0; }
-        .img-ex-name { font-size: 13px; font-weight: 700; color: #ccc; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .img-ex-hint { font-size: 10px; color: #444; margin-top: 2px; }
-        .img-ex-form-wrap { position: relative; width: 80px; height: 50px; flex-shrink: 0; cursor: pointer; }
-        .img-ex-form-wrap img { width: 80px; height: 50px; border-radius: 8px; object-fit: cover; border: 1px solid #2a2a2a; }
-        .img-ex-form-overlay {
-            position: absolute; inset: 0; border-radius: 8px;
-            background: rgba(255,107,26,.5); display: flex; align-items: center;
-            justify-content: center; opacity: 0; transition: opacity .15s;
-        }
-        .img-ex-form-wrap:hover .img-ex-form-overlay { opacity: 1; }
-        .img-ex-form-wrap input[type=file] { display: none; }
-
-        /* Muscle card image zone */
-        .img-muscle-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-bottom: 16px; }
-        .img-muscle-card {
-            background: #111; border: 1px solid #1e1e1e; border-radius: 12px;
-            overflow: hidden; cursor: pointer; position: relative;
-        }
-        .img-muscle-card:hover { border-color: #ff6b1a44; }
-        .img-muscle-preview { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; background: #0d0d0d; }
-        .img-muscle-label { padding: 6px 8px; font-size: 10px; font-weight: 700; color: #555; text-transform: uppercase; letter-spacing: .05em; }
-        .img-muscle-overlay {
-            position: absolute; inset: 0; background: rgba(255,107,26,.15);
-            display: flex; align-items: center; justify-content: center;
-            opacity: 0; transition: opacity .15s;
-        }
-        .img-muscle-card:hover .img-muscle-overlay { opacity: 1; }
-        .img-muscle-overlay svg { width: 22px; height: 22px; fill: #ff6b1a; }
-        .img-muscle-card input[type=file] { display: none; }
-
-        /* Tab labels for image sub-sections */
-        .img-subtab-row { display: flex; gap: 6px; margin-bottom: 18px; flex-wrap: wrap; }
-        .img-subtab {
-            padding: 7px 14px; background: #111; border: 1px solid #222;
-            border-radius: 50px; font-size: 11px; font-weight: 700; color: #555;
-            cursor: pointer; transition: all .2s; white-space: nowrap;
-        }
-        .img-subtab.active { background: rgba(255,107,26,.12); border-color: rgba(255,107,26,.4); color: #ff6b1a; }
-
-        .img-panel { display: none; }
-        .img-panel.active { display: block; }
-
-        .img-clear-btn {
-            padding: 5px 10px; background: rgba(239,83,80,.1); border: 1px solid rgba(239,83,80,.25);
-            border-radius: 7px; font-size: 10px; font-weight: 700; color: #ef9a9a;
-            cursor: pointer; transition: all .15s; white-space: nowrap;
-        }
-        .img-clear-btn:hover { background: rgba(239,83,80,.2); }
-
-    
-        /* ════════════════════════════════════════
-           HOME PAGE REDESIGN (reference-inspired)
-           ════════════════════════════════════════ */
-
-        /* ── New hero header ── */
-        .home-header {
-            padding: 16px 18px 12px;
-            display: flex; align-items: center; justify-content: space-between;
-            flex-shrink: 0;
-        }
-        .home-header-left { flex: 1; }
-        .home-greeting-sub {
-            font-size: 12px; font-weight: 600;
-            color: var(--text-muted); margin-bottom: 3px;
-        }
-        .home-greeting-name {
-            font-size: 22px; font-weight: 900; color: var(--text-primary);
-            letter-spacing: -.5px; line-height: 1;
-        }
-        .home-greeting-wave { margin-left: 4px; }
-        .home-header-right {
-            display: flex; align-items: center; gap: 10px;
-        }
-        .home-header-icon-btn {
-            width: 38px; height: 38px; border-radius: 50%;
-            background: var(--surface); border: 1px solid var(--border);
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; color: var(--text-muted); flex-shrink: 0;
-            transition: all .2s;
-        }
-        .home-header-icon-btn:hover { border-color: var(--success); color: var(--success); }
-        .home-header-avatar {
-            width: 40px; height: 40px; border-radius: 50%;
-            background: linear-gradient(135deg,var(--success),#ffd000);
-            border: 2px solid var(--success);
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; overflow: hidden; flex-shrink: 0;
-        }
-        .home-header-avatar img { width: 100%; height: 100%; object-fit: cover; }
-        .home-header-avatar svg { width: 20px; height: 20px; fill: #000; }
-
-        /* ── Week day strip ── */
-        .week-strip {
-            padding: 4px 18px 14px;
-            display: flex; align-items: center; gap: 4px;
-            overflow-x: auto; scrollbar-width: none;
-        }
-        .week-strip::-webkit-scrollbar { display: none; }
-        .week-day {
-            flex: 0 0 auto; display: flex; flex-direction: column;
-            align-items: center; gap: 4px; cursor: pointer;
-            min-width: 36px;
-        }
-        .week-day-label {
-            font-size: 9px; font-weight: 700; text-transform: uppercase;
-            letter-spacing: .06em; color: var(--text-muted);
-        }
-        .week-day-num {
-            width: 32px; height: 32px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 13px; font-weight: 800; color: var(--text-muted);
-            transition: all .2s;
-        }
-        .week-day.today .week-day-num {
-            background: var(--success); color: #000;
-            box-shadow: 0 3px 10px rgba(255,107,26,.4);
-        }
-        .week-day.has-workout .week-day-num {
-            color: var(--text-primary);
-        }
-        .week-day.has-workout::after {
-            content: ''; width: 4px; height: 4px; border-radius: 50%;
-            background: var(--success); margin-top: -2px;
-        }
-
-        /* ── Challenge banner (new style) ── */
-        .home-challenge-banner {
-            margin: 0 18px 14px;
-            background: rgba(255,107,26,.1);
-            border: none;
-            border-radius: 18px; padding: 14px 16px;
-            display: flex; align-items: center; gap: 12px;
-            cursor: pointer; transition: all .2s;
-        }
-        .home-challenge-banner:hover { border-color: var(--success); transform: translateY(-2px); }
-        .home-challenge-banner-icon {
-            width: 44px; height: 44px; border-radius: 14px;
-            background: var(--success); display: flex;
-            align-items: center; justify-content: center; flex-shrink: 0;
-        }
-        .home-challenge-banner-icon svg { width: 22px; height: 22px; fill: #000; }
-        .home-challenge-banner-info { flex: 1; min-width: 0; }
-        .home-challenge-banner-title {
-            font-size: 15px; font-weight: 900; color: var(--text-primary);
-            letter-spacing: -.3px; margin-bottom: 2px;
-        }
-        .home-challenge-banner-sub {
-            font-size: 12px; color: var(--text-muted); font-weight: 500;
-        }
-        .home-challenge-start-btn {
-            background: var(--success); color: #000; font-size: 12px; font-weight: 900;
-            padding: 8px 14px; border-radius: 10px; white-space: nowrap;
-            letter-spacing: .02em; flex-shrink: 0;
-            box-shadow: 0 3px 10px rgba(255,107,26,.35);
-        }
-
-        /* ── Workout category pills ── */
-        .home-cat-pills {
-            display: flex; gap: 8px; padding: 0 18px 16px;
-            overflow-x: auto; scrollbar-width: none;
-        }
-        .home-cat-pills::-webkit-scrollbar { display: none; }
-        .home-cat-pill {
-            flex: 0 0 auto; display: flex; align-items: center; gap: 7px;
-            padding: 9px 16px; border-radius: 50px;
-            background: var(--surface); border: 1px solid var(--border);
-            font-size: 13px; font-weight: 700; color: var(--text-muted);
-            cursor: pointer; transition: all .2s; white-space: nowrap;
-        }
-        .home-cat-pill.active {
-            background: var(--success); border-color: var(--success); color: #000;
-            box-shadow: 0 3px 12px rgba(255,107,26,.3);
-        }
-        .home-cat-pill svg { width: 14px; height: 14px; }
-
-        /* ── Featured workout cards (image-bg horizontal scroll) ── */
-        .home-section-header {
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 0 18px 12px;
-        }
-        .home-section-title {
-            font-size: 17px; font-weight: 900; color: var(--text-primary); letter-spacing: -.3px;
-        }
-        .home-section-link {
-            font-size: 12px; font-weight: 700; color: var(--success);
-            text-decoration: none; cursor: pointer;
-        }
-        .home-featured-row {
-            display: flex; gap: 12px; padding: 0 18px 18px;
-            overflow-x: auto; scrollbar-width: none;
-        }
-        .home-featured-row::-webkit-scrollbar { display: none; }
-        .home-featured-card {
-            flex: 0 0 140px; height: 160px; border-radius: 18px;
-            overflow: hidden; position: relative; cursor: pointer;
-            transition: transform .25s;
-        }
-        .home-featured-card:hover { transform: scale(1.03); }
-        .home-featured-card-bg {
-            position: absolute; inset: 0;
-            background-size: cover; background-position: center;
-            transition: transform .4s;
-        }
-        .home-featured-card:hover .home-featured-card-bg { transform: scale(1.06); }
-        .home-featured-card-overlay {
-            position: absolute; inset: 0;
-            background: linear-gradient(180deg,rgba(0,0,0,.05) 0%,rgba(0,0,0,.75) 100%);
-        }
-        .home-featured-card-body {
-            position: absolute; bottom: 0; left: 0; right: 0; padding: 12px;
-        }
-        .home-featured-card-name {
-            font-size: 13px; font-weight: 900; color: #fff;
-            letter-spacing: -.2px; margin-bottom: 4px; line-height: 1.2;
-        }
-        .home-featured-card-meta {
-            display: flex; align-items: center; gap: 5px;
-            font-size: 10px; color: rgba(255,255,255,.65); font-weight: 600;
-        }
-        .home-featured-card-meta svg { width: 10px; height: 10px; fill: rgba(255,255,255,.65); }
-
-        /* ── Recent Activity section ── */
-        .home-activity-row {
-            display: flex; align-items: center;
-            padding: 12px 18px; cursor: pointer;
-            border-radius: 16px; margin: 0 18px 8px;
-            background: var(--surface); border: 1px solid var(--border);
-            transition: all .2s;
-        }
-        .home-activity-row:hover { border-color: rgba(255,107,26,.25); background: var(--surface-hover); }
-        .home-activity-icon {
-            width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0;
-            display: flex; align-items: center; justify-content: center; margin-right: 12px;
-        }
-        .home-activity-icon svg { width: 22px; height: 22px; }
-        .home-activity-info { flex: 1; min-width: 0; }
-        .home-activity-name { font-size: 14px; font-weight: 800; color: var(--text-primary); margin-bottom: 2px; }
-        .home-activity-time { font-size: 11px; color: var(--text-muted); font-weight: 500; }
-        .home-activity-stat { text-align: right; flex-shrink: 0; }
-        .home-activity-val { font-size: 22px; font-weight: 900; color: var(--text-primary); letter-spacing: -.5px; line-height: 1; }
-        .home-activity-unit { font-size: 10px; color: var(--text-muted); font-weight: 600; margin-top: 2px; }
-
-    
-        /* ── Ensure no banner renders when empty ── */
-        #admin-announcement-banner { display: none !important; height: 0 !important; padding: 0 !important; margin: 0 !important; border: none !important; overflow: hidden !important; max-height: 0 !important; }
-        /* Custom Redesign CSS */
-        .app-container {
-            background: linear-gradient(180deg, #1f301d 0%, #0a0a0a 25%) !important;
-        }
-
-        .new-home-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 24px 24px 16px;
-        }
-        .new-header-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .new-header-avatar {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            overflow: hidden;
-            background: #333;
-        }
-        .new-header-greeting {
-            font-size: 16px;
-            font-weight: 600;
-            color: #fff;
-        }
-        .wave-emoji {
-            display: inline-block;
-            animation: wave 2s infinite linear;
-            transform-origin: 70% 70%;
-        }
-        @keyframes wave {
-            0% { transform: rotate(0deg); }
-            10% { transform: rotate(14deg); }
-            20% { transform: rotate(-8deg); }
-            30% { transform: rotate(14deg); }
-            40% { transform: rotate(-4deg); }
-            50% { transform: rotate(10deg); }
-            60%, 100% { transform: rotate(0deg); }
-        }
-        .new-header-sub {
-            font-size: 13px;
-            color: rgba(255,255,255,0.6);
-            margin-top: 2px;
-        }
-        .new-header-right {
-            display: flex;
-            gap: 10px;
-            background: rgba(0,0,0,0.3);
-            padding: 6px 12px;
-            border-radius: 30px;
-        }
-        .new-icon-btn {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            position: relative;
-            opacity: 0.9;
-        }
-        .new-icon-btn svg { width: 18px; height: 18px; }
-        .notification-dot {
-            position: absolute;
-            top: 4px; right: 4px;
-            width: 8px; height: 8px;
-            background: #ff3333;
-            border-radius: 50%;
-            border: 1.5px solid #1a1a1a;
-        }
-        .flame-btn svg { stroke: #FFF; fill: none; }
-
-        .new-challenge-banner {
-            margin: 10px 24px 24px;
-            border-radius: 36px;
-            padding: 20px 24px;
-            background: linear-gradient(90deg, #A8FF50 0%, #35EE8B 100%);
-            display: flex;
-            align-items: center;
-            color: #000;
-            box-shadow: 0 10px 30px rgba(53, 238, 139, 0.2);
-            position: relative;
-            z-index: 2;
-        }
-        .new-challenge-icon-wrap {
-            width: 48px;
-            height: 48px;
-            background: #111;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 16px;
-            color: #fff;
-            flex-shrink: 0;
-        }
-        .new-challenge-icon { width: 24px; height: 24px; }
-        .new-challenge-info { flex: 1; }
-        .new-challenge-title { font-size: 16px; font-weight: 700; }
-        .new-challenge-sub { font-size: 13px; font-weight: 500; opacity: 0.8; margin-top: 2px; }
-        .new-challenge-btn {
-            background: #fff;
-            color: #000;
-            font-size: 11px;
-            font-weight: 800;
-            padding: 10px 18px;
-            border-radius: 20px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            cursor: pointer;
-        }
-
-        .new-week-strip {
-            display: flex;
-            justify-content: space-between;
-            padding: 0 24px;
-            margin-bottom: 24px;
-        }
-        .nws-day {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
-        }
-        .nws-dow {
-            font-size: 12px;
-            color: rgba(255,255,255,0.6);
-            font-weight: 500;
-        }
-        .nws-date {
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 15px;
-            font-weight: 600;
-            color: #fff;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        .nws-day.active .nws-dow { color: #8FFF00; font-weight: 700; }
-        .nws-day.active .nws-date {
-            border-color: #8FFF00;
-            border-width: 2px;
-            border-right-color: rgba(255,255,255,0.1); 
-            transform: rotate(45deg);
-        }
-        .nws-day.active .nws-date span { transform: rotate(-45deg); }
-
-        .new-cat-pills {
-            display: flex;
-            gap: 12px;
-            padding: 0 24px;
-            margin-bottom: 24px;
-        }
-        .new-cat-pill {
-            padding: 10px 18px;
-            border-radius: 24px;
-            background: #222;
-            color: #fff;
-            font-size: 13px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            border: 1px solid rgba(255,255,255,0.1);
-            cursor: pointer;
-        }
-        .new-cat-pill.active {
-            background: rgba(143, 255, 0, 0.1);
-            color: #8FFF00;
-            border-color: #8FFF00;
-        }
-
-        .new-workout-row {
-            display: flex;
-            gap: 16px;
-            overflow-x: auto;
-            padding: 0 24px 20px;
-            margin-bottom: 8px;
-        }
-        .new-workout-row::-webkit-scrollbar { display: none; }
-        .new-workout-card {
-            min-width: 156px;
-            height: 180px;
-            border-radius: 24px;
-            position: relative;
-            overflow: hidden;
-            flex-shrink: 0;
-            cursor: pointer;
-        }
-        .new-workout-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.8;
-            transition: transform 0.3s;
-        }
-        .new-workout-card:hover .new-workout-img { transform: scale(1.05); }
-        .new-workout-overlay {
-            position: absolute;
-            bottom: 0; left: 0; right: 0;
-            padding: 20px 16px 16px;
-            background: linear-gradient(0deg, rgba(0,0,0,0.9) 0%, transparent 100%);
-        }
-        .new-workout-title { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 4px; }
-        .new-workout-time { font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.8); display:flex; align-items:center; gap:4px; }
-
-        .new-activity-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 24px;
-            margin-bottom: 16px;
-        }
-        .new-activity-title { font-size: 17px; font-weight: 700; color: #fff; }
-        .new-activity-filter { color: #fff; cursor: pointer; opacity: 0.8; }
-
-        .new-activity-list {
-            padding: 0 24px;
-        }
-        .new-activity-card {
-            background: #242424;
-            border-radius: 28px;
-            padding: 16px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 12px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-        .new-activity-card:hover { transform: translateY(-3px); }
-        .new-activity-icon-wrap {
-            width: 56px; height: 56px;
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            border: 2px solid transparent;
-        }
-        .new-activity-mid { flex: 1; }
-        .new-activity-name { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 2px; }
-        .new-activity-time { font-size: 13px; color: rgba(255,255,255,0.5); font-weight: 500;}
-        .new-activity-right { text-align: right; }
-        .new-activity-val { font-size: 22px; font-weight: 600; color: #fff; letter-spacing:-0.5px; }
-        .new-activity-unit { font-size: 12px; color: rgba(255,255,255,0.5); }
-        /* Redesigned Bottom Nav */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0px; left: 0; right: 0;
-            background: rgba(15,15,15,0.95) !important;
-            backdrop-filter: blur(20px);
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 10px 10px 20px !important;
-            z-index: 1000;
-            border-top: none !important;
-            box-shadow: 0 -10px 30px rgba(0,0,0,0.5) !important;
-            border-top-left-radius: 30px;
-            border-top-right-radius: 30px;
-        }
-        .bottom-nav .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-            color: rgba(255,255,255,0.4) !important;
-            font-size: 11px;
-            font-weight: 600;
-            cursor: pointer;
-            width: 50px;
-            position: relative;
-            background: transparent !important;
-            opacity: 1 !important;
-            border: none !important;
-            box-shadow: none !important;
-            border-radius: 0 !important;
-        }
-        .bottom-nav .nav-item.active {
-            color: #8FFF00 !important;
-            background: transparent !important;
-            border: none !important;
-        }
-        .bottom-nav .nav-item svg {
-            width: 22px; height: 22px;
-            fill: currentColor;
-            margin: 0 !important;
-        }
-        .bottom-nav .nav-item.active svg {
-            fill: #8FFF00 !important;
-        }
-        .nav-item-dot {
-            width: 4px; height: 4px;
-            border-radius: 50%;
-            background: #8FFF00;
-            position: absolute;
-            bottom: -8px;
-            opacity: 0;
-        }
-        .bottom-nav .nav-item.active .nav-item-dot {
-            opacity: 1;
-        }
-        
-        .nav-item.nav-fab span { display: none; }
-        .nav-item.nav-fab .nav-item-dot { display: none; }
-        .nav-fab-wrap {
-            position: absolute;
-            bottom: auto; 
-            top: -20px;
-            width: 56px; height: 56px;
-            border-radius: 50%;
-            background: #A8FF50;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 10px 20px rgba(168, 255, 80, 0.3);
-        }
-        .nav-fab-wrap svg {
-            fill: #000 !important;
-            width: 28px !important;
-            height: 28px !important;
-        }
-</style>
+    </style>
 
     <!-- Firebase SDK -->
     <script type="module">
@@ -8009,207 +7183,6 @@
   <symbol id="fa-camera" viewBox="0 0 24 24"><path d="M12 15.2A3.2 3.2 0 018.8 12 3.2 3.2 0 0112 8.8a3.2 3.2 0 013.2 3.2 3.2 3.2 0 01-3.2 3.2M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9z"/></symbol>
 </svg>
 
-
-    <!-- ════════════════ ADMIN PANEL ════════════════ -->
-    <div id="admin-panel" class="admin-panel hidden">
-
-        <!-- Header -->
-        <div class="adm-header">
-            <div class="adm-logo"><svg viewBox="0 0 24 24" fill="#000"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg></div>
-            <div class="adm-title">Admin Panel</div>
-            <button class="adm-close" onclick="closeAdminPanel()">✕</button>
-        </div>
-
-        <!-- Tab bar -->
-        <div class="adm-tabs" id="adm-tabs">
-            <div class="adm-tab active" onclick="admTab('branding')">Branding</div>
-            <div class="adm-tab" onclick="admTab('colours')">Colours</div>
-            <div class="adm-tab" onclick="admTab('typography')">Font</div>
-            <div class="adm-tab" onclick="admTab('layout')">Layout</div>
-            <div class="adm-tab" onclick="admTab('content')">Content</div>
-            <div class="adm-tab" onclick="admTab('workouts')">Workouts</div>
-            <div class="adm-tab" onclick="admTab('challenges')">Challenges</div>
-            <div class="adm-tab" onclick="admTab('images')">Images</div>
-            <div class="adm-tab" onclick="admTab('users')">Users</div>
-        </div>
-
-        <!-- Panels -->
-        <div class="adm-body">
-
-            <!-- BRANDING -->
-            <div class="adm-panel active" id="admp-branding">
-                <div class="adm-group">
-                    <div class="adm-label">App Name</div>
-                    <input class="adm-input" id="adm-appname" placeholder="Athly">
-                    <div class="adm-label" style="margin-top:12px">Tagline</div>
-                    <input class="adm-input" id="adm-tagline" placeholder="Your personal fitness companion">
-                    <button class="adm-btn" onclick="admSaveBranding()">Save Branding</button>
-                </div>
-                <div class="adm-group">
-                    <div class="adm-label">Nav Labels</div>
-                    <div class="adm-row"><span>Home</span><input class="adm-input-sm" id="adm-nav-home" placeholder="Home"></div>
-                    <div class="adm-row"><span>Train</span><input class="adm-input-sm" id="adm-nav-train" placeholder="Train"></div>
-                    <div class="adm-row"><span>Plan</span><input class="adm-input-sm" id="adm-nav-plan" placeholder="Plan"></div>
-                    <div class="adm-row"><span>Me</span><input class="adm-input-sm" id="adm-nav-me" placeholder="Me"></div>
-                    <button class="adm-btn" onclick="admSaveNav()">Save Nav Labels</button>
-                </div>
-                <div class="adm-group">
-                    <div class="adm-label">Motivational Quotes <small style="color:#555">(one per line)</small></div>
-                    <textarea class="adm-input" id="adm-quotes" rows="5"></textarea>
-                    <button class="adm-btn" onclick="admSaveQuotes()">Save Quotes</button>
-                </div>
-            </div>
-
-            <!-- COLOURS -->
-            <div class="adm-panel" id="admp-colours">
-                <div class="adm-group">
-                    <div class="adm-sublabel">⬛ Presets</div>
-                    <div class="adm-preset-row">
-                        <button class="adm-preset" style="background:#ff6b1a" onclick="admPreset('orange')">Orange</button>
-                        <button class="adm-preset" style="background:#42a5f5" onclick="admPreset('blue')">Blue</button>
-                        <button class="adm-preset" style="background:#66bb6a" onclick="admPreset('green')">Green</button>
-                        <button class="adm-preset" style="background:#ab47bc" onclick="admPreset('purple')">Purple</button>
-                        <button class="adm-preset" style="background:#ef5350" onclick="admPreset('red')">Red</button>
-                        <button class="adm-preset" style="background:#26a69a" onclick="admPreset('teal')">Teal</button>
-                        <button class="adm-preset" style="background:#f48fb1" onclick="admPreset('pink')">Pink</button>
-                        <button class="adm-preset" style="background:#ffcc02;color:#000" onclick="admPreset('gold')">Gold</button>
-                    </div>
-                </div>
-                <div class="adm-group">
-                    <div class="adm-sublabel">🎨 Individual Colours</div>
-                    <div id="adm-colour-list"><!-- JS filled --></div>
-                    <button class="adm-btn" onclick="admSaveColours()">Apply & Save All Colours</button>
-                    <button class="adm-btn adm-btn-secondary" onclick="admResetColours()">Reset to Default</button>
-                </div>
-            </div>
-
-            <!-- TYPOGRAPHY -->
-            <div class="adm-panel" id="admp-typography">
-                <div class="adm-group">
-                    <div class="adm-label">Font Family</div>
-                    <select class="adm-input" id="adm-font" onchange="admApplyFont(this.value)">
-                        <option value="Inter">Inter (Default)</option>
-                        <option value="Poppins">Poppins</option>
-                        <option value="Roboto">Roboto</option>
-                        <option value="Nunito">Nunito</option>
-                        <option value="DM Sans">DM Sans</option>
-                        <option value="Space Grotesk">Space Grotesk</option>
-                        <option value="Outfit">Outfit</option>
-                        <option value="Montserrat">Montserrat</option>
-                    </select>
-                </div>
-                <div class="adm-group">
-                    <div class="adm-label">Base Font Size: <span id="adm-fontsize-val">14px</span></div>
-                    <input type="range" class="adm-slider" id="adm-fontsize" min="12" max="20" value="14" step="1" oninput="admApplyFontSize(this.value)">
-                </div>
-                <div class="adm-group">
-                    <div class="adm-label">Font Weight (Body)</div>
-                    <select class="adm-input" id="adm-fontweight" onchange="admApplyFontWeight(this.value)">
-                        <option value="400">Regular</option>
-                        <option value="500" selected>Medium</option>
-                        <option value="600">Semi-Bold</option>
-                        <option value="700">Bold</option>
-                    </select>
-                </div>
-                <div class="adm-group">
-                    <div class="adm-label">Letter Spacing</div>
-                    <select class="adm-input" id="adm-letterspacing" onchange="admApplyLetterSpacing(this.value)">
-                        <option value="-0.02em">Tight</option>
-                        <option value="normal" selected>Normal</option>
-                        <option value="0.02em">Wide</option>
-                        <option value="0.05em">Wider</option>
-                    </select>
-                </div>
-                <div class="adm-group">
-                    <button class="adm-btn" onclick="admSaveTypography()">Save Typography</button>
-                </div>
-            </div>
-
-            <!-- LAYOUT -->
-            <div class="adm-panel" id="admp-layout">
-                <div class="adm-group">
-                    <div class="adm-label">Card Radius: <span id="adm-radius-val">18px</span></div>
-                    <input type="range" class="adm-slider" id="adm-radius" min="0" max="36" value="18" step="2" oninput="admApplyRadius(this.value)">
-                </div>
-                <div class="adm-group">
-                    <div class="adm-label">Content Padding: <span id="adm-spacing-val">18px</span></div>
-                    <input type="range" class="adm-slider" id="adm-spacing" min="8" max="32" value="18" step="2" oninput="admApplySpacing(this.value)">
-                </div>
-                <div class="adm-group">
-                    <div class="adm-sublabel">Show / Hide Elements</div>
-                    <label class="adm-toggle-row"><span>Week Strip</span><input type="checkbox" id="adm-show-week" checked onchange="admToggleEl('home-week-strip',this.checked)"></label>
-                    <label class="adm-toggle-row"><span>Daily Challenge</span><input type="checkbox" id="adm-show-challenge" checked onchange="admToggleEl('daily-challenge-card',this.checked)"></label>
-                    <label class="adm-toggle-row"><span>Category Pills</span><input type="checkbox" id="adm-show-pills" checked onchange="admToggleEl('home-cat-pills',this.checked)"></label>
-                    <label class="adm-toggle-row"><span>Animations</span><input type="checkbox" id="adm-animations" checked onchange="admToggleAnimations(this.checked)"></label>
-                </div>
-                <div class="adm-group">
-                    <button class="adm-btn" onclick="admSaveLayout()">Save Layout</button>
-                </div>
-            </div>
-
-            <!-- CONTENT -->
-            <div class="adm-panel" id="admp-content">
-                <div class="adm-group">
-                    <div class="adm-label">Coaching Tips <small style="color:#555">(one per line)</small></div>
-                    <textarea class="adm-input" id="adm-tips" rows="6"></textarea>
-                    <button class="adm-btn" onclick="admSaveTips()">Save Tips</button>
-                </div>
-                <div class="adm-group">
-                    <div class="adm-label">Announcement Banner</div>
-                    <input class="adm-input" id="adm-banner" placeholder="Leave empty to hide">
-                    <div style="display:flex;gap:8px;margin-top:6px">
-                        <input type="color" id="adm-banner-color" value="#ff6b1a" style="width:44px;height:36px;border-radius:10px;border:1px solid #333;cursor:pointer">
-                        <button class="adm-btn" style="flex:1;margin-top:0" onclick="admSaveBanner()">Save Banner</button>
-                    </div>
-                </div>
-                <div class="adm-group">
-                    <div class="adm-label">Broadcast to All Users</div>
-                    <input class="adm-input" id="adm-broadcast" placeholder="Message for all users...">
-                    <button class="adm-btn" onclick="admBroadcast()">Send Broadcast</button>
-                </div>
-            </div>
-
-            <!-- WORKOUTS -->
-            <div class="adm-panel" id="admp-workouts">
-                <div id="adm-workout-list"></div>
-                <button class="adm-btn" onclick="admSaveWorkouts()">Save Workout Data</button>
-            </div>
-
-            <!-- CHALLENGES -->
-            <div class="adm-panel" id="admp-challenges">
-                <div id="adm-challenge-list"></div>
-                <button class="adm-btn adm-btn-secondary" onclick="admAddChallenge()">+ Add Challenge</button>
-                <button class="adm-btn" onclick="admSaveChallenges()">Save Challenges</button>
-            </div>
-
-            <!-- IMAGES -->
-            <div class="adm-panel" id="admp-images">
-                <div class="adm-subtabs">
-                    <div class="adm-subtab active" onclick="admImgTab('hero')">Hero</div>
-                    <div class="adm-subtab" onclick="admImgTab('muscles')">Muscles</div>
-                    <div class="adm-subtab" onclick="admImgTab('exercises')">Exercises</div>
-                </div>
-                <div id="adm-img-hero" class="adm-imgpanel active"></div>
-                <div id="adm-img-muscles" class="adm-imgpanel"></div>
-                <div id="adm-img-exercises" class="adm-imgpanel"></div>
-            </div>
-
-            <!-- USERS -->
-            <div class="adm-panel" id="admp-users">
-                <div id="adm-stats"></div>
-                <button class="adm-btn adm-btn-secondary" onclick="admExportDB()">Export Data (JSON)</button>
-            </div>
-
-        </div>
-    </div>
-
-    <!-- Admin FAB -->
-    <div class="admin-fab" id="admin-fab" onclick="openAdminPanel()">
-        <svg viewBox="0 0 24 24" fill="#000"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
-    </div>
-
-
-
     <!-- ── Firebase Auth Screen ── -->
     <div id="auth-screen" class="auth-screen">
         <div class="auth-logo">
@@ -8367,196 +7340,198 @@
 
         <!-- Notification -->
         <div id="notification" class="notification">
-            <svg class="svg-icon" data-icon="fa-check-circle" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><use h                <!-- ── Top Header ── -->
-                <div class="new-home-header">
-                    <div class="new-header-left">
-                        <div class="new-header-avatar" id="home-avatar-btn" onclick="showPage('profile')">
-                            <!-- SVG or img, reuse original icon if generic, or better img -->
-                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=150&auto=format&fit=crop" alt="Avatar" style="width:100%;height:100%;object-fit:cover;">
-                        </div>
-                        <div class="new-header-text">
-                            <div class="new-header-greeting">Hello <span id="home-greeting-name">Emma</span> <span class="wave-emoji">👋</span></div>
-                            <div class="new-header-sub">Get ready</div>
-                        </div>
+            <svg class="svg-icon" data-icon="fa-check-circle" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><use href="#fa-check-circle"/></svg> <span id="notification-message"></span>
+        </div>
+
+        <!-- Hero Header - Fixed at top -->
+        <div id="hero-header" class="hero-header">
+            <div class="header-top">
+                <div class="header-greeting">
+                    <p id="greeting-message">Ready for today's workout?</p>
+                    <h1 id="greeting-name">Welcome back!</h1>
+                </div>
+                <div class="header-profile">
+                    <div class="header-streak" id="header-streak">
+                        <svg class="svg-icon" data-icon="fa-fire" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><use href="#fa-fire"/></svg> <span id="streak-count-header">0</span>
                     </div>
-                    <div class="new-header-right">
-                        <div class="new-icon-btn notification-btn">
-                            <svg class="svg-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
-                            <span class="notification-dot"></span>
+                    <div class="header-avatar" id="header-avatar-home" onclick="showPage('profile')">
+                        <svg class="svg-icon" data-icon="fa-user" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><use href="#fa-user"/></svg>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Progress Summary -->
+            <div class="progress-summary">
+                <div class="summary-item">
+                    <div class="summary-value" id="summary-workouts">0</div>
+                    <div class="summary-label">Workouts</div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-value" id="summary-minutes">0</div>
+                    <div class="summary-label">Minutes</div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-value" id="summary-calories">0</div>
+                    <div class="summary-label">Calories</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Regular Header - Fixed at top (for other pages) -->
+        <div id="regular-header" class="regular-header">
+            <button class="back-btn" onclick="goBack()">
+                <svg class="svg-icon" data-icon="fa-arrow-left" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><use href="#fa-arrow-left"/></svg>
+            </button>
+            <h2 id="page-title-header">Workout</h2>
+        </div>
+
+        <!-- Plus Button for Adding Workout (visible on planner and workout pages) -->
+        <div id="add-workout-plus" class="add-workout-plus" onclick="showAddWorkoutOptions()" style="display: none;">
+            <svg class="svg-icon" data-icon="fa-plus" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><use href="#fa-plus"/></svg>
+        </div>
+
+        <!-- Main Content Pages (Scrollable area between fixed header and footer) -->
+        <div class="content">
+            <!-- Home Page -->
+            <div id="home-page" class="page active-page">
+
+                <!-- Hero Cards Row -->
+                <div class="hero-cards-row">
+
+                    <!-- Motivational Quote Card -->
+                    <div class="hero-quote-card">
+                        <img class="hero-banner-img" id="hero-banner-img" src="" alt="" aria-hidden="true">
+                        <div class="hero-quote-icon">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z" fill="currentColor"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z" fill="currentColor"/></svg>
                         </div>
-                        <div class="new-icon-btn flame-btn" onclick="showAdminCodeOrSomething()">
-                            <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0011 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 11-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 002.5 2.5z"/></svg>
+                        <p class="hero-quote-text" id="hero-quote-text">"The only bad workout is the one that didn't happen."</p>
+                        <span class="hero-quote-author" id="hero-quote-author">— Unknown</span>
+                    </div>
+
+                    <!-- Streak Banner + Weekly Progress Ring Row -->
+                    <div class="hero-stats-row">
+                        <!-- Streak Banner -->
+                        <div class="hero-streak-banner">
+                            <div class="hero-streak-flame">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67z"/></svg>
+                            </div>
+                            <div class="hero-streak-info">
+                                <div class="hero-streak-number" id="home-streak-count">0</div>
+                                <div class="hero-streak-label">Day Streak</div>
+                            </div>
+                        </div>
+
+                        <!-- Weekly Progress Ring -->
+                        <div class="hero-ring-card" onclick="startTodaysWorkout()">
+                            <svg class="hero-ring-svg" viewBox="0 0 80 80">
+                                <circle cx="40" cy="40" r="32" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="7"/>
+                                <circle id="hero-ring-progress" cx="40" cy="40" r="32" fill="none"
+                                    stroke="#ff6b1a" stroke-width="7"
+                                    stroke-linecap="round"
+                                    stroke-dasharray="201"
+                                    stroke-dashoffset="201"
+                                    transform="rotate(-90 40 40)"
+                                    style="transition:stroke-dashoffset 1s ease"/>
+                                <text x="40" y="36" text-anchor="middle" fill="#fff" font-size="13" font-weight="900" font-family="Inter,sans-serif" id="hero-ring-num">0</text>
+                                <text x="40" y="49" text-anchor="middle" fill="rgba(255,255,255,0.45)" font-size="7" font-weight="700" font-family="Inter,sans-serif">/ 7 days</text>
+                            </svg>
+                            <div class="hero-ring-label">This Week</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- ── Challenge Banner ── -->
-                <div class="new-challenge-banner" id="daily-challenge-card" onclick="doChallenge()">
-                    <div class="new-challenge-icon-wrap">
-                        <svg class="new-challenge-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2z"/></svg>
-                    </div>
-                    <div class="new-challenge-info">
-                        <div class="new-challenge-title" id="challenge-name">New Challenge</div>
-                        <div class="new-challenge-sub" id="challenge-desc">2 Weeks of Energy</div>
-                        <span id="challenge-reps" style="display:none"></span>
-                        <span id="challenge-time" style="display:none"></span>
-                        <span id="challenge-done" style="display:none"></span>
-                    </div>
-                    <div class="new-challenge-btn" id="challenge-cta-btn">START</div>
-                </div>
 
-                <!-- ── Week Day Strip ── -->
-                <div class="new-week-strip" id="custom-week-strip">
-                    <!-- Dates injected via JS -->
-                </div>
-                <div class="week-strip" id="home-week-strip" style="display:none;"></div> <!-- Keep original hidden -->
-
-                <!-- ── Category Pills ── -->
-                <div class="new-cat-pills">
-                    <div class="new-cat-pill active" onclick="homeCatFilter('warmup')" id="hcat-warmup">
-                        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9l1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z"/></svg>
-                        Warm Up
-                    </div>
-                    <div class="new-cat-pill" onclick="homeCatFilter('cardio')" id="hcat-cardio">
-                        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg>
-                        Cardio
-                    </div>
-                    <div class="new-cat-pill" onclick="homeCatFilter('strength')" id="hcat-strength">
-                        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43l-1.43-1.44-2.85 2.85 1.44 1.43L3.43 9.14 2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43 1.44 1.43 2.85-2.85-1.44-1.43z"/></svg>
-                        Strength
+                <!-- Daily Challenge -->
+                <div class="daily-challenge-card" onclick="doChallenge()" id="daily-challenge-card">
+                    <div class="challenge-eyebrow"><svg viewBox="0 0 24 24" fill="#4fc3f7" width="10" height="10" style="vertical-align:1px"><circle cx="12" cy="12" r="6"/></svg> Daily Challenge</div>
+                    <div class="challenge-name" id="challenge-name">Loading...</div>
+                    <div class="challenge-desc" id="challenge-desc"></div>
+                    <div class="challenge-meta-row">
+                        <span class="challenge-pill" id="challenge-reps"></span>
+                        <span class="challenge-pill" id="challenge-time"></span>
+                        <span class="challenge-done-badge" id="challenge-done">✓ Done</span>
+                        <span class="challenge-cta" id="challenge-cta-btn">Start →</span>
                     </div>
                 </div>
 
-                <!-- ── Horizontal Workout Cards ── -->
-                <div class="new-workout-row">
-                    <div class="new-workout-card">
-                        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=400&auto=format&fit=crop" class="new-workout-img" alt="Stretch">
-                        <div class="new-workout-overlay">
-                            <div class="new-workout-title">Stretch & Flow</div>
-                            <div class="new-workout-time"><svg viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg> 15 min</div>
+                <!-- Today Workout CTA (kept functional, restyled) -->
+                <div id="workout-of-the-day" class="todays-workout-cta" onclick="startTodaysWorkout()">
+                    <div class="todays-cta-left">
+                        <div class="todays-cta-eyebrow">Today's Workout</div>
+                        <div class="todays-cta-name" id="todays-workout-desc">Loading...</div>
+                        <div class="todays-cta-meta" id="todays-workout-meta">
+                            <span><svg class="svg-icon" data-icon="fa-clock" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><use href="#fa-clock"/></svg> <span id="todays-duration">0</span> min</span>
+                            <span><svg class="svg-icon" data-icon="fa-fire" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><use href="#fa-fire"/></svg> <span id="todays-calories">0</span> cal</span>
                         </div>
                     </div>
-                    <div class="new-workout-card">
-                        <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=400&auto=format&fit=crop" class="new-workout-img" alt="Partner">
-                        <div class="new-workout-overlay">
-                            <div class="new-workout-title">Partner Power</div>
-                            <div class="new-workout-time"><svg viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg> 10 min</div>
-                        </div>
-                    </div>
-                    <div class="new-workout-card">
-                        <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=400&auto=format&fit=crop" class="new-workout-img" alt="Core">
-                        <div class="new-workout-overlay">
-                            <div class="new-workout-title">Core Blast</div>
-                            <div class="new-workout-time"><svg viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg> 15 min</div>
-                        </div>
+                    <div class="todays-cta-btn">
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M8 5v14l11-7z"/></svg>
                     </div>
                 </div>
 
-                <!-- ── Recent Activity ── -->
-                <div class="new-activity-header">
-                    <div class="new-activity-title">Recent Activity</div>
-                    <div class="new-activity-filter">
-                        <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4h2V7h4V5h-4V3h-2v6z"/></svg>
-                    </div>
+                <!-- Quick Start Workouts -->
+                <div class="section-title">
+                    <h2>Quick Start</h2>
+                    <a href="#" onclick="showPage('workout'); return false;">See all</a>
                 </div>
-                
-                <div class="new-activity-list">
-                    <!-- Walking Card -->
-                    <div class="new-activity-card">
-                        <div class="new-activity-icon-wrap" style="border-color: #8FFF00; background: rgba(143, 255, 0, 0.1);">
-                            <svg class="svg-icon" viewBox="0 0 24 24" fill="#8FFF00" width="24" height="24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 10.3c.3 1.2 1.4 2 2.7 2h.2c-.3-.8-.3-1.6-.1-2.4l1-1z"/></svg>
+                <div class="hscroll-row">
+                    <div class="hscroll-card" onclick="startMuscleWorkout('fullbody')">
+                        <div class="hscroll-card-icon" style="background:linear-gradient(135deg,#ff6b1a22,#ff6b1a11)">
+                            <svg viewBox="0 0 24 24" fill="#ff6b1a" width="26" height="26"><path d="M12 2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 7h-6v13h-2v-6h-2v6H9V9H3V7h18v2z"/></svg>
                         </div>
-                        <div class="new-activity-mid">
-                            <div class="new-activity-name">Walking</div>
-                            <div class="new-activity-time">Today at 12:43pm</div>
-                        </div>
-                        <div class="new-activity-right">
-                            <div class="new-activity-val">7890</div>
-                            <div class="new-activity-unit">/steps</div>
-                        </div>
+                        <div class="hscroll-card-name">Full Body</div>
+                        <div class="hscroll-card-meta">20 min · 250 cal</div>
+                        <div class="hscroll-card-tag">Beginner</div>
                     </div>
-                    
-                    <!-- Workout Card -->
-                    <div class="new-activity-card" style="margin-top:-20px; z-index:1; position:relative; background:#1c1c1c; box-shadow: 0 -10px 20px rgba(0,0,0,0.5);">
-                        <div class="new-activity-icon-wrap" style="border-color: #ff6b1a; background: rgba(255, 107, 26, 0.1);">
-                            <svg class="svg-icon" viewBox="0 0 24 24" fill="#ff6b1a" width="24" height="24"><path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43l-1.43-1.44-2.85 2.85 1.44 1.43L3.43 9.14 2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43 1.44 1.43 2.85-2.85-1.44-1.43z"/></svg>
+                    <div class="hscroll-card" onclick="startMuscleWorkout('abs')">
+                        <div class="hscroll-card-icon" style="background:linear-gradient(135deg,#ffd00022,#ffd00011)">
+                            <svg viewBox="0 0 24 24" fill="#ffd000" width="26" height="26"><path d="M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9l1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z"/></svg>
                         </div>
-                        <div class="new-activity-mid">
-                            <div class="new-activity-name">Workout</div>
-                            <div class="new-activity-time">Yesterday at 8:00pm</div>
+                        <div class="hscroll-card-name">Core</div>
+                        <div class="hscroll-card-meta">15 min · 150 cal</div>
+                        <div class="hscroll-card-tag">All Levels</div>
+                    </div>
+                    <div class="hscroll-card" onclick="startMuscleWorkout('arms')">
+                        <div class="hscroll-card-icon" style="background:linear-gradient(135deg,#ff6b1a22,#ff6b1a11)">
+                            <svg viewBox="0 0 24 24" fill="#ff6b1a" width="26" height="26"><path d="M21 7c0-1.1-.9-2-2-2h-2.27c.17-.31.27-.66.27-1 0-1.2-1.02-2-2-2-1.03 0-2 .81-2 2v1.54c-.23-.06-.48-.1-.73-.1C11.22 5.44 10 6.47 10 7.73v.27c-.25-.06-.5-.1-.75-.1-1.03 0-2.25.8-2.25 2.1v.5c-.27-.06-.53-.1-.78-.1-1.14 0-2.22.83-2.22 2.17V17c0 2.21 1.79 4 4 4h3.79c.98 0 1.96-.32 2.75-.9L19 15.16V9c0-1.1-.9-2-2-2z"/></svg>
                         </div>
-                        <div class="new-activity-right">
-                            <div class="new-activity-val">72</div>
-                            <div class="new-activity-unit">/min</div>
+                        <div class="hscroll-card-name">Arms</div>
+                        <div class="hscroll-card-meta">18 min · 180 cal</div>
+                        <div class="hscroll-card-tag">Intermediate</div>
+                    </div>
+                    <div class="hscroll-card" onclick="startMuscleWorkout('legs')">
+                        <div class="hscroll-card-icon" style="background:linear-gradient(135deg,#ffd00022,#ffd00011)">
+                            <svg viewBox="0 0 24 24" fill="#ffd000" width="26" height="26"><path d="M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9l1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z"/></svg>
                         </div>
+                        <div class="hscroll-card-name">Legs</div>
+                        <div class="hscroll-card-meta">22 min · 220 cal</div>
+                        <div class="hscroll-card-tag">Beginner</div>
+                    </div>
+                    <div class="hscroll-card" onclick="startMuscleWorkout('cardio')">
+                        <div class="hscroll-card-icon" style="background:linear-gradient(135deg,#ff6b1a22,#ff6b1a11)">
+                            <svg viewBox="0 0 24 24" fill="#ff6b1a" width="26" height="26"><path d="M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9l1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z"/></svg>
+                        </div>
+                        <div class="hscroll-card-name">Cardio</div>
+                        <div class="hscroll-card-meta">15 min · 200 cal</div>
+                        <div class="hscroll-card-tag">All Levels</div>
+                    </div>
+                    <div class="hscroll-card" onclick="startMuscleWorkout('chest')">
+                        <div class="hscroll-card-icon" style="background:linear-gradient(135deg,#ffd00022,#ffd00011)">
+                            <svg viewBox="0 0 24 24" fill="#ffd000" width="26" height="26"><path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"/></svg>
+                        </div>
+                        <div class="hscroll-card-name">Chest</div>
+                        <div class="hscroll-card-meta">25 min · 280 cal</div>
+                        <div class="hscroll-card-tag">Intermediate</div>
                     </div>
                 </div>
 
-                <!-- hidden elements for JS compatibility -->
-                <div style="display:none">
-                    <div id="home-featured-row"></div>
-                    <div id="home-activity-list"></div>
-                    <div id="hero-ring-progress"></div>
-                    <div id="hero-ring-num"></div>
-                    <div id="home-streak-count"></div>
-                    <img id="hero-banner-img" src="" alt="">
-                    <div id="hero-quote-text"></div>
-                    <div id="hero-quote-author"></div>
-                    <div id="workout-of-the-day"></div>
-                    <div id="todays-workout-desc"></div>
-                    <div id="todays-duration"></div>
-                    <div id="todays-calories"></div>
-                    <div id="recent-workouts"></div>
+                <!-- Recent Workouts -->
+                <div class="section-title">
+                    <h2>Recent Workouts</h2>
                 </div>
-
-            </div>.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z"/></svg>
-                        Warm Up
-                    </div>
-                    <div class="home-cat-pill" onclick="homeCatFilter('cardio')" id="hcat-cardio">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg>
-                        Cardio
-                    </div>
-                    <div class="home-cat-pill" onclick="homeCatFilter('strength')" id="hcat-strength">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43l-1.43-1.44-2.85 2.85 1.44 1.43L3.43 9.14 2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43 1.44 1.43 2.85-2.85-1.44-1.43z"/></svg>
-                        Strength
-                    </div>
+                <div id="recent-workouts">
+                    <!-- Populated by JavaScript -->
                 </div>
-
-                <!-- ── Featured Workouts ── -->
-                <div class="home-section-header">
-                    <div class="home-section-title">Featured</div>
-                    <div class="home-section-link" onclick="showPage('workout')">See all</div>
-                </div>
-                <div class="home-featured-row" id="home-featured-row">
-                    <!-- Populated by JS -->
-                </div>
-
-                <!-- ── Recent Activity ── -->
-                <div class="home-section-header" style="margin-top:4px">
-                    <div class="home-section-title">Recent Activity</div>
-                    <div class="home-section-link" onclick="showAllWorkouts()">
-                        <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14" style="vertical-align:-2px"><path d="M3 18h13v-2H3v2zm0-5h10v-2H3v2zm0-7v2h13V6H3zm18 9.59L17.42 12 21 8.41 19.59 7l-5 5 5 5L21 15.59z"/></svg>
-                    </div>
-                </div>
-                <div id="home-activity-list">
-                    <!-- Populated by JS -->
-                </div>
-
-                <!-- hidden elements for JS compatibility -->
-                <div style="display:none">
-                    <div id="hero-ring-progress"></div>
-                    <div id="hero-ring-num"></div>
-                    <div id="home-streak-count"></div>
-                    <img id="hero-banner-img" src="" alt="">
-                    <div id="hero-quote-text"></div>
-                    <div id="hero-quote-author"></div>
-                    <div id="workout-of-the-day"></div>
-                    <div id="todays-workout-desc"></div>
-                    <div id="todays-duration"></div>
-                    <div id="todays-calories"></div>
-                    <div id="recent-workouts"></div>
-                </div>
-
             </div>
 
 
@@ -8844,21 +7819,61 @@
                     <div class="train-suggestion-reason" id="suggestion-reason"></div>
                 </div>
 
-                <!-- ── Tab Bar + Search ── -->
-                <div style="padding: 0 18px 14px;">
-                    <!-- Tab bar -->
-                    <div class="train-tab-bar" style="margin-bottom:10px">
-                        <div class="train-tab active" onclick="setTrainTab('all')" id="ttab-all">All</div>
-                        <div class="train-tab" onclick="setTrainTab('push')" id="ttab-push">Push</div>
-                        <div class="train-tab" onclick="setTrainTab('pull')" id="ttab-pull">Pull</div>
-                        <div class="train-tab" onclick="setTrainTab('legs')" id="ttab-legs">Legs</div>
+                <!-- ── Body Silhouette + Tab Bar ── -->
+                <div class="train-top-section">
+                    <!-- Body silhouette diagram -->
+                    <div class="body-diagram" id="body-diagram">
+                        <svg viewBox="0 0 120 280" class="body-svg" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Head -->
+                            <circle cx="60" cy="22" r="16" class="body-part" id="bp-head" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+                            <!-- Neck -->
+                            <rect x="54" y="36" width="12" height="10" rx="4" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+                            <!-- Shoulders -->
+                            <ellipse cx="28" cy="55" rx="16" ry="10" class="body-part body-shoulders" id="bp-shoulders" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" onclick="filterByMuscle('shoulders')"/>
+                            <ellipse cx="92" cy="55" rx="16" ry="10" class="body-part body-shoulders" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" onclick="filterByMuscle('shoulders')"/>
+                            <!-- Chest -->
+                            <rect x="38" y="46" width="44" height="30" rx="8" class="body-part" id="bp-chest" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" onclick="filterByMuscle('chest')"/>
+                            <!-- Upper Arms -->
+                            <rect x="10" y="56" width="14" height="36" rx="6" class="body-part body-arms" id="bp-arms" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" onclick="filterByMuscle('arms')"/>
+                            <rect x="96" y="56" width="14" height="36" rx="6" class="body-part body-arms" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" onclick="filterByMuscle('arms')"/>
+                            <!-- Forearms -->
+                            <rect x="8" y="96" width="12" height="30" rx="5" class="body-part body-forearms" id="bp-forearms" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" onclick="filterByMuscle('forearms')"/>
+                            <rect x="100" y="96" width="12" height="30" rx="5" class="body-part body-forearms" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" onclick="filterByMuscle('forearms')"/>
+                            <!-- Abs / Core -->
+                            <rect x="40" y="76" width="40" height="44" rx="8" class="body-part" id="bp-abs" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" onclick="filterByMuscle('abs')"/>
+                            <!-- Back (shown as outline behind) -->
+                            <!-- Glutes -->
+                            <ellipse cx="60" cy="130" rx="22" ry="14" class="body-part" id="bp-glutes" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" onclick="filterByMuscle('glutes')"/>
+                            <!-- Upper legs -->
+                            <rect x="38" y="140" width="20" height="56" rx="8" class="body-part body-legs" id="bp-legs" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" onclick="filterByMuscle('legs')"/>
+                            <rect x="62" y="140" width="20" height="56" rx="8" class="body-part body-legs" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" onclick="filterByMuscle('legs')"/>
+                            <!-- Calves -->
+                            <rect x="40" y="200" width="16" height="44" rx="7" class="body-part body-calves" id="bp-calves" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" onclick="filterByMuscle('calves')"/>
+                            <rect x="64" y="200" width="16" height="44" rx="7" class="body-part body-calves" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" onclick="filterByMuscle('calves')"/>
+                            <!-- Feet -->
+                            <ellipse cx="48" cy="248" rx="10" ry="6" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+                            <ellipse cx="72" cy="248" rx="10" ry="6" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+                        </svg>
+                        <div class="body-diagram-label" id="body-diagram-label">Tap a muscle</div>
                     </div>
-                    <!-- Search bar -->
-                    <div class="train-search-wrap">
-                        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" class="train-search-icon"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-                        <input type="text" class="train-search-input" id="train-search" placeholder="Search workouts..." oninput="filterTrainCards()">
+
+                    <!-- Tab bar + search -->
+                    <div class="train-right-panel">
+                        <!-- Tab bar -->
+                        <div class="train-tab-bar">
+                            <div class="train-tab active" onclick="setTrainTab('all')" id="ttab-all">All</div>
+                            <div class="train-tab" onclick="setTrainTab('push')" id="ttab-push">Push</div>
+                            <div class="train-tab" onclick="setTrainTab('pull')" id="ttab-pull">Pull</div>
+                            <div class="train-tab" onclick="setTrainTab('legs')" id="ttab-legs">Legs</div>
+                        </div>
+                        <!-- Search bar -->
+                        <div class="train-search-wrap">
+                            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" class="train-search-icon"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                            <input type="text" class="train-search-input" id="train-search" placeholder="Search workouts..." oninput="filterTrainCards()">
+                        </div>
                     </div>
                 </div>
+
                 <!-- ── Muscle Cards Grid ── -->
                 <div class="train-muscle-grid" id="train-muscle-grid">
                     <!-- Populated by JS -->
@@ -8987,7 +8002,7 @@
                             </div>
                         </div>
                         <h2 id="profile-name-display">Fitness Enthusiast</h2>
-                        <p id="profile-email-display">—</p>
+                        <p id="profile-email-display" style="color: var(--text-muted);">user@example.com</p>
                         
                         <!-- User Level and Goals -->
                         <div class="badge-container" id="profile-badges">
@@ -9198,29 +8213,20 @@
         <!-- Bottom Navigation - Fixed at bottom -->
         <div class="bottom-nav">
             <div class="nav-item active" onclick="showPage('home')">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+                <svg class="nav-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3L4 9v12h5v-7h6v7h5V9z"/></svg>
                 <span>Home</span>
-                <div class="nav-item-dot"></div>
             </div>
             <div class="nav-item" onclick="showPage('workout')">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43l-1.43-1.44-2.85 2.85 1.44 1.43L3.43 9.14 2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43 1.44 1.43 2.85-2.85-1.44-1.43z"/></svg>
-                <span>Workout</span>
-                <div class="nav-item-dot"></div>
+                <svg class="nav-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg>
+                <span>Train</span>
             </div>
-            <div class="nav-item nav-fab" onclick="showPage('planner')">
-                <div class="nav-fab-wrap">
-                    <svg viewBox="0 0 24 24" fill="#000"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
-                </div>
-            </div>
-            <div class="nav-item" onclick="showPage('meals')">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.86 3.75 3.97V22h2.5v-9.03C11.34 12.86 13 11.12 13 9V2h-2v7zm5-7v12h2.5v8H21V2h-5z"/></svg>
-                <span>Meals</span>
-                <div class="nav-item-dot"></div>
+            <div class="nav-item" onclick="showPage('planner')">
+                <svg class="nav-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3h-1V1h-2v2H8V1H6v2H5C3.9 3 3 3.9 3 5v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zm-7-9h-2v2H8v2h2v2h2v-2h2v-2h-2z"/></svg>
+                <span>Plan</span>
             </div>
             <div class="nav-item" onclick="showPage('profile')">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-                <span>Profile</span>
-                <div class="nav-item-dot"></div>
+                <svg class="nav-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+                <span>Me</span>
             </div>
         </div>
     </div>
@@ -9687,27 +8693,6 @@
     </div>
 
     <script>
-        function renderCustomWeekStrip() {
-            const wrap = document.getElementById('custom-week-strip');
-            if(!wrap) return;
-            const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-            const today = new Date();
-            let html = '';
-            for(let i=0; i<7; i++) {
-                const d = new Date(today);
-                d.setDate(today.getDate() - today.getDay() + i);
-                const isToday = d.toDateString() === today.toDateString();
-                const dow = days[i];
-                const date = d.getDate();
-                html += `<div class="nws-day ${isToday ? 'active' : ''}">
-                    <div class="nws-dow">${dow}</div>
-                    <div class="nws-date"><span>${date}</span></div>
-                </div>`;
-            }
-            wrap.innerHTML = html;
-        }
-        document.addEventListener('DOMContentLoaded', renderCustomWeekStrip);
-
         // ==================== SVG ICON HELPER ====================
         function svgIcon(cls) {
             const c = cls && cls.startsWith('fa-') ? cls : 'fa-dumbbell';
@@ -10999,13 +9984,10 @@
             // Rotate hero banner by day of week
             const dayIdx = new Date().getDay();
             const bannerEl = document.getElementById('hero-banner-img');
-            const _heroSet = (window._adminHeroImages && window._adminHeroImages.length) ? window._adminHeroImages : HERO_IMAGES;
-            if (bannerEl) bannerEl.src = (_heroSet[dayIdx] || _heroSet[dayIdx % _heroSet.length] || HERO_IMAGES[dayIdx % HERO_IMAGES.length]);
+            if (bannerEl) bannerEl.src = HERO_IMAGES[dayIdx % HERO_IMAGES.length];
 
             // Random motivational quote
-            const DEFAULT_QUOTES = [["The only bad workout is the one that didn't happen.", 'Unknown'], ['Push yourself because no one else is going to do it for you.', 'Unknown'], ["Your body can stand almost anything. It's your mind you have to convince.", 'Unknown'], ['Success starts with self-discipline.', 'Unknown'], ["Don't wish for it. Work for it.", 'Unknown'], ["The pain you feel today is the strength you'll feel tomorrow.", 'Unknown'], ['Sweat is just fat crying.', 'Unknown'], ['Train insane or remain the same.', 'Unknown']];
-            const adminQ = window._adminQuotes;
-            const QUOTES = (adminQ && adminQ.length) ? adminQ.map(t => [t, 'Admin']) : DEFAULT_QUOTES;
+            const QUOTES = [("The only bad workout is the one that didn't happen.", 'Unknown'), ('Push yourself because no one else is going to do it for you.', 'Unknown'), ("Your body can stand almost anything. It's your mind you have to convince.", 'Unknown'), ('Success starts with self-discipline.', 'Unknown'), ("Don't wish for it. Work for it.", 'Unknown'), ("The pain you feel today is the strength you'll feel tomorrow.", 'Unknown'), ('Sweat is just fat crying.', 'Unknown'), ('Train insane or remain the same.', 'Unknown')];
             const q = QUOTES[Math.floor(Math.random() * QUOTES.length)];
             const qt = document.getElementById('hero-quote-text');
             const qa = document.getElementById('hero-quote-author');
@@ -11056,18 +10038,6 @@
 
         document.addEventListener('DOMContentLoaded', function() {
             console.log('App initializing...');
-            // Permanently destroy announcement banner on startup
-            const _initBanner = document.getElementById('admin-announcement-banner');
-            if (_initBanner) { _initBanner.style.display = 'none'; _initBanner.remove(); }
-            // Also clear any saved bannerText from adminConfig so it never comes back
-            try {
-                const _ac = JSON.parse(localStorage.getItem('adminConfig') || '{}');
-                if (_ac.bannerText !== undefined) {
-                    delete _ac.bannerText;
-                    delete _ac.bannerColor;
-                    localStorage.setItem('adminConfig', JSON.stringify(_ac));
-                }
-            } catch(e) {}
             
             // Initialize all data
             initializeData();
@@ -11127,7 +10097,6 @@
             updateHomeHero();
             loadDailyChallenge();
             checkAndAwardBadges();
-            renderNewHome();
             // Show home page with hero header
             showPage('home');
             
@@ -11285,8 +10254,8 @@
             const pageTitleHeader = document.getElementById('page-title-header');
             
             if (pageName === 'home') {
-                // Hide both headers on home — home has its own in-page header
-                if (heroHeader) heroHeader.style.display = 'none';
+                // Show hero header, hide regular header
+                if (heroHeader) heroHeader.style.display = 'block';
                 if (regularHeader) regularHeader.style.display = 'none';
             } else {
                 // Show regular header, hide hero header
@@ -11342,11 +10311,7 @@
             const nameDisplay = document.getElementById('profile-name-display');
             const emailDisplay = document.getElementById('profile-email-display');
             if (nameDisplay) nameDisplay.textContent = profile.name || 'Fitness Enthusiast';
-            if (emailDisplay) {
-                // Prefer Firebase auth email (always accurate)
-                const authEmail = window._fbUser && window._fbUser.email;
-                emailDisplay.textContent = authEmail || profile.email || 'No email set';
-            }
+            if (emailDisplay) emailDisplay.textContent = profile.email || 'No email provided';
             
             // Update level badge
             const levelBadge = document.getElementById('profile-level-badge');
@@ -11367,14 +10332,8 @@
                 goalBadge.textContent = goalMap[profile.goals[0]] || 'Fitness';
             }
             
-            // Update avatar — check dedicated key first (survives Firebase sync)
-            const localAvatar = localStorage.getItem('localAvatarImage');
-            const avatarToShow = localAvatar || profile.avatarImage || null;
-            if (localAvatar && !profile.avatarImage) {
-                profile.avatarImage = localAvatar;
-                localStorage.setItem('userProfile', JSON.stringify(profile));
-            }
-            updateProfileAvatar(profile.avatar, avatarToShow);
+            // Update avatar
+            updateProfileAvatar(profile.avatar, profile.avatarImage);
             
             // Update workout count
             updateWorkoutCount();
@@ -11464,9 +10423,8 @@
             const headerAvatar = document.getElementById('header-avatar-home');
             if (!headerAvatar) return;
             
-            const _avatarSrc = avatarImage || localStorage.getItem('localAvatarImage');
-            if (_avatarSrc) {
-                headerAvatar.innerHTML = `<img src="${_avatarSrc}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">`;
+            if (avatarImage) {
+                headerAvatar.innerHTML = `<img src="${avatarImage}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">`;
             } else {
                 headerAvatar.innerHTML = `${svgIcon(avatarIcons[avatar] || 'fa-user')}`;
             }
@@ -11648,56 +10606,51 @@
         }
 
         function handleAvatarUpload(event) {
-            const file = event.target.files && event.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const dataUrl = e.target.result;
-                avatarImage   = dataUrl;
-                selectedAvatar = 'custom';
-
-                // Save immediately — no need to press Save button
-                const profile = JSON.parse(localStorage.getItem('userProfile') || '{}');
-                profile.avatarImage = dataUrl;
-                profile.avatar = 'custom';
-                localStorage.setItem('userProfile', JSON.stringify(profile));
-                // Dedicated key — survives Firebase sync
-                localStorage.setItem('localAvatarImage', dataUrl);
-
-                // Update UI instantly
-                updateProfileAvatar('custom', dataUrl);
-                updateHeaderAvatar('custom', dataUrl);
-
-                // Show preview in modal grid too
-                const avatarGrid = document.querySelector('.avatar-grid');
-                if (avatarGrid) {
-                    const old = document.getElementById('uploaded-avatar-preview');
-                    if (old) old.remove();
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    avatarImage = e.target.result;
+                    selectedAvatar = 'custom';
+                    
+                    // Show preview in avatar grid
+                    const avatarGrid = document.querySelector('.avatar-grid');
+                    if (!avatarGrid) return;
+                    
+                    // Remove existing preview
+                    const oldPreview = document.getElementById('uploaded-avatar-preview');
+                    if (oldPreview) {
+                        oldPreview.remove();
+                    }
+                    
+                    // Create new preview
                     const preview = document.createElement('div');
                     preview.className = 'avatar-option selected';
                     preview.id = 'uploaded-avatar-preview';
-                    preview.style.cssText = 'width:56px;height:56px;border-radius:50%;overflow:hidden;border:3px solid var(--success);';
-                    preview.innerHTML = '<img src="' + dataUrl + '" style="width:100%;height:100%;object-fit:cover;">';
+                    preview.innerHTML = `<img src="${avatarImage}" style="width: 100%; height: 100%; object-fit: cover;">`;
                     avatarGrid.insertBefore(preview, avatarGrid.firstChild);
-                    document.querySelectorAll('.avatar-option').forEach(o => o.classList.remove('selected'));
+                    
+                    // Deselect other avatars
+                    document.querySelectorAll('.avatar-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
                     preview.classList.add('selected');
-                }
-                showNotification('Profile photo saved!');
-            };
-            reader.readAsDataURL(file);
+                };
+                reader.readAsDataURL(file);
+            }
         }
 
         function saveAvatar() {
             const profile = JSON.parse(localStorage.getItem('userProfile') || '{}');
-            if (selectedAvatar === 'custom' && avatarImage) {
+            
+            if (selectedAvatar === 'custom') {
                 profile.avatarImage = avatarImage;
-                profile.avatar = 'custom';
-                localStorage.setItem('localAvatarImage', avatarImage);
-            } else if (selectedAvatar !== 'custom') {
+                profile.avatar = 'user'; // default
+            } else {
                 profile.avatar = selectedAvatar;
                 profile.avatarImage = null;
-                localStorage.removeItem('localAvatarImage');
             }
+            
             localStorage.setItem('userProfile', JSON.stringify(profile));
             loadProfile();
             closeAvatarModal();
@@ -13602,7 +12555,6 @@
                 loadProfile();
                 updateHomeHero();
                 loadDailyChallenge();
-                renderNewHome();
                 updateHomeSummary();
                 updateStreak();
                 updateStats();
@@ -13782,8 +12734,7 @@
 
         function loadDailyChallenge() {
             const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(),0,0)) / 86400000);
-            const _challenges = (window._adminChallenges && window._adminChallenges.length) ? window._adminChallenges : DAILY_CHALLENGES;
-            const challenge = _challenges[dayOfYear % _challenges.length];
+            const challenge = DAILY_CHALLENGES[dayOfYear % DAILY_CHALLENGES.length];
             const todayKey = 'challenge_' + new Date().toDateString();
             const done = localStorage.getItem(todayKey) === 'done';
 
@@ -13812,8 +12763,7 @@
             const todayKey = 'challenge_' + new Date().toDateString();
             if (localStorage.getItem(todayKey) === 'done') return;
             const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(),0,0)) / 86400000);
-            const _challenges = (window._adminChallenges && window._adminChallenges.length) ? window._adminChallenges : DAILY_CHALLENGES;
-            const challenge = _challenges[dayOfYear % _challenges.length];
+            const challenge = DAILY_CHALLENGES[dayOfYear % DAILY_CHALLENGES.length];
             localStorage.setItem(todayKey, 'done');
             loadDailyChallenge();
             startMuscleWorkout(challenge.muscle);
@@ -14990,7 +13940,10 @@
                     <div class="train-card-bg" style="background-image:url('${meta.img}');background-color:transparent"></div>
                     <div class="train-card-overlay"></div>
 
-
+                    <div class="train-card-badges">
+                        <span class="diff-badge ${diffCls}">${meta.diff}</span>
+                        ${isHot ? '<span class="diff-badge" style="background:rgba(255,107,26,.25);color:#ff6b1a">On Fire</span>' : ''}
+                    </div>
 
                     <div class="train-card-fav ${isFav?'active':''}"
                          onclick="event.stopPropagation();toggleFav('${k}')">
@@ -15112,8 +14065,7 @@
         ];
 
         function showCoachingTip() {
-            const _tips = (window._adminTips && window._adminTips.length) ? window._adminTips : COACHING_TIPS;
-            const tip = _tips[Math.floor(Math.random() * _tips.length)];
+            const tip = COACHING_TIPS[Math.floor(Math.random() * COACHING_TIPS.length)];
             const el = document.getElementById('coaching-tip-text');
             if (el) el.textContent = tip;
         }
@@ -15360,17 +14312,7 @@
                 const data = {};
                 SYNC_KEYS.forEach(k => {
                     const v = localStorage.getItem(k);
-                    if (v) {
-                        if (k === 'userProfile') {
-                            // Strip avatarImage before syncing (too large for Firebase)
-                            const p = JSON.parse(v);
-                            const stripped = Object.assign({}, p);
-                            delete stripped.avatarImage;
-                            data[k] = stripped;
-                        } else {
-                            data[k] = JSON.parse(v);
-                        }
-                    }
+                    if (v) data[k] = JSON.parse(v);
                 });
                 // Daily challenge completions
                 const challenges = {};
@@ -15404,17 +14346,7 @@
                 const data   = snap.val();
                 SYNC_KEYS.forEach(k => {
                     if (data[k] !== undefined) {
-                        // For userProfile, merge carefully — preserve local avatarImage
-                        if (k === 'userProfile') {
-                            const localProfile = JSON.parse(localStorage.getItem('userProfile') || '{}');
-                            const cloudProfile = data[k];
-                            // Cloud wins for name/email/goals/level, but local wins for avatarImage
-                            const merged = Object.assign({}, localProfile, cloudProfile);
-                            if (localProfile.avatarImage) merged.avatarImage = localProfile.avatarImage;
-                            localStorage.setItem(k, JSON.stringify(merged));
-                        } else {
-                            localStorage.setItem(k, JSON.stringify(data[k]));
-                        }
+                        localStorage.setItem(k, JSON.stringify(data[k]));
                     }
                 });
                 // Restore challenge days
@@ -15467,68 +14399,6 @@
             // Hide auth screen, show app
             hideAuthScreen();
 
-            // Check if admin
-            checkAdmin(user.email);
-
-            // ── Real-time admin config listener (fires for ALL users immediately when admin changes anything) ──
-            if (window._fbDb && window._fbOnValue && window._fbRef) {
-                try {
-                    // Config (colours, text, branding, challenges etc.)
-                    const cfgRef = window._fbRef(window._fbDb, 'adminConfig');
-                    window._fbOnValue(cfgRef, snap => {
-                        if (snap && snap.exists && snap.exists()) {
-                            const val = snap.val();
-                            // Strip banner before saving/applying
-                            delete val.bannerText;
-                            delete val.bannerColor;
-                            localStorage.setItem('adminConfig', JSON.stringify(val));
-                            applyAdminConfig();
-                            // Remove any existing banner element
-                            const _ab = document.getElementById('admin-announcement-banner');
-                            if (_ab) _ab.remove();
-                            showSync('synced');
-                        }
-                    });
-
-                    // Images (hero, muscle cards, exercise thumbs/forms)
-                    const imgRef = window._fbRef(window._fbDb, 'adminImages');
-                    window._fbOnValue(imgRef, snap => {
-                        if (snap && snap.exists && snap.exists()) {
-                            const val = snap.val();
-                            if (val.hero)    localStorage.setItem('adminImg_hero',    JSON.stringify(val.hero));
-                            if (val.muscles) localStorage.setItem('adminImg_muscles', JSON.stringify(val.muscles));
-                            if (val.thumbs)  localStorage.setItem('adminImg_thumbs',  JSON.stringify(val.thumbs));
-                            if (val.forms)   localStorage.setItem('adminImg_forms',   JSON.stringify(val.forms));
-                            applyAdminImages();
-                        }
-                    });
-
-                    // Broadcast messages
-                    const bcastRef = window._fbRef(window._fbDb, 'broadcast');
-                    window._fbOnValue(bcastRef, snap => {
-                        if (snap && snap.exists && snap.exists()) {
-                            const val = snap.val();
-                            // Broadcast banner permanently disabled
-                    const _bb = document.getElementById('admin-announcement-banner');
-                    if (_bb) _bb.remove();
-                        }
-                    });
-                } catch(e) { console.warn('Admin listener error:', e); }
-            }
-            applyAdminConfig();
-            applyAdminImages();
-            applyAdminTypographyLayout();
-
-            // Sync Firebase auth name/email into userProfile
-            if (user.displayName || user.email) {
-                const p = JSON.parse(localStorage.getItem('userProfile') || '{}');
-                if (!p.name && user.displayName) p.name = user.displayName;
-                if (!p.email && user.email)       p.email = user.email;
-                if (user.displayName) p.name = user.displayName; // always use auth name
-                if (user.email)       p.email = user.email;
-                localStorage.setItem('userProfile', JSON.stringify(p));
-            }
-
             // Update profile UI
             const displayName = user.displayName || 'Athlete';
             const emailShort  = user.email || '';
@@ -15559,777 +14429,6 @@
         window.authGoogleSignIn = authGoogleSignIn;
         window.authSignOutUser  = authSignOutUser;
         window.syncToFirebase   = syncToFirebase;
-
-
-        // ══════════════════════════════════════════════════════
-
-        // ══════════════════════════════════════════════════════
-        // ADMIN PANEL — CLEAN REBUILD
-        // ══════════════════════════════════════════════════════
-        const ADMIN_EMAIL = 'athlypro@gmail.com';
-        let _isAdmin = false;
-        let _admColours = {};
-
-        // ── Gate ──
-        function checkAdmin(email) {
-            _isAdmin = (email || '').toLowerCase() === ADMIN_EMAIL;
-            const fab = document.getElementById('admin-fab');
-            if (fab) fab.style.display = _isAdmin ? 'flex' : 'none';
-        }
-
-        function openAdminPanel() {
-            if (!_isAdmin) return;
-            document.getElementById('admin-panel').classList.remove('hidden');
-            admLoadActive();
-        }
-        function closeAdminPanel() {
-            document.getElementById('admin-panel').classList.add('hidden');
-        }
-
-        // ── Tab switching ──
-        function admTab(name) {
-            document.querySelectorAll('.adm-tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.adm-panel').forEach(p => p.classList.remove('active'));
-            const tab = document.querySelector(`.adm-tab[onclick="admTab('${name}')"]`);
-            const panel = document.getElementById('admp-' + name);
-            if (tab) tab.classList.add('active');
-            if (panel) panel.classList.add('active');
-            admLoadActive();
-        }
-        window.admTab = admTab;
-
-        function admLoadActive() {
-            const panel = document.querySelector('.adm-panel.active');
-            if (!panel) return;
-            const id = panel.id.replace('admp-','');
-            if (id === 'branding')   admLoadBranding();
-            if (id === 'colours')    admLoadColours();
-            if (id === 'typography') admLoadTypography();
-            if (id === 'layout')     admLoadLayout();
-            if (id === 'content')    admLoadContent();
-            if (id === 'workouts')   admLoadWorkouts();
-            if (id === 'challenges') admLoadChallenges();
-            if (id === 'images')     { admImgTab('hero'); }
-            if (id === 'users')      admLoadUsers();
-        }
-
-        // ── getAdminConfig / saveAdminConfig ──
-        function getAdminConfig() {
-            try { return JSON.parse(localStorage.getItem('adminConfig') || '{}'); } catch { return {}; }
-        }
-        function saveAdminConfig(updates) {
-            const cfg = getAdminConfig();
-            Object.assign(cfg, updates);
-            localStorage.setItem('adminConfig', JSON.stringify(cfg));
-            if (window._fbDb && window._fbRef && window._fbSet) {
-                window._fbSet(window._fbRef(window._fbDb, 'adminConfig'), cfg)
-                    .then(() => showSync('synced'))
-                    .catch(() => showSync('error'));
-                showSync('syncing');
-            }
-        }
-
-        // ── Apply ALL admin config (called on login for all users) ──
-        function applyAdminConfig() {
-            const cfg = getAdminConfig();
-            // App name
-            if (cfg.appName) {
-                document.querySelectorAll('.auth-app-name').forEach(el => el.textContent = cfg.appName);
-                document.title = cfg.appName;
-            }
-            if (cfg.tagline) document.querySelectorAll('.auth-tagline').forEach(el => el.textContent = cfg.tagline);
-            // Nav labels
-            if (cfg.navLabels) {
-                const items = document.querySelectorAll('.nav-item span');
-                const keys = ['home','train','plan','me'];
-                items.forEach((el, i) => { if (cfg.navLabels[keys[i]]) el.textContent = cfg.navLabels[keys[i]]; });
-            }
-            // Colours — every CSS variable
-            if (cfg.colours) {
-                _admColours = cfg.colours;
-                Object.entries(cfg.colours).forEach(([v, val]) => { if (val && v.startsWith('--')) _applyVar(v, val); });
-            }
-            // Typography
-            if (cfg.typography) {
-                if (cfg.typography.family)   _admApplyFontDOM(cfg.typography.family);
-                if (cfg.typography.size)     { document.documentElement.style.setProperty('--font-sz', cfg.typography.size+'px'); }
-                if (cfg.typography.weight)   document.documentElement.style.setProperty('--font-wt', cfg.typography.weight);
-                if (cfg.typography.spacing)  document.documentElement.style.setProperty('--letter-sp', cfg.typography.spacing);
-            }
-            // Layout
-            if (cfg.layout) {
-                if (cfg.layout.radius !== undefined)  _applyRadius(cfg.layout.radius);
-                if (cfg.layout.spacing !== undefined) _applySpacing(cfg.layout.spacing);
-                if (cfg.layout.animations === false)  _applyNoAnim();
-                if (cfg.layout.hideWeek)      { const el=document.getElementById('home-week-strip');      if(el) el.style.display='none'; }
-                if (cfg.layout.hideChallenge) { const el=document.getElementById('daily-challenge-card'); if(el) el.style.display='none'; }
-                if (cfg.layout.hidePills)     { const el=document.querySelector('.home-cat-pills');        if(el) el.style.display='none'; }
-            }
-            // Quotes
-            if (cfg.quotes && cfg.quotes.length) window._adminQuotes = cfg.quotes;
-            // Tips
-            if (cfg.tips && cfg.tips.length) window._adminTips = cfg.tips;
-        }
-
-        // ── Core CSS helpers ──
-        function _applyVar(v, val) {
-            document.documentElement.style.setProperty(v, val);
-            if (v === '--success') {
-                const hex = val.replace('#','');
-                if (hex.length === 6) {
-                    const r=parseInt(hex.slice(0,2),16), g=parseInt(hex.slice(2,4),16), b=parseInt(hex.slice(4,6),16);
-                    document.documentElement.style.setProperty('--success-glow', `rgba(${r},${g},${b},0.25)`);
-                    document.documentElement.style.setProperty('--shadow-glow',  `rgba(${r},${g},${b},0.2)`);
-                    document.documentElement.style.setProperty('--glow', `0 0 20px rgba(${r},${g},${b},0.1)`);
-                }
-            }
-            if (v === '--primary') {
-                document.body.style.background = val;
-                const ac = document.querySelector('.app-container');
-                if (ac) ac.style.background = val;
-            }
-            if (v === '--surface') {
-                document.documentElement.style.setProperty('--secondary', val);
-            }
-        }
-        function _admApplyFontDOM(family) {
-            // Load font
-            let link = document.getElementById('adm-gfont');
-            if (!link) { link = document.createElement('link'); link.rel='stylesheet'; link.id='adm-gfont'; document.head.appendChild(link); }
-            link.href = `https://fonts.googleapis.com/css2?family=${family.replace(/ /g,'+')}:wght@400;500;600;700;800;900&display=swap`;
-            // Apply
-            let s = document.getElementById('adm-font-style');
-            if (!s) { s = document.createElement('style'); s.id='adm-font-style'; document.head.appendChild(s); }
-            s.textContent = `*, body { font-family: '${family}', -apple-system, sans-serif !important; }`;
-        }
-        function _applyRadius(val) {
-            const v = parseInt(val);
-            document.documentElement.style.setProperty('--radius-sm',  Math.max(0,v-6)+'px');
-            document.documentElement.style.setProperty('--radius-md',  v+'px');
-            document.documentElement.style.setProperty('--radius-lg',  Math.min(48,v+6)+'px');
-            document.documentElement.style.setProperty('--radius-xl',  Math.min(56,v+14)+'px');
-        }
-        function _applySpacing(val) {
-            let s = document.getElementById('adm-spacing-style');
-            if (!s) { s = document.createElement('style'); s.id='adm-spacing-style'; document.head.appendChild(s); }
-            s.textContent = `.home-header,.home-cat-pills,.home-section-header,.home-featured-row,.home-activity-row{padding-left:${val}px!important;padding-right:${val}px!important;margin-left:0!important;margin-right:0!important}`;
-        }
-        function _applyNoAnim() {
-            let s = document.getElementById('adm-noanim');
-            if (!s) { s = document.createElement('style'); s.id='adm-noanim'; document.head.appendChild(s); }
-            s.textContent = '*,*::before,*::after{animation:none!important;transition:none!important}';
-        }
-
-        // ══ BRANDING ══
-        function admLoadBranding() {
-            const cfg = getAdminConfig();
-            const el = n => document.getElementById(n);
-            if (el('adm-appname'))   el('adm-appname').value   = cfg.appName  || '';
-            if (el('adm-tagline'))   el('adm-tagline').value   = cfg.tagline  || '';
-            const nav = cfg.navLabels || {};
-            ['home','train','plan','me'].forEach(k => { if(el('adm-nav-'+k)) el('adm-nav-'+k).value = nav[k]||''; });
-            if (el('adm-quotes') && cfg.quotes) el('adm-quotes').value = cfg.quotes.join('\n');
-        }
-        function admSaveBranding() {
-            const name = document.getElementById('adm-appname').value.trim();
-            const tag  = document.getElementById('adm-tagline').value.trim();
-            if (!name) { showNotification('App name required'); return; }
-            saveAdminConfig({ appName: name, tagline: tag });
-            document.querySelectorAll('.auth-app-name').forEach(el => el.textContent = name);
-            document.querySelectorAll('.auth-tagline').forEach(el => el.textContent = tag);
-            document.title = name;
-            showNotification('Branding saved!');
-        }
-        function admSaveNav() {
-            const navLabels = {};
-            ['home','train','plan','me'].forEach(k => {
-                const v = document.getElementById('adm-nav-'+k)?.value.trim();
-                if (v) navLabels[k] = v;
-            });
-            saveAdminConfig({ navLabels });
-            const items = document.querySelectorAll('.nav-item span');
-            const keys = ['home','train','plan','me'];
-            items.forEach((el,i) => { if (navLabels[keys[i]]) el.textContent = navLabels[keys[i]]; });
-            showNotification('Nav labels saved!');
-        }
-        function admSaveQuotes() {
-            const raw = document.getElementById('adm-quotes').value;
-            const quotes = raw.split('\n').map(s=>s.trim()).filter(Boolean);
-            if (!quotes.length) { showNotification('Add at least one quote'); return; }
-            saveAdminConfig({ quotes });
-            window._adminQuotes = quotes;
-            showNotification(quotes.length + ' quotes saved!');
-        }
-
-        // ══ COLOURS ══
-        const ADM_COLOURS = [
-            { v:'--success',       name:'Primary Accent',    desc:'Buttons, active states', def:'#ff6b1a' },
-            { v:'--danger',        name:'Secondary Accent',  desc:'Gold / badges',          def:'#ffd000' },
-            { v:'--primary',       name:'App Background',    desc:'Main background',        def:'#0a0a0a' },
-            { v:'--surface',       name:'Card Background',   desc:'Cards and panels',       def:'#141414' },
-            { v:'--surface-light', name:'Light Surface',     desc:'Lighter card variant',   def:'#1c1c1c' },
-            { v:'--surface-hover', name:'Hover State',       desc:'Hovered elements',       def:'#222222' },
-            { v:'--text-primary',  name:'Primary Text',      desc:'Headings & labels',      def:'#ffffff' },
-            { v:'--text-secondary',name:'Secondary Text',    desc:'Descriptions',           def:'#a0a0a0' },
-            { v:'--text-muted',    name:'Muted Text',        desc:'Timestamps, hints',      def:'#606060' },
-            { v:'--border',        name:'Border Colour',     desc:'Card borders',           def:'#252525', text:true },
-            { v:'--border-strong', name:'Strong Border',     desc:'Emphasised borders',     def:'#333333', text:true },
-            { v:'--gold',          name:'Gold Colour',       desc:'PR badges, rankings',    def:'#ffd000' },
-        ];
-        const ADM_PRESETS = {
-            orange: { '--success':'#ff6b1a','--danger':'#ffd000','--gold':'#ffd000','--primary':'#0a0a0a','--surface':'#141414','--surface-light':'#1c1c1c','--surface-hover':'#222','--text-primary':'#fff','--text-secondary':'#a0a0a0','--text-muted':'#606060','--border':'#252525','--border-strong':'#333' },
-            blue:   { '--success':'#42a5f5','--danger':'#80d8ff','--gold':'#80d8ff','--primary':'#080e14','--surface':'#0d1520','--surface-light':'#111c28','--surface-hover':'#14202e','--text-primary':'#fff','--text-secondary':'#8ab4cc','--text-muted':'#4a6070','--border':'#1a2a36','--border-strong':'#243040' },
-            green:  { '--success':'#66bb6a','--danger':'#a5d6a7','--gold':'#a5d6a7','--primary':'#080e08','--surface':'#0d1a0d','--surface-light':'#112011','--surface-hover':'#162816','--text-primary':'#fff','--text-secondary':'#88c088','--text-muted':'#487048','--border':'#1a2e1a','--border-strong':'#243824' },
-            purple: { '--success':'#ab47bc','--danger':'#ce93d8','--gold':'#ce93d8','--primary':'#0a080e','--surface':'#14101a','--surface-light':'#1a1522','--surface-hover':'#201a2a','--text-primary':'#fff','--text-secondary':'#a888b8','--text-muted':'#685078','--border':'#22182a','--border-strong':'#2c2038' },
-            red:    { '--success':'#ef5350','--danger':'#ffcdd2','--gold':'#ffcdd2','--primary':'#0e0808','--surface':'#1a0d0d','--surface-light':'#221212','--surface-hover':'#281818','--text-primary':'#fff','--text-secondary':'#b88888','--text-muted':'#684848','--border':'#2a1515','--border-strong':'#381e1e' },
-            teal:   { '--success':'#26a69a','--danger':'#80cbc4','--gold':'#80cbc4','--primary':'#080e0e','--surface':'#0d1a1a','--surface-light':'#112020','--surface-hover':'#162828','--text-primary':'#fff','--text-secondary':'#88b8b4','--text-muted':'#487070','--border':'#1a2e2e','--border-strong':'#243838' },
-            pink:   { '--success':'#f48fb1','--danger':'#f8bbd0','--gold':'#f8bbd0','--primary':'#0e080c','--surface':'#1a0d14','--surface-light':'#22121c','--surface-hover':'#281824','--text-primary':'#fff','--text-secondary':'#b888a0','--text-muted':'#684858','--border':'#2a1520','--border-strong':'#382030' },
-            gold:   { '--success':'#ffcc02','--danger':'#ffe57f','--gold':'#ffe57f','--primary':'#0c0a00','--surface':'#1a1600','--surface-light':'#221e00','--surface-hover':'#282400','--text-primary':'#fff','--text-secondary':'#b8a840','--text-muted':'#686030','--border':'#2a2400','--border-strong':'#383200' },
-        };
-
-        function admLoadColours() {
-            const container = document.getElementById('adm-colour-list');
-            if (!container) return;
-            const cfg = getAdminConfig();
-            const saved = cfg.colours || {};
-            container.innerHTML = ADM_COLOURS.map(c => {
-                const cur = saved[c.v] || c.def;
-                const isText = c.text;
-                const safeId = c.v.replace(/[^a-zA-Z0-9]/g,'_');
-                return `<div class="adm-color-row">
-                    <div class="adm-color-info">
-                        <div class="adm-color-name">${c.name}</div>
-                        <div class="adm-color-desc">${c.desc}</div>
-                    </div>
-                    ${!isText ? `<input type="color" class="adm-color-swatch" id="cs_${safeId}" value="${cur.startsWith('#') ? cur : c.def}" oninput="admLiveColour('${c.v}',this.value,document.getElementById('ch_${safeId}'))">` : ''}
-                    <input type="text" class="adm-color-hex" id="ch_${safeId}" value="${cur}" placeholder="${c.def}" oninput="admHexChange('${c.v}','${safeId}',this.value)">
-                </div>`;
-            }).join('');
-        }
-
-        function admLiveColour(varName, val, hexEl) {
-            if (hexEl) hexEl.value = val;
-            _admColours[varName] = val;
-            _applyVar(varName, val);
-        }
-        function admHexChange(varName, safeId, val) {
-            _admColours[varName] = val;
-            _applyVar(varName, val);
-            if (/^#[0-9a-fA-F]{6}$/.test(val)) {
-                const swatch = document.getElementById('cs_' + safeId);
-                if (swatch) swatch.value = val;
-            }
-        }
-        function admSaveColours() {
-            // Read all current values
-            ADM_COLOURS.forEach(c => {
-                const safeId = c.v.replace(/[^a-zA-Z0-9]/g,'_');
-                const hexEl = document.getElementById('ch_' + safeId);
-                if (hexEl && hexEl.value) { _admColours[c.v] = hexEl.value; _applyVar(c.v, hexEl.value); }
-            });
-            saveAdminConfig({ colours: _admColours });
-            showNotification('Colours saved for all users!');
-        }
-        function admResetColours() {
-            _admColours = {};
-            ADM_COLOURS.forEach(c => { document.documentElement.style.removeProperty(c.v); });
-            document.body.style.background = '#000';
-            const ac = document.querySelector('.app-container');
-            if (ac) ac.style.background = '#0a0a0a';
-            saveAdminConfig({ colours: {} });
-            admLoadColours();
-            showNotification('Reset to defaults!');
-        }
-        function admPreset(name) {
-            const p = ADM_PRESETS[name]; if (!p) return;
-            _admColours = { ..._admColours, ...p };
-            Object.entries(p).forEach(([v,val]) => _applyVar(v, val));
-            saveAdminConfig({ colours: _admColours });
-            admLoadColours();
-            showNotification(name + ' theme applied!');
-        }
-
-        // ══ TYPOGRAPHY ══
-        function admLoadTypography() {
-            const cfg = getAdminConfig();
-            const t = cfg.typography || {};
-            if (t.family && document.getElementById('adm-font')) document.getElementById('adm-font').value = t.family;
-            if (t.size && document.getElementById('adm-fontsize')) {
-                document.getElementById('adm-fontsize').value = t.size;
-                document.getElementById('adm-fontsize-val').textContent = t.size + 'px';
-            }
-            if (t.weight && document.getElementById('adm-fontweight')) document.getElementById('adm-fontweight').value = t.weight;
-            if (t.spacing && document.getElementById('adm-letterspacing')) document.getElementById('adm-letterspacing').value = t.spacing;
-        }
-        function admApplyFont(family) {
-            _admApplyFontDOM(family);
-            saveAdminConfig({ typography: { ...getAdminConfig().typography, family } });
-        }
-        function admApplyFontSize(val) {
-            document.getElementById('adm-fontsize-val').textContent = val + 'px';
-            document.documentElement.style.setProperty('--font-sz', val + 'px');
-            let s = document.getElementById('adm-fs-style');
-            if (!s) { s = document.createElement('style'); s.id='adm-fs-style'; document.head.appendChild(s); }
-            s.textContent = `body, .content, p, span, div { font-size: ${val}px; }`;
-        }
-        function admApplyFontWeight(val) {
-            document.documentElement.style.setProperty('--font-wt', val);
-        }
-        function admApplyLetterSpacing(val) {
-            document.documentElement.style.setProperty('--letter-sp', val);
-            let s = document.getElementById('adm-ls-style');
-            if (!s) { s = document.createElement('style'); s.id='adm-ls-style'; document.head.appendChild(s); }
-            s.textContent = `body, p, span { letter-spacing: ${val}; }`;
-        }
-        function admSaveTypography() {
-            saveAdminConfig({ typography: {
-                family:  document.getElementById('adm-font')?.value,
-                size:    document.getElementById('adm-fontsize')?.value,
-                weight:  document.getElementById('adm-fontweight')?.value,
-                spacing: document.getElementById('adm-letterspacing')?.value,
-            }});
-            showNotification('Typography saved!');
-        }
-
-        // ══ LAYOUT ══
-        function admLoadLayout() {
-            const cfg = getAdminConfig();
-            const l = cfg.layout || {};
-            if (l.radius !== undefined && document.getElementById('adm-radius')) {
-                document.getElementById('adm-radius').value = l.radius;
-                document.getElementById('adm-radius-val').textContent = l.radius + 'px';
-            }
-            if (l.spacing !== undefined && document.getElementById('adm-spacing')) {
-                document.getElementById('adm-spacing').value = l.spacing;
-                document.getElementById('adm-spacing-val').textContent = l.spacing + 'px';
-            }
-            const el = n => document.getElementById(n);
-            if (el('adm-show-week'))      el('adm-show-week').checked      = !l.hideWeek;
-            if (el('adm-show-challenge')) el('adm-show-challenge').checked  = !l.hideChallenge;
-            if (el('adm-show-pills'))     el('adm-show-pills').checked      = !l.hidePills;
-            if (el('adm-animations'))     el('adm-animations').checked      = l.animations !== false;
-        }
-        function admApplyRadius(val) {
-            document.getElementById('adm-radius-val').textContent = val + 'px';
-            _applyRadius(val);
-        }
-        function admApplySpacing(val) {
-            document.getElementById('adm-spacing-val').textContent = val + 'px';
-            _applySpacing(val);
-        }
-        function admToggleEl(id, show) {
-            const el = id.startsWith('.') ? document.querySelector(id) : document.getElementById(id);
-            if (el) el.style.display = show ? '' : 'none';
-        }
-        function admToggleAnimations(on) {
-            if (!on) _applyNoAnim();
-            else { const s = document.getElementById('adm-noanim'); if(s) s.remove(); }
-        }
-        function admSaveLayout() {
-            saveAdminConfig({ layout: {
-                radius:        document.getElementById('adm-radius')?.value,
-                spacing:       document.getElementById('adm-spacing')?.value,
-                animations:    document.getElementById('adm-animations')?.checked,
-                hideWeek:      !document.getElementById('adm-show-week')?.checked,
-                hideChallenge: !document.getElementById('adm-show-challenge')?.checked,
-                hidePills:     !document.getElementById('adm-show-pills')?.checked,
-            }});
-            showNotification('Layout saved!');
-        }
-
-        // ══ CONTENT ══
-        function admLoadContent() {
-            const cfg = getAdminConfig();
-            if (document.getElementById('adm-tips') && cfg.tips) document.getElementById('adm-tips').value = cfg.tips.join('\n');
-            if (document.getElementById('adm-banner')) document.getElementById('adm-banner').value = cfg.bannerText || '';
-            if (document.getElementById('adm-banner-color') && cfg.bannerColor) document.getElementById('adm-banner-color').value = cfg.bannerColor;
-        }
-        function admSaveTips() {
-            const tips = (document.getElementById('adm-tips').value||'').split('\n').map(s=>s.trim()).filter(Boolean);
-            saveAdminConfig({ tips });
-            window._adminTips = tips;
-            showNotification(tips.length + ' tips saved!');
-        }
-        function admSaveBanner() {
-            const text  = document.getElementById('adm-banner').value.trim();
-            const color = document.getElementById('adm-banner-color').value;
-            saveAdminConfig({ bannerText: text, bannerColor: color });
-            if (text) showAnnouncementBanner(text, color);
-            showNotification(text ? 'Banner saved!' : 'Banner hidden');
-        }
-        function admBroadcast() {
-            const msg = document.getElementById('adm-broadcast').value.trim();
-            if (!msg) { showNotification('Enter a message'); return; }
-            if (window._fbDb && window._fbRef && window._fbSet) {
-                window._fbSet(window._fbRef(window._fbDb, 'broadcast'), { message: msg, color: '#ff6b1a', timestamp: Date.now() });
-            }
-            showAnnouncementBanner(msg, '#ff6b1a');
-            showNotification('Broadcast sent!');
-        }
-
-        // ══ WORKOUTS ══
-        function admLoadWorkouts() {
-            const container = document.getElementById('adm-workout-list');
-            if (!container) return;
-            const cfg = getAdminConfig();
-            const saved = cfg.workoutNames || {};
-            container.innerHTML = Object.entries(muscleWorkouts).map(([key, mw]) => `
-                <div class="adm-wo-card">
-                    <div class="adm-wo-name">${key}</div>
-                    <div class="adm-wo-grid">
-                        <div>
-                            <div style="font-size:10px;color:#555;margin-bottom:4px">DISPLAY NAME</div>
-                            <input class="adm-input" id="awn_${key}" value="${(saved[key]&&saved[key].name)||mw.name}" style="padding:7px 10px;font-size:12px">
-                        </div>
-                        <div>
-                            <div style="font-size:10px;color:#555;margin-bottom:4px">DURATION (MIN)</div>
-                            <input class="adm-input" id="awd_${key}" type="number" value="${mw.duration}" style="padding:7px 10px;font-size:12px">
-                        </div>
-                        <div>
-                            <div style="font-size:10px;color:#555;margin-bottom:4px">CALORIES</div>
-                            <input class="adm-input" id="awc_${key}" type="number" value="${mw.calories}" style="padding:7px 10px;font-size:12px">
-                        </div>
-                    </div>
-                </div>`).join('');
-        }
-        function admSaveWorkouts() {
-            const workoutNames = {};
-            Object.keys(muscleWorkouts).forEach(key => {
-                const name = document.getElementById('awn_'+key)?.value.trim();
-                const dur  = parseInt(document.getElementById('awd_'+key)?.value)||0;
-                const cal  = parseInt(document.getElementById('awc_'+key)?.value)||0;
-                workoutNames[key] = { name, dur, cal };
-                if (name) muscleWorkouts[key].name = name;
-                if (dur)  muscleWorkouts[key].duration = dur;
-                if (cal)  muscleWorkouts[key].calories = cal;
-            });
-            saveAdminConfig({ workoutNames });
-            showNotification('Workouts saved!');
-        }
-
-        // ══ CHALLENGES ══
-        function admLoadChallenges() {
-            const container = document.getElementById('adm-challenge-list');
-            if (!container) return;
-            const cfg = getAdminConfig();
-            const list = cfg.challenges || DAILY_CHALLENGES;
-            container.innerHTML = list.map((c,i) => `
-                <div class="adm-ch-card">
-                    <button class="adm-ch-del" onclick="admDelChallenge(${i})">✕</button>
-                    <div style="font-size:10px;color:#555;margin-bottom:8px">CHALLENGE ${i+1}</div>
-                    <input class="adm-input" id="acn_${i}" value="${c.name}" placeholder="Name" style="margin-bottom:6px;padding:7px 10px;font-size:12px">
-                    <input class="adm-input" id="acd_${i}" value="${c.desc}" placeholder="Description" style="margin-bottom:6px;padding:7px 10px;font-size:12px">
-                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
-                        <input class="adm-input" id="acr_${i}" value="${c.reps}" placeholder="Reps" style="padding:7px 10px;font-size:12px">
-                        <input class="adm-input" id="act_${i}" value="${c.time}" placeholder="Time" style="padding:7px 10px;font-size:12px">
-                    </div>
-                </div>`).join('');
-        }
-        function admAddChallenge() {
-            const cfg = getAdminConfig();
-            const list = cfg.challenges || [...DAILY_CHALLENGES];
-            list.push({ name:'New Challenge', desc:'Description', reps:'10 reps', time:'5 min', muscle:'fullbody' });
-            saveAdminConfig({ challenges: list });
-            admLoadChallenges();
-        }
-        function admDelChallenge(i) {
-            const cfg = getAdminConfig();
-            const list = cfg.challenges || [...DAILY_CHALLENGES];
-            list.splice(i,1);
-            saveAdminConfig({ challenges: list });
-            admLoadChallenges();
-        }
-        function admSaveChallenges() {
-            const cfg = getAdminConfig();
-            const old = cfg.challenges || [...DAILY_CHALLENGES];
-            const saved = old.map((c,i) => ({
-                ...c,
-                name: document.getElementById('acn_'+i)?.value || c.name,
-                desc: document.getElementById('acd_'+i)?.value || c.desc,
-                reps: document.getElementById('acr_'+i)?.value || c.reps,
-                time: document.getElementById('act_'+i)?.value || c.time,
-            }));
-            saveAdminConfig({ challenges: saved });
-            window._adminChallenges = saved;
-            showNotification(saved.length + ' challenges saved!');
-        }
-
-        // ══ IMAGES ══
-        const ADM_MUSCLE_KEYS   = ['chest','back','arms','shoulders','legs','abs','fullbody','cardio','glutes','calves','forearms'];
-        const ADM_MUSCLE_LABELS = { chest:'Chest',back:'Back',arms:'Arms',shoulders:'Shoulders',legs:'Legs',abs:'Core',fullbody:'Full Body',cardio:'Cardio',glutes:'Glutes',calves:'Calves',forearms:'Forearms' };
-
-        function admImgTab(tab) {
-            document.querySelectorAll('.adm-subtab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.adm-imgpanel').forEach(p => p.classList.remove('active'));
-            const t = document.querySelector(`.adm-subtab[onclick="admImgTab('${tab}')"]`);
-            const p = document.getElementById('adm-img-' + tab);
-            if (t) t.classList.add('active');
-            if (p) p.classList.add('active');
-            if (tab==='hero')      admRenderHero();
-            if (tab==='muscles')   admRenderMuscles();
-            if (tab==='exercises') admRenderExercises();
-        }
-
-        function admRenderHero() {
-            const el = document.getElementById('adm-img-hero');
-            if (!el) return;
-            const saved = JSON.parse(localStorage.getItem('adminImg_hero') || '[]');
-            const DAYS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-            const today = new Date().getDay();
-            el.innerHTML = '<div class="adm-img-grid">' + DAYS.map((d,i) => {
-                const src = saved[i] || (HERO_IMAGES && HERO_IMAGES[i % HERO_IMAGES.length]) || '';
-                return `<div class="adm-img-card" onclick="document.getElementById('hf_${i}').click()">
-                    <img src="${src}" id="hp_${i}" style="height:60px">
-                    <div class="adm-img-card-label">${d}${i===today?' ★':''} <span>tap to change</span></div>
-                    <div class="adm-img-overlay"><svg viewBox="0 0 24 24"><path d="M9 16h6v-6h4l-7-7-7 7h4v6z"/></svg></div>
-                    <input type="file" id="hf_${i}" accept="image/*" onchange="admUpHero(event,${i})">
-                </div>`;
-            }).join('') + '</div>';
-        }
-        function admUpHero(e, i) {
-            const file = e.target.files[0]; if (!file) return;
-            const r = new FileReader();
-            r.onload = ev => {
-                const saved = JSON.parse(localStorage.getItem('adminImg_hero')||'[]');
-                while (saved.length <= i) saved.push(null);
-                saved[i] = ev.target.result;
-                localStorage.setItem('adminImg_hero', JSON.stringify(saved));
-                const img = document.getElementById('hp_'+i);
-                if (img) img.src = ev.target.result;
-                admPushImages();
-                showNotification('Hero image updated!');
-            };
-            r.readAsDataURL(file);
-            e.target.value = '';
-        }
-
-        function admRenderMuscles() {
-            const el = document.getElementById('adm-img-muscles');
-            if (!el) return;
-            const saved = JSON.parse(localStorage.getItem('adminImg_muscles')||'{}');
-            el.innerHTML = '<div class="adm-img-grid">' + ADM_MUSCLE_KEYS.map(key => {
-                const src = saved[key] || (MUSCLE_META[key] && MUSCLE_META[key].img) || '';
-                return `<div class="adm-img-card" onclick="document.getElementById('mf_${key}').click()">
-                    <img src="${src}" id="mp_${key}" style="height:70px">
-                    <div class="adm-img-card-label">${ADM_MUSCLE_LABELS[key]} <span>tap to change</span></div>
-                    <div class="adm-img-overlay"><svg viewBox="0 0 24 24"><path d="M9 16h6v-6h4l-7-7-7 7h4v6z"/></svg></div>
-                    <input type="file" id="mf_${key}" accept="image/*" onchange="admUpMuscle(event,'${key}')">
-                </div>`;
-            }).join('') + '</div><button class="adm-btn adm-btn-secondary" onclick="admClearMuscles()">Reset Muscle Images</button>';
-        }
-        function admUpMuscle(e, key) {
-            const file = e.target.files[0]; if (!file) return;
-            const r = new FileReader();
-            r.onload = ev => {
-                const saved = JSON.parse(localStorage.getItem('adminImg_muscles')||'{}');
-                saved[key] = ev.target.result;
-                localStorage.setItem('adminImg_muscles', JSON.stringify(saved));
-                const img = document.getElementById('mp_'+key);
-                if (img) img.src = ev.target.result;
-                if (MUSCLE_META[key]) MUSCLE_META[key].img = ev.target.result;
-                if (typeof renderTrainCards === 'function') renderTrainCards();
-                admPushImages();
-                showNotification(ADM_MUSCLE_LABELS[key]+' updated!');
-            };
-            r.readAsDataURL(file);
-            e.target.value = '';
-        }
-        function admClearMuscles() {
-            localStorage.removeItem('adminImg_muscles');
-            admRenderMuscles();
-            admPushImages();
-            showNotification('Muscle images reset');
-        }
-
-        function admRenderExercises() {
-            const el = document.getElementById('adm-img-exercises');
-            if (!el) return;
-            const savedT = JSON.parse(localStorage.getItem('adminImg_thumbs')||'{}');
-            const savedF = JSON.parse(localStorage.getItem('adminImg_forms')||'{}');
-            const names = new Set();
-            Object.values(muscleWorkouts).forEach(mw => (mw.exercises||[]).forEach(ex => names.add(ex.name)));
-            el.innerHTML = '<p style="font-size:11px;color:#555;margin-bottom:10px">Left = list thumbnail. Right = workout form guide.</p>' +
-                [...names].sort().map(name => {
-                    const sid = name.replace(/[^a-zA-Z0-9]/g,'_');
-                    const esc = name.replace(/'/g,"\'");
-                    const ts = savedT[name] || EXERCISE_THUMBS[name] || DEFAULT_EXERCISE_THUMB;
-                    const fs = savedF[name] || EXERCISE_IMAGES[name] || DEFAULT_EXERCISE_IMAGE;
-                    return `<div class="adm-ex-row">
-                        <div class="adm-ex-thumb" onclick="document.getElementById('tf_${sid}').click()" title="Thumbnail">
-                            <img src="${ts}" id="tp_${sid}">
-                            <input type="file" id="tf_${sid}" accept="image/*" onchange="admUpThumb(event,'${esc}','${sid}')">
-                        </div>
-                        <div class="adm-ex-name">${name}</div>
-                        <div class="adm-ex-form" onclick="document.getElementById('ff_${sid}').click()" title="Form guide">
-                            <img src="${fs}" id="fp_${sid}">
-                            <input type="file" id="ff_${sid}" accept="image/*" onchange="admUpForm(event,'${esc}','${sid}')">
-                        </div>
-                    </div>`;
-                }).join('') +
-                '<button class="adm-btn adm-btn-secondary" style="margin-top:10px" onclick="admClearExercises()">Reset Exercise Images</button>';
-        }
-        function admUpThumb(e, name, sid) {
-            const file = e.target.files[0]; if (!file) return;
-            const r = new FileReader();
-            r.onload = ev => {
-                const saved = JSON.parse(localStorage.getItem('adminImg_thumbs')||'{}');
-                saved[name] = ev.target.result;
-                localStorage.setItem('adminImg_thumbs', JSON.stringify(saved));
-                const img = document.getElementById('tp_'+sid);
-                if (img) img.src = ev.target.result;
-                EXERCISE_THUMBS[name] = ev.target.result;
-                admPushImages();
-                showNotification(name+' thumbnail updated!');
-            };
-            r.readAsDataURL(file);
-            e.target.value = '';
-        }
-        function admUpForm(e, name, sid) {
-            const file = e.target.files[0]; if (!file) return;
-            const r = new FileReader();
-            r.onload = ev => {
-                const saved = JSON.parse(localStorage.getItem('adminImg_forms')||'{}');
-                saved[name] = ev.target.result;
-                localStorage.setItem('adminImg_forms', JSON.stringify(saved));
-                const img = document.getElementById('fp_'+sid);
-                if (img) img.src = ev.target.result;
-                EXERCISE_IMAGES[name] = ev.target.result;
-                admPushImages();
-                showNotification(name+' form image updated!');
-            };
-            r.readAsDataURL(file);
-            e.target.value = '';
-        }
-        function admClearExercises() {
-            localStorage.removeItem('adminImg_thumbs');
-            localStorage.removeItem('adminImg_forms');
-            admRenderExercises();
-            admPushImages();
-            showNotification('Exercise images reset');
-        }
-
-        function admPushImages() {
-            if (!window._fbDb || !window._fbRef || !window._fbSet) return;
-            const imgData = {
-                hero:    JSON.parse(localStorage.getItem('adminImg_hero')   ||'[]'),
-                muscles: JSON.parse(localStorage.getItem('adminImg_muscles')||'{}'),
-                thumbs:  JSON.parse(localStorage.getItem('adminImg_thumbs') ||'{}'),
-                forms:   JSON.parse(localStorage.getItem('adminImg_forms')  ||'{}'),
-            };
-            window._fbSet(window._fbRef(window._fbDb, 'adminImages'), imgData)
-                .then(() => showSync('synced')).catch(() => {});
-            showSync('syncing');
-        }
-
-        // ── Apply images on login ──
-        function applyAdminImages() {
-            const savedH = JSON.parse(localStorage.getItem('adminImg_hero')   ||'[]');
-            const savedM = JSON.parse(localStorage.getItem('adminImg_muscles')||'{}');
-            const savedT = JSON.parse(localStorage.getItem('adminImg_thumbs') ||'{}');
-            const savedF = JSON.parse(localStorage.getItem('adminImg_forms')  ||'{}');
-            if (savedH.length) window._adminHeroImages = savedH;
-            Object.entries(savedM).forEach(([k,u]) => { if (MUSCLE_META[k] && u) MUSCLE_META[k].img = u; });
-            Object.entries(savedT).forEach(([n,u]) => { EXERCISE_THUMBS[n] = u; });
-            Object.entries(savedF).forEach(([n,u]) => { EXERCISE_IMAGES[n] = u; });
-        }
-
-        // ══ USERS ══
-        function admLoadUsers() {
-            const el = document.getElementById('adm-stats');
-            if (!el) return;
-            const hist    = JSON.parse(localStorage.getItem('workoutHistory')||'[]');
-            const badges  = JSON.parse(localStorage.getItem('earnedBadges')||'[]');
-            const profile = JSON.parse(localStorage.getItem('userProfile')||'{}');
-            const stats = [
-                {v:hist.length,          l:'Workouts'},
-                {v:badges.length,         l:'Badges'},
-                {v:hist.reduce((s,w)=>s+(w.calories||0),0), l:'Calories'},
-                {v:hist.reduce((s,w)=>s+(w.duration||0),0), l:'Minutes'},
-                {v:profile.name||'—',    l:'Name'},
-                {v:profile.email||'—',   l:'Email'},
-            ];
-            el.innerHTML = '<div class="adm-stats-grid">' +
-                stats.map(s => `<div class="adm-stat-box"><div class="adm-stat-val">${s.v}</div><div class="adm-stat-lbl">${s.l}</div></div>`).join('') +
-                '</div>';
-        }
-        function admExportDB() {
-            const keys = ['workoutHistory','userProfile','workoutPlanner','savedPlans','bmiData','userGoals','bodyMeasurements','personalRecords','earnedBadges','streak','trainFavourites','adminConfig'];
-            const data = {};
-            keys.forEach(k => { const v=localStorage.getItem(k); if(v) try{data[k]=JSON.parse(v)}catch{data[k]=v} });
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));
-            a.download = 'athly_export_'+new Date().toISOString().slice(0,10)+'.json';
-            a.click();
-            showNotification('Exported!');
-        }
-
-        // ── Announcement banner ──
-        function showAnnouncementBanner(text, color) {
-            if (!text || !text.trim()) return;
-            let b = document.getElementById('admin-announcement-banner');
-            if (!b) {
-                b = document.createElement('div');
-                b.id = 'admin-announcement-banner';
-                b.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:7999;padding:8px 40px 8px 16px;font-size:12px;font-weight:700;text-align:center;color:#000;display:none';
-                const x = document.createElement('button');
-                x.textContent = '✕';
-                x.style.cssText = 'position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;font-size:16px;cursor:pointer;color:#000;opacity:.6';
-                x.onclick = () => b.style.display = 'none';
-                b.appendChild(x);
-                document.body.insertBefore(b, document.body.firstChild);
-            }
-            b.style.background = color || '#ff6b1a';
-            const x = b.querySelector('button');
-            b.textContent = text;
-            if (x) b.appendChild(x);
-            b.style.display = 'block';
-        }
-
-        // ── Register all window globals ──
-        window.openAdminPanel    = openAdminPanel;
-        window.closeAdminPanel   = closeAdminPanel;
-        window.checkAdmin        = checkAdmin;
-        window.applyAdminConfig  = applyAdminConfig;
-        window.applyAdminImages  = applyAdminImages;
-        window.getAdminConfig    = getAdminConfig;
-        window.saveAdminConfig   = saveAdminConfig;
-        window.admTab            = admTab;
-        window.admSaveBranding   = admSaveBranding;
-        window.admSaveNav        = admSaveNav;
-        window.admSaveQuotes     = admSaveQuotes;
-        window.admPreset         = admPreset;
-        window.admLiveColour     = admLiveColour;
-        window.admHexChange      = admHexChange;
-        window.admSaveColours    = admSaveColours;
-        window.admResetColours   = admResetColours;
-        window.admApplyFont      = admApplyFont;
-        window.admApplyFontSize  = admApplyFontSize;
-        window.admApplyFontWeight= admApplyFontWeight;
-        window.admApplyLetterSpacing = admApplyLetterSpacing;
-        window.admSaveTypography = admSaveTypography;
-        window.admApplyRadius    = admApplyRadius;
-        window.admApplySpacing   = admApplySpacing;
-        window.admToggleEl       = admToggleEl;
-        window.admToggleAnimations = admToggleAnimations;
-        window.admSaveLayout     = admSaveLayout;
-        window.admSaveTips       = admSaveTips;
-        window.admSaveBanner     = admSaveBanner;
-        window.admBroadcast      = admBroadcast;
-        window.admLoadWorkouts   = admLoadWorkouts;
-        window.admSaveWorkouts   = admSaveWorkouts;
-        window.admAddChallenge   = admAddChallenge;
-        window.admDelChallenge   = admDelChallenge;
-        window.admSaveChallenges = admSaveChallenges;
-        window.admImgTab         = admImgTab;
-        window.admUpHero         = admUpHero;
-        window.admUpMuscle       = admUpMuscle;
-        window.admClearMuscles   = admClearMuscles;
-        window.admUpThumb        = admUpThumb;
-        window.admUpForm         = admUpForm;
-        window.admClearExercises = admClearExercises;
-        window.admLoadUsers      = admLoadUsers;
-        window.admExportDB       = admExportDB;
-        window.showAnnouncementBanner = showAnnouncementBanner;
 
         // ==================== MAKE FUNCTIONS GLOBAL ====================
         window.showPage = showPage;

@@ -7518,7 +7518,197 @@
     
         /* ── Ensure no banner renders when empty ── */
         #admin-announcement-banner { display: none !important; height: 0 !important; padding: 0 !important; margin: 0 !important; border: none !important; overflow: hidden !important; max-height: 0 !important; }
-</style>
+
+        /* ════════════════════════════════════════
+           WORKOUT EXECUTION — COMPACT SINGLE SCREEN
+           ════════════════════════════════════════ */
+        #workout-execution-page {
+            display: flex; flex-direction: column;
+            height: 100%; overflow: hidden;
+        }
+        #execution-container {
+            flex: 1; display: flex; flex-direction: column;
+            overflow: hidden; padding: 0;
+        }
+
+        /* ── Top bar: phase + progress segments ── */
+        .exec-top-bar {
+            display: flex; align-items: center; gap: 8px;
+            padding: 10px 16px 6px; flex-shrink: 0;
+        }
+        .exec-phase-pill {
+            font-size: 9px; font-weight: 900; letter-spacing: .1em;
+            text-transform: uppercase; padding: 4px 10px; border-radius: 50px;
+            flex-shrink: 0;
+        }
+        .exec-phase-pill.warmup   { background: rgba(79,195,247,.15); color: #4fc3f7; }
+        .exec-phase-pill.main     { background: rgba(255,107,26,.15);  color: #ff6b1a; }
+        .exec-phase-pill.cooldown { background: rgba(171,71,188,.15);  color: #ab47bc; }
+        .exec-segments {
+            flex: 1; display: flex; gap: 3px; align-items: center;
+        }
+        .exec-segment {
+            flex: 1; height: 3px; border-radius: 3px; background: rgba(255,255,255,.1);
+            transition: background .3s;
+        }
+        .exec-segment.done   { background: rgba(255,107,26,.6); }
+        .exec-segment.active { background: #ff6b1a; }
+        .exec-segment.warmup-seg.done   { background: rgba(79,195,247,.6); }
+        .exec-segment.warmup-seg.active { background: #4fc3f7; }
+        .exec-segment.cooldown-seg.done   { background: rgba(171,71,188,.6); }
+        .exec-segment.cooldown-seg.active { background: #ab47bc; }
+
+        /* ── Main card ── */
+        .exec-card {
+            flex: 1; margin: 0 12px 8px;
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: 22px; display: flex; flex-direction: column;
+            overflow: hidden; min-height: 0;
+        }
+
+        /* ── Exercise header ── */
+        .exec-ex-header {
+            padding: 12px 16px 8px; flex-shrink: 0;
+            border-bottom: 1px solid rgba(255,255,255,.06);
+        }
+        .exec-ex-name {
+            font-size: 18px; font-weight: 900; color: var(--text-primary);
+            letter-spacing: -.4px; margin-bottom: 2px;
+        }
+        .exec-ex-meta {
+            font-size: 11px; color: var(--text-muted); font-weight: 600;
+            display: flex; align-items: center; gap: 10px;
+        }
+
+        /* ── Timer area ── */
+        .exec-timer-area {
+            flex: 1; display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            padding: 8px 16px; min-height: 0;
+        }
+        .exec-timer-num {
+            font-size: 72px; font-weight: 900; line-height: 1;
+            background: linear-gradient(135deg,#fff 60%,rgba(255,255,255,.4));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text; letter-spacing: -4px;
+            transition: background .3s;
+        }
+        .exec-timer-num.intensity-med  { background: linear-gradient(135deg,#ffb74d 50%,rgba(255,183,77,.4)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+        .exec-timer-num.intensity-high { background: linear-gradient(135deg,#ef5350 50%,rgba(239,83,80,.4));  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+        .exec-timer-label {
+            font-size: 11px; font-weight: 800; letter-spacing: .1em;
+            text-transform: uppercase; color: var(--text-muted); margin-top: 2px;
+        }
+        /* Rep counter mode */
+        .exec-rep-num {
+            font-size: 72px; font-weight: 900; line-height: 1;
+            color: var(--success); letter-spacing: -4px; cursor: pointer;
+            user-select: none; -webkit-user-select: none;
+        }
+        .exec-rep-hint {
+            font-size: 11px; color: var(--text-muted); font-weight: 600; margin-top: 4px;
+        }
+
+        /* ── Mode toggle (Timer / Rep) ── */
+        .exec-mode-row {
+            display: flex; gap: 6px; padding: 0 16px 8px; flex-shrink: 0;
+        }
+        .exec-mode-btn {
+            flex: 1; padding: 7px; background: var(--surface-light);
+            border: 1px solid var(--border); border-radius: 10px;
+            font-size: 11px; font-weight: 700; color: var(--text-muted);
+            cursor: pointer; text-align: center; transition: all .2s;
+        }
+        .exec-mode-btn.active {
+            background: rgba(255,107,26,.12); border-color: var(--success);
+            color: var(--success);
+        }
+
+        /* ── Set checkboxes ── */
+        .exec-sets-row {
+            display: flex; gap: 6px; padding: 0 16px 8px;
+            justify-content: center; flex-shrink: 0; flex-wrap: wrap;
+        }
+        .exec-set-box {
+            width: 34px; height: 34px; border-radius: 9px;
+            background: var(--surface-light); border: 1.5px solid var(--border);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 12px; font-weight: 800; color: var(--text-muted);
+            cursor: pointer; transition: all .2s;
+        }
+        .exec-set-box.done    { background: rgba(255,107,26,.15); border-color: var(--success); color: var(--success); }
+        .exec-set-box.current { border-color: var(--success); color: #fff; animation: pulse-set .8s infinite; }
+
+        /* ── Weight log ── */
+        .exec-weight-row {
+            display: flex; gap: 6px; align-items: center;
+            padding: 0 16px 6px; flex-shrink: 0;
+        }
+        .exec-weight-input {
+            flex: 1; padding: 8px 12px; background: var(--surface-light);
+            border: 1px solid var(--border); border-radius: 10px; color: #fff;
+            font-size: 13px; font-weight: 700; outline: none; min-width: 0;
+        }
+        .exec-weight-input:focus { border-color: var(--success); }
+        .exec-weight-unit { font-size: 12px; font-weight: 700; color: var(--text-muted); }
+        .exec-weight-log-btn {
+            padding: 8px 14px; background: var(--success); color: #000;
+            border: none; border-radius: 10px; font-size: 12px; font-weight: 900;
+            cursor: pointer;
+        }
+
+        /* ── Controls ── */
+        .exec-controls {
+            display: flex; gap: 8px; padding: 0 16px 10px;
+            flex-shrink: 0;
+        }
+        .exec-ctrl-btn {
+            flex: 1; height: 44px; border-radius: 13px;
+            background: var(--surface-light); border: 1px solid var(--border);
+            color: var(--text-primary); cursor: pointer; display: flex;
+            align-items: center; justify-content: center; transition: all .2s;
+        }
+        .exec-ctrl-btn svg { width: 18px; height: 18px; fill: currentColor; }
+        .exec-ctrl-btn.primary {
+            flex: 1.6; background: var(--success); color: #000;
+            border-color: var(--success); box-shadow: 0 4px 14px rgba(255,107,26,.35);
+        }
+        .exec-ctrl-btn.primary svg { width: 20px; height: 20px; }
+        .exec-ctrl-btn:hover { opacity: .85; }
+
+        /* ── Bottom action row ── */
+        .exec-action-row {
+            display: flex; gap: 6px; padding: 0 16px 12px; flex-shrink: 0;
+        }
+        .exec-act-btn {
+            flex: 1; padding: 8px 6px; background: var(--surface-light);
+            border: 1px solid var(--border); border-radius: 10px;
+            font-size: 11px; font-weight: 800; color: var(--text-muted);
+            cursor: pointer; text-align: center; transition: all .2s;
+            letter-spacing: .03em;
+        }
+        .exec-act-btn:hover { border-color: var(--success); color: var(--success); }
+        .exec-act-btn.danger:hover { border-color: #ffd000; color: #ffd000; }
+
+        /* ── Live stats row ── */
+        .exec-stats-row {
+            display: flex; padding: 6px 12px 0;
+            border-top: 1px solid rgba(255,255,255,.06);
+            flex-shrink: 0;
+        }
+        .exec-stat {
+            flex: 1; text-align: center; padding: 6px 4px;
+        }
+        .exec-stat-val {
+            font-size: 16px; font-weight: 900; color: var(--text-primary);
+            letter-spacing: -.4px;
+        }
+        .exec-stat-lbl {
+            font-size: 9px; font-weight: 700; color: var(--text-muted);
+            text-transform: uppercase; letter-spacing: .06em; margin-top: 1px;
+        }
+
+    </style>
 
     <!-- Firebase SDK -->
     <script type="module">
@@ -10943,7 +11133,15 @@
             // Update profile display
             const nameDisplay = document.getElementById('profile-name-display');
             const emailDisplay = document.getElementById('profile-email-display');
-            if (nameDisplay) nameDisplay.textContent = profile.name || 'Fitness Enthusiast';
+            // Always prefer Firebase auth name (most accurate)
+            const _authName = window._fbUser && window._fbUser.displayName;
+            const _displayName = _authName || profile.name || 'Fitness Enthusiast';
+            // Keep profile.name in sync with auth name
+            if (_authName && profile.name !== _authName) {
+                profile.name = _authName;
+                localStorage.setItem('userProfile', JSON.stringify(profile));
+            }
+            if (nameDisplay) nameDisplay.textContent = _displayName;
             if (emailDisplay) {
                 // Prefer Firebase auth email (always accurate)
                 const authEmail = window._fbUser && window._fbUser.email;
@@ -11646,8 +11844,12 @@
             const difficulty = difficultySelect ? parseInt(difficultySelect.value) : 1;
             const customName = customNameInput ? customNameInput.value : '';
             
-            if (!workoutPlanner[currentEditingDate]) {
+            // Ensure the day exists and has a workouts array (fixes adding to rest days)
+            if (!workoutPlanner[currentEditingDate] || workoutPlanner[currentEditingDate].type !== 'workout') {
                 workoutPlanner[currentEditingDate] = { type: 'workout', workouts: [] };
+            }
+            if (!Array.isArray(workoutPlanner[currentEditingDate].workouts)) {
+                workoutPlanner[currentEditingDate].workouts = [];
             }
             
             workoutPlanner[currentEditingDate].workouts.push({
@@ -12648,7 +12850,7 @@
                 const key = `${currentExerciseIndex}_${i}`;
                 const done = !!setChecked[key];
                 const isCur = i === currentSetIndex;
-                return `<div class="set-check ${done?'done':''} ${isCur&&!done?'current':''}"
+                return `<div class="exec-set-box ${done?'done':''} ${isCur&&!done?'current':''}"
                     onclick="toggleSetCheck(${currentExerciseIndex},${i})">${done?'✓':i+1}</div>`;
             }).join('');
 
@@ -12685,82 +12887,76 @@
             liveCalories = Math.round(getCurrentSetNumber() * 4.5);
 
             executionContainer.innerHTML = `
-                <div class="phase-indicator ${phaseClass}">${phaseLabel}</div>
-                <div class="phase-progress-row">${segments}</div>
-                <div class="exec-live-stats">
-                    <div class="exec-live-stat">
-                        <div class="exec-live-stat-val" id="live-cal">${liveCalories}</div>
-                        <div class="exec-live-stat-label">Cal Burned</div>
-                    </div>
-                    <div class="exec-live-stat">
-                        <div class="exec-live-stat-val">${elapsedMin}</div>
-                        <div class="exec-live-stat-label">Minutes</div>
-                    </div>
-                    <div class="exec-live-stat">
-                        <div class="exec-live-stat-val">${getCurrentSetNumber()}</div>
-                        <div class="exec-live-stat-label">Sets Done</div>
-                    </div>
+                <div class="exec-top-bar">
+                    <div class="exec-phase-pill ${phaseClass}">${phaseLabel}</div>
+                    <div class="exec-segments">${segments}</div>
                 </div>
-                <div class="workout-card-premium" id="exec-premium-card">
-                    <div class="workout-card-header">
-                        ${modeBadge}
-                        <h3>${exercise.name}</h3>
-                        <p>Set ${currentSetIndex + 1} of ${exercise.sets}</p>
+                <div class="exec-card" id="exec-premium-card">
+                    <div class="exec-ex-header">
+                        <div class="exec-ex-name">${exercise.name} ${modeBadge}</div>
+                        <div class="exec-ex-meta">
+                            <span>Set ${currentSetIndex + 1} / ${exercise.sets}</span>
+                            <span style="opacity:.4">·</span>
+                            <span>${exercise.reps} reps</span>
+                            <span style="opacity:.4">·</span>
+                            <span>Ex ${currentExerciseIndex + 1}/${totalExercises}</span>
+                        </div>
                     </div>
-
-                    <!-- Exercise form image -->
-                    <div class="exec-form-img-wrap" id="exec-form-wrap">
-                        <img class="exec-form-img" id="exec-form-img"
-                             src="${EXERCISE_IMAGES[exercise.name] || DEFAULT_EXERCISE_IMAGE}"
-                             alt="${exercise.name} form"
-                             loading="lazy"
-                             onerror="this.parentElement.classList.add('collapsed')">
-                        <div class="exec-form-img-label">Form Guide</div>
-                        <button class="exec-form-img-toggle" onclick="toggleFormImg()">Hide</button>
+                    <div class="exec-mode-row">
+                        <div class="exec-mode-btn ${repMode==='timer'?'active':''}" onclick="setRepMode('timer')">Timer</div>
+                        <div class="exec-mode-btn ${repMode==='rep'?'active':''}" onclick="setRepMode('rep')">Rep Counter</div>
                     </div>
-
-                    <div class="rep-mode-toggle">${timerBtn}${repBtn}</div>
-
-                    ${timerSection}
-
-                    <div class="sets-checklist">${setChecks}</div>
-
-                    <div class="weight-log-row">
-                        <input class="weight-log-input" type="number" id="weight-log-input"
-                            placeholder="${prevPR ? prevPR+'kg (PR)' : 'Weight (kg)'}"
+                    <div class="exec-timer-area">
+                        ${repMode === 'rep' ? `
+                            <div class="exec-rep-num" id="rep-counter-display" onclick="tapRep()">${repCount}</div>
+                            <div class="exec-rep-hint">Tap to count &nbsp;·&nbsp; Target: ${exercise.reps} reps</div>
+                        ` : `
+                            <div class="exec-timer-num" id="execution-timer">${timeLeft}</div>
+                            <div class="exec-timer-label" id="execution-timer-label">WORK</div>
+                        `}
+                    </div>
+                    <div class="exec-sets-row">${setChecks}</div>
+                    <div class="exec-weight-row">
+                        <input class="exec-weight-input" type="number" id="weight-log-input"
+                            placeholder="${prevPR ? prevPR+'kg PR' : 'Weight (kg)'}"
                             value="${setWeightLog[currentExerciseIndex+'_'+currentSetIndex]||''}"
                             step="0.5" min="0">
-                        <span class="weight-log-unit">kg</span>
-                        <button class="weight-log-save" onclick="logSetWeight()">Log</button>
+                        <span class="exec-weight-unit">kg</span>
+                        <button class="exec-weight-log-btn" onclick="logSetWeight()">Log</button>
                     </div>
-                    ${weightPills ? `<div class="weight-history-pills">${weightPills}</div>` : ''}
-                    
-                    <div class="workout-progress">
-                        <div class="workout-progress-bar">
-                            <div id="execution-progress-fill" class="workout-progress-fill" style="width: ${progressPercent}%;"></div>
-                        </div>
-                        <div class="workout-progress-text">
-                            <span>Exercise ${currentExerciseIndex + 1}/${totalExercises}</span>
-                            <span>Set ${currentSetIndex + 1}/${exercise.sets}</span>
-                        </div>
-                    </div>
-                    
-                    <div class="workout-controls">
-                        <button class="workout-control-btn" onclick="executionTimerControl('reset')" id="execution-reset-btn">
-                            <svg class="svg-icon" data-icon="fa-undo-alt" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><use href="#fa-undo-alt"/></svg>
+                    ${weightPills ? `<div style="padding:0 16px 6px;display:flex;flex-wrap:wrap;gap:4px">${weightPills}</div>` : ''}
+                    <div class="exec-controls">
+                        <button class="exec-ctrl-btn" onclick="executionTimerControl('reset')" id="execution-reset-btn">
+                            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/></svg>
                         </button>
-                        <button class="workout-control-btn primary" onclick="executionTimerControl('start')" id="execution-start-btn">
-                            <svg class="svg-icon" data-icon="fa-play" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><use href="#fa-play"/></svg>
+                        <button class="exec-ctrl-btn primary" onclick="executionTimerControl('start')" id="execution-start-btn">
+                            <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M8 5v14l11-7z"/></svg>
                         </button>
-                        <button class="workout-control-btn" onclick="executionTimerControl('pause')" id="execution-pause-btn">
-                            <svg class="svg-icon" data-icon="fa-pause" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><use href="#fa-pause"/></svg>
+                        <button class="exec-ctrl-btn" onclick="executionTimerControl('pause')" id="execution-pause-btn">
+                            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                        </button>
+                        <button class="exec-ctrl-btn" onclick="skipToNext()" title="Skip">
+                            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
                         </button>
                     </div>
-
                     <div class="exec-action-row">
-                        <button class="exec-action-btn" onclick="openRMCalc()">1RM</button>
-                        <button class="exec-action-btn" onclick="openSwapModal()">Swap</button>
-                        <button class="exec-action-btn danger" onclick="skipToNext()">Skip</button>
+                        <button class="exec-act-btn" onclick="openRMCalc()">1RM Calc</button>
+                        <button class="exec-act-btn" onclick="openSwapModal()">Swap</button>
+                        <button class="exec-act-btn danger" onclick="completeWorkout()">Finish</button>
+                    </div>
+                    <div class="exec-stats-row">
+                        <div class="exec-stat">
+                            <div class="exec-stat-val" id="live-cal">${liveCalories}</div>
+                            <div class="exec-stat-lbl">Cal</div>
+                        </div>
+                        <div class="exec-stat">
+                            <div class="exec-stat-val">${elapsedMin}</div>
+                            <div class="exec-stat-lbl">Min</div>
+                        </div>
+                        <div class="exec-stat">
+                            <div class="exec-stat-val">${getCurrentSetNumber()}</div>
+                            <div class="exec-stat-lbl">Sets Done</div>
+                        </div>
                     </div>
                 </div>
             `;
@@ -12802,7 +12998,7 @@
                     timerInterval = setInterval(() => {
                         if (timeLeft > 0) {
                             timeLeft--;
-                            const timerEl = document.getElementById('execution-timer');
+                            const timerEl = document.getElementById('execution-timer') || document.querySelector('.exec-timer-num');
                             if (timerEl) timerEl.textContent = timeLeft;
 
                             // Intensity colour shift
@@ -12946,7 +13142,7 @@
             const exercise = currentMuscleWorkout.exercises[currentExerciseIndex];
             timeLeft = exercise.duration;
             
-            const timerEl = document.getElementById('execution-timer');
+            const timerEl = document.getElementById('execution-timer') || document.querySelector('.exec-timer-num');
             if (timerEl) timerEl.textContent = timeLeft;
             
             const timerLabel = document.getElementById('execution-timer-label');
@@ -14762,7 +14958,7 @@
                     const k = `${exIndex}_${i}`;
                     const done = !!setChecked[k];
                     const isCur = i === setIndex && !done;
-                    return `<div class="set-check ${done?'done':''} ${isCur?'current':''}"
+                    return `<div class="exec-set-box ${done?'done':''} ${isCur?'current':''}"
                         onclick="toggleSetCheck(${exIndex},${i})">${done?'✓':i+1}</div>`;
                 }).join('');
             }
@@ -15044,6 +15240,7 @@
             }
         }
 
+
         // ══════════════════════════════════════════════════════
         // ADMIN PANEL — CLEAN REBUILD
         // ══════════════════════════════════════════════════════
@@ -15051,636 +15248,818 @@
         let _isAdmin = false;
         let _admColours = {};
 
-        // ── Gate ──
-        function checkAdmin(email) {
-            _isAdmin = (email || '').toLowerCase() === ADMIN_EMAIL;
-            const fab = document.getElementById('admin-fab');
-            if (fab) fab.style.display = _isAdmin ? 'flex' : 'none';
-        }
-
-        function openAdminPanel() {
-            if (!_isAdmin) return;
-            document.getElementById('admin-panel').classList.remove('hidden');
-            admLoadActive();
-        }
-        function closeAdminPanel() {
-            document.getElementById('admin-panel').classList.add('hidden');
-        }
-
-        // ── Tab switching ──
-        function admTab(name) {
-            document.querySelectorAll('.adm-tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.adm-panel').forEach(p => p.classList.remove('active'));
-            const tab = document.querySelector(`.adm-tab[onclick="admTab('${name}')"]`);
-            const panel = document.getElementById('admp-' + name);
-            if (tab) tab.classList.add('active');
-            if (panel) panel.classList.add('active');
-            admLoadActive();
-        }
-        window.admTab = admTab;
-
-        function admLoadActive() {
-            const panel = document.querySelector('.adm-panel.active');
-            if (!panel) return;
-            const id = panel.id.replace('admp-','');
-            if (id === 'branding')   admLoadBranding();
-            if (id === 'colours')    admLoadColours();
-            if (id === 'typography') admLoadTypography();
-            if (id === 'layout')     admLoadLayout();
-            if (id === 'content')    admLoadContent();
-            if (id === 'workouts')   admLoadWorkouts();
-            if (id === 'challenges') admLoadChallenges();
-            if (id === 'images')     { admImgTab('hero'); }
-            if (id === 'users')      admLoadUsers();
-        }
-
-        // ── getAdminConfig / saveAdminConfig ──
+        // ── Helpers ──
         function getAdminConfig() {
-            try { return JSON.parse(localStorage.getItem('adminConfig') || '{}'); } catch { return {}; }
+            try { return JSON.parse(localStorage.getItem('adminConfig') || '{}'); } catch(e) { return {}; }
         }
+
         function saveAdminConfig(updates) {
             const cfg = getAdminConfig();
             Object.assign(cfg, updates);
             localStorage.setItem('adminConfig', JSON.stringify(cfg));
             if (window._fbDb && window._fbRef && window._fbSet) {
                 window._fbSet(window._fbRef(window._fbDb, 'adminConfig'), cfg)
-                    .then(() => showSync('synced'))
-                    .catch(() => showSync('error'));
+                    .then(function() { showSync('synced'); })
+                    .catch(function() { showSync('error'); });
                 showSync('syncing');
             }
         }
 
-        // ── Apply ALL admin config (called on login for all users) ──
-        function applyAdminConfig() {
-            const cfg = getAdminConfig();
-            // App name
-            if (cfg.appName) {
-                document.querySelectorAll('.auth-app-name').forEach(el => el.textContent = cfg.appName);
-                document.title = cfg.appName;
-            }
-            if (cfg.tagline) document.querySelectorAll('.auth-tagline').forEach(el => el.textContent = cfg.tagline);
-            // Nav labels
-            if (cfg.navLabels) {
-                const items = document.querySelectorAll('.nav-item span');
-                const keys = ['home','train','plan','me'];
-                items.forEach((el, i) => { if (cfg.navLabels[keys[i]]) el.textContent = cfg.navLabels[keys[i]]; });
-            }
-            // Colours — every CSS variable
-            if (cfg.colours) {
-                _admColours = cfg.colours;
-                Object.entries(cfg.colours).forEach(([v, val]) => { if (val && v.startsWith('--')) _applyVar(v, val); });
-            }
-            // Typography
-            if (cfg.typography) {
-                if (cfg.typography.family)   _admApplyFontDOM(cfg.typography.family);
-                if (cfg.typography.size)     { document.documentElement.style.setProperty('--font-sz', cfg.typography.size+'px'); }
-                if (cfg.typography.weight)   document.documentElement.style.setProperty('--font-wt', cfg.typography.weight);
-                if (cfg.typography.spacing)  document.documentElement.style.setProperty('--letter-sp', cfg.typography.spacing);
-            }
-            // Layout
-            if (cfg.layout) {
-                if (cfg.layout.radius !== undefined)  _applyRadius(cfg.layout.radius);
-                if (cfg.layout.spacing !== undefined) _applySpacing(cfg.layout.spacing);
-                if (cfg.layout.animations === false)  _applyNoAnim();
-                if (cfg.layout.hideWeek)      { const el=document.getElementById('home-week-strip');      if(el) el.style.display='none'; }
-                if (cfg.layout.hideChallenge) { const el=document.getElementById('daily-challenge-card'); if(el) el.style.display='none'; }
-                if (cfg.layout.hidePills)     { const el=document.querySelector('.home-cat-pills');        if(el) el.style.display='none'; }
-            }
-            // Quotes
-            if (cfg.quotes && cfg.quotes.length) window._adminQuotes = cfg.quotes;
-            // Tips
-            if (cfg.tips && cfg.tips.length) window._adminTips = cfg.tips;
-        }
-
-        // ── Core CSS helpers ──
         function _applyVar(v, val) {
+            if (!v || !val) return;
             document.documentElement.style.setProperty(v, val);
             if (v === '--success') {
-                const hex = val.replace('#','');
-                if (hex.length === 6) {
-                    const r=parseInt(hex.slice(0,2),16), g=parseInt(hex.slice(2,4),16), b=parseInt(hex.slice(4,6),16);
-                    document.documentElement.style.setProperty('--success-glow', `rgba(${r},${g},${b},0.25)`);
-                    document.documentElement.style.setProperty('--shadow-glow',  `rgba(${r},${g},${b},0.2)`);
-                    document.documentElement.style.setProperty('--glow', `0 0 20px rgba(${r},${g},${b},0.1)`);
+                var hex = val.replace('#','');
+                if (/^[0-9a-fA-F]{6}$/.test(hex)) {
+                    var ri=parseInt(hex.slice(0,2),16), gi=parseInt(hex.slice(2,4),16), bi=parseInt(hex.slice(4,6),16);
+                    document.documentElement.style.setProperty('--success-glow','rgba('+ri+','+gi+','+bi+',0.25)');
+                    document.documentElement.style.setProperty('--shadow-glow','rgba('+ri+','+gi+','+bi+',0.2)');
+                    document.documentElement.style.setProperty('--glow','0 0 20px rgba('+ri+','+gi+','+bi+',0.1)');
                 }
             }
             if (v === '--primary') {
                 document.body.style.background = val;
-                const ac = document.querySelector('.app-container');
+                var ac = document.querySelector('.app-container');
                 if (ac) ac.style.background = val;
             }
             if (v === '--surface') {
                 document.documentElement.style.setProperty('--secondary', val);
             }
         }
+
         function _admApplyFontDOM(family) {
-            // Load font
-            let link = document.getElementById('adm-gfont');
+            var link = document.getElementById('adm-gfont');
             if (!link) { link = document.createElement('link'); link.rel='stylesheet'; link.id='adm-gfont'; document.head.appendChild(link); }
-            link.href = `https://fonts.googleapis.com/css2?family=${family.replace(/ /g,'+')}:wght@400;500;600;700;800;900&display=swap`;
-            // Apply
-            let s = document.getElementById('adm-font-style');
+            link.href = 'https://fonts.googleapis.com/css2?family='+family.replace(/ /g,'+').replace(/\s/g,'+').replace("'",'')+':wght@400;500;600;700;800;900&display=swap';
+            var s = document.getElementById('adm-font-style');
             if (!s) { s = document.createElement('style'); s.id='adm-font-style'; document.head.appendChild(s); }
-            s.textContent = `*, body { font-family: '${family}', -apple-system, sans-serif !important; }`;
+            s.textContent = "*, body { font-family: '" + family + "', -apple-system, sans-serif !important; }";
         }
+
+        // ── Gate ──
+        function checkAdmin(email) {
+            _isAdmin = (email || '').toLowerCase().trim() === ADMIN_EMAIL.toLowerCase().trim();
+            var fab = document.getElementById('admin-fab');
+            if (fab) fab.style.display = _isAdmin ? 'flex' : 'none';
+        }
+
+        function openAdminPanel() {
+            if (!_isAdmin) return;
+            var panel = document.getElementById('admin-panel');
+            if (panel) {
+                panel.classList.remove('hidden');
+                admLoadActive();
+            }
+        }
+
+        function closeAdminPanel() {
+            var panel = document.getElementById('admin-panel');
+            if (panel) panel.classList.add('hidden');
+        }
+
+        // ── Tab switching (fixed - no template literal querySelector) ──
+        function admTab(name) {
+            // Remove active from all tabs and panels
+            var tabs = document.querySelectorAll('.adm-tab');
+            tabs.forEach(function(t) { t.classList.remove('active'); });
+            var panels = document.querySelectorAll('.adm-panel');
+            panels.forEach(function(p) { p.classList.remove('active'); });
+            // Find tab by data attribute instead of fragile querySelector
+            tabs.forEach(function(t) {
+                var oc = t.getAttribute('onclick') || '';
+                if (oc.indexOf("admTab('" + name + "')") >= 0) t.classList.add('active');
+            });
+            var panel = document.getElementById('admp-' + name);
+            if (panel) panel.classList.add('active');
+            // Load content for this tab
+            admLoadTab(name);
+        }
+
+        function admLoadActive() {
+            var panel = document.querySelector('.adm-panel.active');
+            if (!panel) return;
+            var name = panel.id.replace('admp-','');
+            admLoadTab(name);
+        }
+
+        function admLoadTab(name) {
+            if (name === 'branding')   admLoadBranding();
+            if (name === 'colours')    admLoadColours();
+            if (name === 'typography') admLoadTypography();
+            if (name === 'layout')     admLoadLayout();
+            if (name === 'content')    admLoadContent();
+            if (name === 'workouts')   admLoadWorkouts();
+            if (name === 'challenges') admLoadChallenges();
+            if (name === 'images')     { admImgTab('hero'); }
+            if (name === 'users')      admLoadUsers();
+        }
+
+        // ── Apply ALL saved admin config ──
+        function applyAdminConfig() {
+            var cfg = getAdminConfig();
+            // App name / tagline
+            if (cfg.appName) {
+                document.querySelectorAll('.auth-app-name').forEach(function(el) { el.textContent = cfg.appName; });
+                document.title = cfg.appName;
+            }
+            if (cfg.tagline) {
+                document.querySelectorAll('.auth-tagline').forEach(function(el) { el.textContent = cfg.tagline; });
+            }
+            // Nav labels
+            if (cfg.navLabels) {
+                var items = document.querySelectorAll('.nav-item span');
+                var keys = ['home','train','plan','me'];
+                items.forEach(function(el, i) { if (cfg.navLabels[keys[i]]) el.textContent = cfg.navLabels[keys[i]]; });
+            }
+            // Colours
+            if (cfg.colours) {
+                _admColours = cfg.colours;
+                Object.keys(cfg.colours).forEach(function(v) {
+                    if (v && v.startsWith('--')) _applyVar(v, cfg.colours[v]);
+                });
+            }
+            // Typography
+            if (cfg.typography) {
+                if (cfg.typography.family)   _admApplyFontDOM(cfg.typography.family);
+                if (cfg.typography.size)     {
+                    var s = document.getElementById('adm-fs-style');
+                    if (!s) { s = document.createElement('style'); s.id='adm-fs-style'; document.head.appendChild(s); }
+                    s.textContent = 'body { font-size: ' + cfg.typography.size + 'px; }';
+                }
+                if (cfg.typography.spacing)  {
+                    var ls = document.getElementById('adm-ls-style');
+                    if (!ls) { ls = document.createElement('style'); ls.id='adm-ls-style'; document.head.appendChild(ls); }
+                    ls.textContent = 'body, p, span { letter-spacing: ' + cfg.typography.spacing + '; }';
+                }
+            }
+            // Layout
+            if (cfg.layout) {
+                if (cfg.layout.radius !== undefined)  _applyRadius(cfg.layout.radius);
+                if (cfg.layout.spacing !== undefined) _applySpacing(cfg.layout.spacing);
+                if (cfg.layout.animations === false)  _applyNoAnim();
+                if (cfg.layout.hideWeek)      { var el=document.getElementById('home-week-strip');      if(el) el.style.display='none'; }
+                if (cfg.layout.hideChallenge) { var el2=document.getElementById('daily-challenge-card'); if(el2) el2.style.display='none'; }
+                if (cfg.layout.hidePills)     { var el3=document.querySelector('.home-cat-pills');        if(el3) el3.style.display='none'; }
+            }
+            // Quotes / Tips
+            if (cfg.quotes && cfg.quotes.length) window._adminQuotes = cfg.quotes;
+            if (cfg.tips   && cfg.tips.length)   window._adminTips   = cfg.tips;
+            // Workout names
+            if (cfg.workoutNames && typeof muscleWorkouts !== 'undefined') {
+                Object.keys(cfg.workoutNames).forEach(function(key) {
+                    if (muscleWorkouts[key] && cfg.workoutNames[key].name) {
+                        muscleWorkouts[key].name = cfg.workoutNames[key].name;
+                    }
+                });
+            }
+            // Challenges
+            if (cfg.challenges && cfg.challenges.length) window._adminChallenges = cfg.challenges;
+        }
+
         function _applyRadius(val) {
-            const v = parseInt(val);
-            document.documentElement.style.setProperty('--radius-sm',  Math.max(0,v-6)+'px');
-            document.documentElement.style.setProperty('--radius-md',  v+'px');
-            document.documentElement.style.setProperty('--radius-lg',  Math.min(48,v+6)+'px');
-            document.documentElement.style.setProperty('--radius-xl',  Math.min(56,v+14)+'px');
+            var v = parseInt(val);
+            document.documentElement.style.setProperty('--radius-sm', Math.max(0,v-6)+'px');
+            document.documentElement.style.setProperty('--radius-md', v+'px');
+            document.documentElement.style.setProperty('--radius-lg', Math.min(48,v+6)+'px');
+            document.documentElement.style.setProperty('--radius-xl', Math.min(56,v+14)+'px');
         }
+
         function _applySpacing(val) {
-            let s = document.getElementById('adm-spacing-style');
+            var s = document.getElementById('adm-spacing-style');
             if (!s) { s = document.createElement('style'); s.id='adm-spacing-style'; document.head.appendChild(s); }
-            s.textContent = `.home-header,.home-cat-pills,.home-section-header,.home-featured-row,.home-activity-row{padding-left:${val}px!important;padding-right:${val}px!important;margin-left:0!important;margin-right:0!important}`;
+            s.textContent = '.home-header,.home-cat-pills,.home-section-header,.home-featured-row,.home-activity-row{padding-left:'+val+'px!important;padding-right:'+val+'px!important;}';
         }
+
         function _applyNoAnim() {
-            let s = document.getElementById('adm-noanim');
+            var s = document.getElementById('adm-noanim');
             if (!s) { s = document.createElement('style'); s.id='adm-noanim'; document.head.appendChild(s); }
             s.textContent = '*,*::before,*::after{animation:none!important;transition:none!important}';
         }
 
-        // ══ BRANDING ══
-        function admLoadBranding() {
-            const cfg = getAdminConfig();
-            const el = n => document.getElementById(n);
-            if (el('adm-appname'))   el('adm-appname').value   = cfg.appName  || '';
-            if (el('adm-tagline'))   el('adm-tagline').value   = cfg.tagline  || '';
-            const nav = cfg.navLabels || {};
-            ['home','train','plan','me'].forEach(k => { if(el('adm-nav-'+k)) el('adm-nav-'+k).value = nav[k]||''; });
-            if (el('adm-quotes') && cfg.quotes) el('adm-quotes').value = cfg.quotes.join('\n');
+        // ── Apply saved images ──
+        function applyAdminImages() {
+            var savedM = JSON.parse(localStorage.getItem('adminImg_muscles')||'{}');
+            var savedT = JSON.parse(localStorage.getItem('adminImg_thumbs') ||'{}');
+            var savedF = JSON.parse(localStorage.getItem('adminImg_forms')  ||'{}');
+            var savedH = JSON.parse(localStorage.getItem('adminImg_hero')   ||'[]');
+            if (savedH.length) window._adminHeroImages = savedH;
+            if (typeof MUSCLE_META !== 'undefined') {
+                Object.keys(savedM).forEach(function(k) { if (MUSCLE_META[k] && savedM[k]) MUSCLE_META[k].img = savedM[k]; });
+            }
+            if (typeof EXERCISE_THUMBS !== 'undefined') {
+                Object.keys(savedT).forEach(function(n) { EXERCISE_THUMBS[n] = savedT[n]; });
+            }
+            if (typeof EXERCISE_IMAGES !== 'undefined') {
+                Object.keys(savedF).forEach(function(n) { EXERCISE_IMAGES[n] = savedF[n]; });
+            }
         }
+
+        // ══════════════════════════════════════════════════════
+        // BRANDING TAB
+        // ══════════════════════════════════════════════════════
+        function admLoadBranding() {
+            var cfg = getAdminConfig();
+            var el = function(id) { return document.getElementById(id); };
+            if (el('adm-appname')) el('adm-appname').value = cfg.appName || '';
+            if (el('adm-tagline')) el('adm-tagline').value = cfg.tagline || '';
+            var nav = cfg.navLabels || {};
+            ['home','train','plan','me'].forEach(function(k) {
+                var inp = el('adm-nav-' + k);
+                if (inp) inp.value = nav[k] || '';
+            });
+            if (el('adm-quotes') && cfg.quotes) el('adm-quotes').value = (cfg.quotes||[]).join('\n');
+        }
+
         function admSaveBranding() {
-            const name = document.getElementById('adm-appname').value.trim();
-            const tag  = document.getElementById('adm-tagline').value.trim();
-            if (!name) { showNotification('App name required'); return; }
+            var name = (document.getElementById('adm-appname')||{}).value || '';
+            var tag  = (document.getElementById('adm-tagline')||{}).value || '';
+            name = name.trim(); tag = tag.trim();
+            if (!name) { showNotification('App name is required'); return; }
             saveAdminConfig({ appName: name, tagline: tag });
-            document.querySelectorAll('.auth-app-name').forEach(el => el.textContent = name);
-            document.querySelectorAll('.auth-tagline').forEach(el => el.textContent = tag);
+            document.querySelectorAll('.auth-app-name').forEach(function(el) { el.textContent = name; });
+            document.querySelectorAll('.auth-tagline').forEach(function(el) { el.textContent = tag; });
             document.title = name;
             showNotification('Branding saved!');
         }
+
         function admSaveNav() {
-            const navLabels = {};
-            ['home','train','plan','me'].forEach(k => {
-                const v = document.getElementById('adm-nav-'+k)?.value.trim();
-                if (v) navLabels[k] = v;
+            var navLabels = {};
+            ['home','train','plan','me'].forEach(function(k) {
+                var inp = document.getElementById('adm-nav-' + k);
+                if (inp && inp.value.trim()) navLabels[k] = inp.value.trim();
             });
-            saveAdminConfig({ navLabels });
-            const items = document.querySelectorAll('.nav-item span');
-            const keys = ['home','train','plan','me'];
-            items.forEach((el,i) => { if (navLabels[keys[i]]) el.textContent = navLabels[keys[i]]; });
+            saveAdminConfig({ navLabels: navLabels });
+            var items = document.querySelectorAll('.nav-item span');
+            var keys = ['home','train','plan','me'];
+            items.forEach(function(el, i) { if (navLabels[keys[i]]) el.textContent = navLabels[keys[i]]; });
             showNotification('Nav labels saved!');
         }
+
         function admSaveQuotes() {
-            const raw = document.getElementById('adm-quotes').value;
-            const quotes = raw.split('\n').map(s=>s.trim()).filter(Boolean);
+            var raw = (document.getElementById('adm-quotes')||{}).value || '';
+            var quotes = raw.split('\n').map(function(s){return s.trim();}).filter(Boolean);
             if (!quotes.length) { showNotification('Add at least one quote'); return; }
-            saveAdminConfig({ quotes });
+            saveAdminConfig({ quotes: quotes });
             window._adminQuotes = quotes;
             showNotification(quotes.length + ' quotes saved!');
         }
 
-        // ══ COLOURS ══
-        const ADM_COLOURS = [
-            { v:'--success',       name:'Primary Accent',    desc:'Buttons, active states', def:'#ff6b1a' },
-            { v:'--danger',        name:'Secondary Accent',  desc:'Gold / badges',          def:'#ffd000' },
-            { v:'--primary',       name:'App Background',    desc:'Main background',        def:'#0a0a0a' },
-            { v:'--surface',       name:'Card Background',   desc:'Cards and panels',       def:'#141414' },
-            { v:'--surface-light', name:'Light Surface',     desc:'Lighter card variant',   def:'#1c1c1c' },
-            { v:'--surface-hover', name:'Hover State',       desc:'Hovered elements',       def:'#222222' },
-            { v:'--text-primary',  name:'Primary Text',      desc:'Headings & labels',      def:'#ffffff' },
-            { v:'--text-secondary',name:'Secondary Text',    desc:'Descriptions',           def:'#a0a0a0' },
-            { v:'--text-muted',    name:'Muted Text',        desc:'Timestamps, hints',      def:'#606060' },
-            { v:'--border',        name:'Border Colour',     desc:'Card borders',           def:'#252525', text:true },
-            { v:'--border-strong', name:'Strong Border',     desc:'Emphasised borders',     def:'#333333', text:true },
-            { v:'--gold',          name:'Gold Colour',       desc:'PR badges, rankings',    def:'#ffd000' },
+        // ══════════════════════════════════════════════════════
+        // COLOURS TAB
+        // ══════════════════════════════════════════════════════
+        var ADM_COLOURS = [
+            { v:'--success',       name:'Primary Accent',     desc:'Buttons, active states',  def:'#ff6b1a' },
+            { v:'--danger',        name:'Secondary Accent',   desc:'Gold / badges',           def:'#ffd000' },
+            { v:'--gold',          name:'Gold Colour',        desc:'PR badges, rankings',     def:'#ffd000' },
+            { v:'--primary',       name:'App Background',     desc:'Main background',         def:'#0a0a0a' },
+            { v:'--surface',       name:'Card Background',    desc:'Cards and panels',        def:'#141414' },
+            { v:'--surface-light', name:'Light Surface',      desc:'Lighter card variant',    def:'#1c1c1c' },
+            { v:'--surface-hover', name:'Hover State',        desc:'Hovered elements',        def:'#222222' },
+            { v:'--text-primary',  name:'Primary Text',       desc:'Headings & labels',       def:'#ffffff' },
+            { v:'--text-secondary',name:'Secondary Text',     desc:'Descriptions',            def:'#a0a0a0' },
+            { v:'--text-muted',    name:'Muted Text',         desc:'Timestamps, hints',       def:'#606060' },
+            { v:'--border',        name:'Border Colour',      desc:'Card borders',            def:'#252525' },
+            { v:'--border-strong', name:'Strong Border',      desc:'Emphasised borders',      def:'#333333' },
         ];
-        const ADM_PRESETS = {
-            orange: { '--success':'#ff6b1a','--danger':'#ffd000','--gold':'#ffd000','--primary':'#0a0a0a','--surface':'#141414','--surface-light':'#1c1c1c','--surface-hover':'#222','--text-primary':'#fff','--text-secondary':'#a0a0a0','--text-muted':'#606060','--border':'#252525','--border-strong':'#333' },
-            blue:   { '--success':'#42a5f5','--danger':'#80d8ff','--gold':'#80d8ff','--primary':'#080e14','--surface':'#0d1520','--surface-light':'#111c28','--surface-hover':'#14202e','--text-primary':'#fff','--text-secondary':'#8ab4cc','--text-muted':'#4a6070','--border':'#1a2a36','--border-strong':'#243040' },
-            green:  { '--success':'#66bb6a','--danger':'#a5d6a7','--gold':'#a5d6a7','--primary':'#080e08','--surface':'#0d1a0d','--surface-light':'#112011','--surface-hover':'#162816','--text-primary':'#fff','--text-secondary':'#88c088','--text-muted':'#487048','--border':'#1a2e1a','--border-strong':'#243824' },
-            purple: { '--success':'#ab47bc','--danger':'#ce93d8','--gold':'#ce93d8','--primary':'#0a080e','--surface':'#14101a','--surface-light':'#1a1522','--surface-hover':'#201a2a','--text-primary':'#fff','--text-secondary':'#a888b8','--text-muted':'#685078','--border':'#22182a','--border-strong':'#2c2038' },
-            red:    { '--success':'#ef5350','--danger':'#ffcdd2','--gold':'#ffcdd2','--primary':'#0e0808','--surface':'#1a0d0d','--surface-light':'#221212','--surface-hover':'#281818','--text-primary':'#fff','--text-secondary':'#b88888','--text-muted':'#684848','--border':'#2a1515','--border-strong':'#381e1e' },
-            teal:   { '--success':'#26a69a','--danger':'#80cbc4','--gold':'#80cbc4','--primary':'#080e0e','--surface':'#0d1a1a','--surface-light':'#112020','--surface-hover':'#162828','--text-primary':'#fff','--text-secondary':'#88b8b4','--text-muted':'#487070','--border':'#1a2e2e','--border-strong':'#243838' },
-            pink:   { '--success':'#f48fb1','--danger':'#f8bbd0','--gold':'#f8bbd0','--primary':'#0e080c','--surface':'#1a0d14','--surface-light':'#22121c','--surface-hover':'#281824','--text-primary':'#fff','--text-secondary':'#b888a0','--text-muted':'#684858','--border':'#2a1520','--border-strong':'#382030' },
-            gold:   { '--success':'#ffcc02','--danger':'#ffe57f','--gold':'#ffe57f','--primary':'#0c0a00','--surface':'#1a1600','--surface-light':'#221e00','--surface-hover':'#282400','--text-primary':'#fff','--text-secondary':'#b8a840','--text-muted':'#686030','--border':'#2a2400','--border-strong':'#383200' },
+
+        var ADM_PRESETS = {
+            orange: {'--success':'#ff6b1a','--danger':'#ffd000','--gold':'#ffd000','--primary':'#0a0a0a','--surface':'#141414','--surface-light':'#1c1c1c','--surface-hover':'#222','--text-primary':'#fff','--text-secondary':'#a0a0a0','--text-muted':'#606060','--border':'#252525','--border-strong':'#333'},
+            blue:   {'--success':'#42a5f5','--danger':'#80d8ff','--gold':'#80d8ff','--primary':'#080e14','--surface':'#0d1520','--surface-light':'#111c28','--surface-hover':'#14202e','--text-primary':'#fff','--text-secondary':'#8ab4cc','--text-muted':'#4a6070','--border':'#1a2a36','--border-strong':'#243040'},
+            green:  {'--success':'#66bb6a','--danger':'#a5d6a7','--gold':'#a5d6a7','--primary':'#080e08','--surface':'#0d1a0d','--surface-light':'#112011','--surface-hover':'#162816','--text-primary':'#fff','--text-secondary':'#88c088','--text-muted':'#487048','--border':'#1a2e1a','--border-strong':'#243824'},
+            purple: {'--success':'#ab47bc','--danger':'#ce93d8','--gold':'#ce93d8','--primary':'#0a080e','--surface':'#14101a','--surface-light':'#1a1522','--surface-hover':'#201a2a','--text-primary':'#fff','--text-secondary':'#a888b8','--text-muted':'#685078','--border':'#22182a','--border-strong':'#2c2038'},
+            red:    {'--success':'#ef5350','--danger':'#ffcdd2','--gold':'#ffcdd2','--primary':'#0e0808','--surface':'#1a0d0d','--surface-light':'#221212','--surface-hover':'#281818','--text-primary':'#fff','--text-secondary':'#b88888','--text-muted':'#684848','--border':'#2a1515','--border-strong':'#381e1e'},
+            teal:   {'--success':'#26a69a','--danger':'#80cbc4','--gold':'#80cbc4','--primary':'#080e0e','--surface':'#0d1a1a','--surface-light':'#112020','--surface-hover':'#162828','--text-primary':'#fff','--text-secondary':'#88b8b4','--text-muted':'#487070','--border':'#1a2e2e','--border-strong':'#243838'},
+            pink:   {'--success':'#f48fb1','--danger':'#f8bbd0','--gold':'#f8bbd0','--primary':'#0e080c','--surface':'#1a0d14','--surface-light':'#22121c','--surface-hover':'#281824','--text-primary':'#fff','--text-secondary':'#b888a0','--text-muted':'#684858','--border':'#2a1520','--border-strong':'#382030'},
+            gold:   {'--success':'#ffcc02','--danger':'#ffe57f','--gold':'#ffe57f','--primary':'#0c0a00','--surface':'#1a1600','--surface-light':'#221e00','--surface-hover':'#282400','--text-primary':'#fff','--text-secondary':'#b8a840','--text-muted':'#686030','--border':'#2a2400','--border-strong':'#383200'},
         };
 
         function admLoadColours() {
-            const container = document.getElementById('adm-colour-list');
+            var container = document.getElementById('adm-colour-list');
             if (!container) return;
-            const cfg = getAdminConfig();
-            const saved = cfg.colours || {};
-            container.innerHTML = ADM_COLOURS.map(c => {
-                const cur = saved[c.v] || c.def;
-                const isText = c.text;
-                const safeId = c.v.replace(/[^a-zA-Z0-9]/g,'_');
-                return `<div class="adm-color-row">
-                    <div class="adm-color-info">
-                        <div class="adm-color-name">${c.name}</div>
-                        <div class="adm-color-desc">${c.desc}</div>
-                    </div>
-                    ${!isText ? `<input type="color" class="adm-color-swatch" id="cs_${safeId}" value="${cur.startsWith('#') ? cur : c.def}" oninput="admLiveColour('${c.v}',this.value,document.getElementById('ch_${safeId}'))">` : ''}
-                    <input type="text" class="adm-color-hex" id="ch_${safeId}" value="${cur}" placeholder="${c.def}" oninput="admHexChange('${c.v}','${safeId}',this.value)">
-                </div>`;
-            }).join('');
+            var cfg   = getAdminConfig();
+            var saved = cfg.colours || {};
+            var html  = '';
+            ADM_COLOURS.forEach(function(c) {
+                var cur    = saved[c.v] || c.def;
+                var safeId = c.v.replace(/[^a-zA-Z0-9]/g,'_');
+                var isHex  = /^#[0-9a-fA-F]{3,6}$/.test(cur);
+                html += '<div class="adm-color-row">' +
+                    '<div class="adm-color-info">' +
+                        '<div class="adm-color-name">' + c.name + '</div>' +
+                        '<div class="adm-color-desc">' + c.desc + '</div>' +
+                    '</div>' +
+                    '<input type="color" class="adm-color-swatch" id="cs_' + safeId + '" value="' + (isHex ? cur : c.def) + '" ' +
+                        'oninput="admLiveColour(\'' + c.v + '\',this.value,\'ch_' + safeId + '\')">' +
+                    '<input type="text" class="adm-color-hex" id="ch_' + safeId + '" value="' + cur + '" ' +
+                        'oninput="admHexChange(\'' + c.v + '\',this.value,\'cs_' + safeId + '\')">' +
+                '</div>';
+            });
+            container.innerHTML = html;
         }
 
-        function admLiveColour(varName, val, hexEl) {
-            if (hexEl) hexEl.value = val;
+        function admLiveColour(varName, val, hexId) {
             _admColours[varName] = val;
             _applyVar(varName, val);
+            var hexEl = document.getElementById(hexId);
+            if (hexEl) hexEl.value = val;
         }
-        function admHexChange(varName, safeId, val) {
+
+        function admHexChange(varName, val, swatchId) {
             _admColours[varName] = val;
             _applyVar(varName, val);
             if (/^#[0-9a-fA-F]{6}$/.test(val)) {
-                const swatch = document.getElementById('cs_' + safeId);
-                if (swatch) swatch.value = val;
+                var sw = document.getElementById(swatchId);
+                if (sw) sw.value = val;
             }
         }
+
         function admSaveColours() {
-            // Read all current values
-            ADM_COLOURS.forEach(c => {
-                const safeId = c.v.replace(/[^a-zA-Z0-9]/g,'_');
-                const hexEl = document.getElementById('ch_' + safeId);
+            // Read all current values from inputs
+            ADM_COLOURS.forEach(function(c) {
+                var safeId = c.v.replace(/[^a-zA-Z0-9]/g,'_');
+                var hexEl  = document.getElementById('ch_' + safeId);
                 if (hexEl && hexEl.value) { _admColours[c.v] = hexEl.value; _applyVar(c.v, hexEl.value); }
             });
             saveAdminConfig({ colours: _admColours });
             showNotification('Colours saved for all users!');
         }
+
         function admResetColours() {
             _admColours = {};
-            ADM_COLOURS.forEach(c => { document.documentElement.style.removeProperty(c.v); });
+            ADM_COLOURS.forEach(function(c) { document.documentElement.style.removeProperty(c.v); });
             document.body.style.background = '#000';
-            const ac = document.querySelector('.app-container');
+            var ac = document.querySelector('.app-container');
             if (ac) ac.style.background = '#0a0a0a';
             saveAdminConfig({ colours: {} });
             admLoadColours();
-            showNotification('Reset to defaults!');
-        }
-        function admPreset(name) {
-            const p = ADM_PRESETS[name]; if (!p) return;
-            _admColours = { ..._admColours, ...p };
-            Object.entries(p).forEach(([v,val]) => _applyVar(v, val));
-            saveAdminConfig({ colours: _admColours });
-            admLoadColours();
-            showNotification(name + ' theme applied!');
+            showNotification('Colours reset to defaults!');
         }
 
-        // ══ TYPOGRAPHY ══
-        function admLoadTypography() {
-            const cfg = getAdminConfig();
-            const t = cfg.typography || {};
-            if (t.family && document.getElementById('adm-font')) document.getElementById('adm-font').value = t.family;
-            if (t.size && document.getElementById('adm-fontsize')) {
-                document.getElementById('adm-fontsize').value = t.size;
-                document.getElementById('adm-fontsize-val').textContent = t.size + 'px';
-            }
-            if (t.weight && document.getElementById('adm-fontweight')) document.getElementById('adm-fontweight').value = t.weight;
-            if (t.spacing && document.getElementById('adm-letterspacing')) document.getElementById('adm-letterspacing').value = t.spacing;
+        function admPreset(name) {
+            var p = ADM_PRESETS[name]; if (!p) return;
+            Object.assign(_admColours, p);
+            Object.keys(p).forEach(function(v) { _applyVar(v, p[v]); });
+            saveAdminConfig({ colours: _admColours });
+            admLoadColours();
+            showNotification(name.charAt(0).toUpperCase()+name.slice(1)+' theme applied to all users!');
         }
+
+        // ══════════════════════════════════════════════════════
+        // TYPOGRAPHY TAB
+        // ══════════════════════════════════════════════════════
+        function admLoadTypography() {
+            var cfg = getAdminConfig();
+            var t   = cfg.typography || {};
+            var el  = function(id) { return document.getElementById(id); };
+            if (el('adm-font')          && t.family)  el('adm-font').value          = t.family;
+            if (el('adm-fontsize'))                    { el('adm-fontsize').value     = t.size || 14; el('adm-fontsize-val').textContent = (t.size||14)+'px'; }
+            if (el('adm-fontweight')    && t.weight)  el('adm-fontweight').value     = t.weight;
+            if (el('adm-letterspacing') && t.spacing) el('adm-letterspacing').value  = t.spacing;
+        }
+
         function admApplyFont(family) {
             _admApplyFontDOM(family);
-            saveAdminConfig({ typography: { ...getAdminConfig().typography, family } });
+            var cfg = getAdminConfig();
+            var t   = cfg.typography || {};
+            t.family = family;
+            saveAdminConfig({ typography: t });
+            showNotification('Font changed to ' + family);
         }
+
         function admApplyFontSize(val) {
             document.getElementById('adm-fontsize-val').textContent = val + 'px';
-            document.documentElement.style.setProperty('--font-sz', val + 'px');
-            let s = document.getElementById('adm-fs-style');
+            var s = document.getElementById('adm-fs-style');
             if (!s) { s = document.createElement('style'); s.id='adm-fs-style'; document.head.appendChild(s); }
-            s.textContent = `body, .content, p, span, div { font-size: ${val}px; }`;
+            s.textContent = 'body, p, span, div { font-size: ' + val + 'px; }';
         }
+
         function admApplyFontWeight(val) {
             document.documentElement.style.setProperty('--font-wt', val);
         }
+
         function admApplyLetterSpacing(val) {
-            document.documentElement.style.setProperty('--letter-sp', val);
-            let s = document.getElementById('adm-ls-style');
+            var s = document.getElementById('adm-ls-style');
             if (!s) { s = document.createElement('style'); s.id='adm-ls-style'; document.head.appendChild(s); }
-            s.textContent = `body, p, span { letter-spacing: ${val}; }`;
+            s.textContent = 'body, p, span { letter-spacing: ' + val + '; }';
         }
+
         function admSaveTypography() {
-            saveAdminConfig({ typography: {
-                family:  document.getElementById('adm-font')?.value,
-                size:    document.getElementById('adm-fontsize')?.value,
-                weight:  document.getElementById('adm-fontweight')?.value,
-                spacing: document.getElementById('adm-letterspacing')?.value,
-            }});
+            var t = {
+                family:  (document.getElementById('adm-font')         ||{}).value || 'Inter',
+                size:    (document.getElementById('adm-fontsize')      ||{}).value || 14,
+                weight:  (document.getElementById('adm-fontweight')    ||{}).value || '500',
+                spacing: (document.getElementById('adm-letterspacing') ||{}).value || 'normal',
+            };
+            _admApplyFontDOM(t.family);
+            admApplyFontSize(t.size);
+            admApplyFontWeight(t.weight);
+            admApplyLetterSpacing(t.spacing);
+            saveAdminConfig({ typography: t });
             showNotification('Typography saved!');
         }
 
-        // ══ LAYOUT ══
+        // ══════════════════════════════════════════════════════
+        // LAYOUT TAB
+        // ══════════════════════════════════════════════════════
         function admLoadLayout() {
-            const cfg = getAdminConfig();
-            const l = cfg.layout || {};
-            if (l.radius !== undefined && document.getElementById('adm-radius')) {
-                document.getElementById('adm-radius').value = l.radius;
-                document.getElementById('adm-radius-val').textContent = l.radius + 'px';
-            }
-            if (l.spacing !== undefined && document.getElementById('adm-spacing')) {
-                document.getElementById('adm-spacing').value = l.spacing;
-                document.getElementById('adm-spacing-val').textContent = l.spacing + 'px';
-            }
-            const el = n => document.getElementById(n);
+            var cfg = getAdminConfig();
+            var l   = cfg.layout || {};
+            var el  = function(id) { return document.getElementById(id); };
+            if (el('adm-radius'))       { el('adm-radius').value = l.radius||18;   el('adm-radius-val').textContent   = (l.radius||18)+'px'; }
+            if (el('adm-spacing'))      { el('adm-spacing').value = l.spacing||18; el('adm-spacing-val').textContent  = (l.spacing||18)+'px'; }
             if (el('adm-show-week'))      el('adm-show-week').checked      = !l.hideWeek;
             if (el('adm-show-challenge')) el('adm-show-challenge').checked  = !l.hideChallenge;
             if (el('adm-show-pills'))     el('adm-show-pills').checked      = !l.hidePills;
-            if (el('adm-animations'))     el('adm-animations').checked      = l.animations !== false;
+            if (el('adm-animations'))     el('adm-animations').checked      = (l.animations !== false);
         }
+
         function admApplyRadius(val) {
             document.getElementById('adm-radius-val').textContent = val + 'px';
             _applyRadius(val);
         }
+
         function admApplySpacing(val) {
             document.getElementById('adm-spacing-val').textContent = val + 'px';
             _applySpacing(val);
         }
+
         function admToggleEl(id, show) {
-            const el = id.startsWith('.') ? document.querySelector(id) : document.getElementById(id);
+            var el = id.startsWith('.') ? document.querySelector(id) : document.getElementById(id);
             if (el) el.style.display = show ? '' : 'none';
         }
+
         function admToggleAnimations(on) {
-            if (!on) _applyNoAnim();
-            else { const s = document.getElementById('adm-noanim'); if(s) s.remove(); }
+            if (!on) {
+                _applyNoAnim();
+            } else {
+                var s = document.getElementById('adm-noanim');
+                if (s) s.remove();
+            }
         }
+
         function admSaveLayout() {
-            saveAdminConfig({ layout: {
-                radius:        document.getElementById('adm-radius')?.value,
-                spacing:       document.getElementById('adm-spacing')?.value,
-                animations:    document.getElementById('adm-animations')?.checked,
-                hideWeek:      !document.getElementById('adm-show-week')?.checked,
-                hideChallenge: !document.getElementById('adm-show-challenge')?.checked,
-                hidePills:     !document.getElementById('adm-show-pills')?.checked,
-            }});
+            var l = {
+                radius:        parseInt((document.getElementById('adm-radius') ||{}).value) || 18,
+                spacing:       parseInt((document.getElementById('adm-spacing')||{}).value) || 18,
+                animations:    (document.getElementById('adm-animations')    ||{checked:true}).checked,
+                hideWeek:      !((document.getElementById('adm-show-week')      ||{checked:true}).checked),
+                hideChallenge: !((document.getElementById('adm-show-challenge') ||{checked:true}).checked),
+                hidePills:     !((document.getElementById('adm-show-pills')     ||{checked:true}).checked),
+            };
+            _applyRadius(l.radius);
+            _applySpacing(l.spacing);
+            if (!l.animations) _applyNoAnim();
+            saveAdminConfig({ layout: l });
             showNotification('Layout saved!');
         }
 
-        // ══ CONTENT ══
+        // ══════════════════════════════════════════════════════
+        // CONTENT TAB
+        // ══════════════════════════════════════════════════════
         function admLoadContent() {
-            const cfg = getAdminConfig();
-            if (document.getElementById('adm-tips') && cfg.tips) document.getElementById('adm-tips').value = cfg.tips.join('\n');
-            if (document.getElementById('adm-banner')) document.getElementById('adm-banner').value = cfg.bannerText || '';
-            if (document.getElementById('adm-banner-color') && cfg.bannerColor) document.getElementById('adm-banner-color').value = cfg.bannerColor;
+            var cfg = getAdminConfig();
+            var el  = function(id) { return document.getElementById(id); };
+            if (el('adm-tips')         && cfg.tips)        el('adm-tips').value         = (cfg.tips||[]).join('\n');
+            if (el('adm-banner')       && cfg.bannerText)  el('adm-banner').value        = cfg.bannerText || '';
+            if (el('adm-banner-color') && cfg.bannerColor) el('adm-banner-color').value  = cfg.bannerColor || '#ff6b1a';
+            if (el('adm-broadcast'))   el('adm-broadcast').value = '';
         }
+
         function admSaveTips() {
-            const tips = (document.getElementById('adm-tips').value||'').split('\n').map(s=>s.trim()).filter(Boolean);
-            saveAdminConfig({ tips });
+            var raw  = (document.getElementById('adm-tips')||{}).value || '';
+            var tips = raw.split('\n').map(function(s){return s.trim();}).filter(Boolean);
+            saveAdminConfig({ tips: tips });
             window._adminTips = tips;
-            showNotification(tips.length + ' tips saved!');
+            showNotification(tips.length + ' coaching tips saved!');
         }
+
         function admSaveBanner() {
-            const text  = document.getElementById('adm-banner').value.trim();
-            const color = document.getElementById('adm-banner-color').value;
+            var text  = ((document.getElementById('adm-banner')||{}).value || '').trim();
+            var color = (document.getElementById('adm-banner-color')||{value:'#ff6b1a'}).value;
             saveAdminConfig({ bannerText: text, bannerColor: color });
             if (text) showAnnouncementBanner(text, color);
+            else {
+                var b = document.getElementById('admin-announcement-banner');
+                if (b) b.style.display = 'none';
+            }
             showNotification(text ? 'Banner saved!' : 'Banner hidden');
         }
+
         function admBroadcast() {
-            const msg = document.getElementById('adm-broadcast').value.trim();
-            if (!msg) { showNotification('Enter a message'); return; }
+            var msg = ((document.getElementById('adm-broadcast')||{}).value || '').trim();
+            if (!msg) { showNotification('Enter a message first'); return; }
             if (window._fbDb && window._fbRef && window._fbSet) {
                 window._fbSet(window._fbRef(window._fbDb, 'broadcast'), { message: msg, color: '#ff6b1a', timestamp: Date.now() });
             }
-            showAnnouncementBanner(msg, '#ff6b1a');
-            showNotification('Broadcast sent!');
+            showNotification('Broadcast sent to all users!');
         }
 
-        // ══ WORKOUTS ══
+        // ══════════════════════════════════════════════════════
+        // WORKOUTS TAB
+        // ══════════════════════════════════════════════════════
         function admLoadWorkouts() {
-            const container = document.getElementById('adm-workout-list');
-            if (!container) return;
-            const cfg = getAdminConfig();
-            const saved = cfg.workoutNames || {};
-            container.innerHTML = Object.entries(muscleWorkouts).map(([key, mw]) => `
-                <div class="adm-wo-card">
-                    <div class="adm-wo-name">${key}</div>
-                    <div class="adm-wo-grid">
-                        <div>
-                            <div style="font-size:10px;color:#555;margin-bottom:4px">DISPLAY NAME</div>
-                            <input class="adm-input" id="awn_${key}" value="${(saved[key]&&saved[key].name)||mw.name}" style="padding:7px 10px;font-size:12px">
-                        </div>
-                        <div>
-                            <div style="font-size:10px;color:#555;margin-bottom:4px">DURATION (MIN)</div>
-                            <input class="adm-input" id="awd_${key}" type="number" value="${mw.duration}" style="padding:7px 10px;font-size:12px">
-                        </div>
-                        <div>
-                            <div style="font-size:10px;color:#555;margin-bottom:4px">CALORIES</div>
-                            <input class="adm-input" id="awc_${key}" type="number" value="${mw.calories}" style="padding:7px 10px;font-size:12px">
-                        </div>
-                    </div>
-                </div>`).join('');
+            var container = document.getElementById('adm-workout-list');
+            if (!container || typeof muscleWorkouts === 'undefined') return;
+            var cfg   = getAdminConfig();
+            var saved = cfg.workoutNames || {};
+            var html  = '';
+            Object.keys(muscleWorkouts).forEach(function(key) {
+                var mw = muscleWorkouts[key];
+                html += '<div class="adm-wo-card">' +
+                    '<div class="adm-wo-name">' + key.toUpperCase() + '</div>' +
+                    '<div class="adm-wo-grid">' +
+                        '<div>' +
+                            '<div style="font-size:10px;color:#555;margin-bottom:4px">DISPLAY NAME</div>' +
+                            '<input class="adm-input" id="awn_'+key+'" value="'+((saved[key]&&saved[key].name)||mw.name||'')+'" style="padding:7px 10px;font-size:12px">' +
+                        '</div>' +
+                        '<div>' +
+                            '<div style="font-size:10px;color:#555;margin-bottom:4px">DURATION (MIN)</div>' +
+                            '<input class="adm-input" id="awd_'+key+'" type="number" value="'+(mw.duration||0)+'" style="padding:7px 10px;font-size:12px">' +
+                        '</div>' +
+                        '<div>' +
+                            '<div style="font-size:10px;color:#555;margin-bottom:4px">CALORIES</div>' +
+                            '<input class="adm-input" id="awc_'+key+'" type="number" value="'+(mw.calories||0)+'" style="padding:7px 10px;font-size:12px">' +
+                        '</div>' +
+                    '</div>' +
+                '</div>';
+            });
+            container.innerHTML = html;
         }
+
         function admSaveWorkouts() {
-            const workoutNames = {};
-            Object.keys(muscleWorkouts).forEach(key => {
-                const name = document.getElementById('awn_'+key)?.value.trim();
-                const dur  = parseInt(document.getElementById('awd_'+key)?.value)||0;
-                const cal  = parseInt(document.getElementById('awc_'+key)?.value)||0;
-                workoutNames[key] = { name, dur, cal };
-                if (name) muscleWorkouts[key].name = name;
+            if (typeof muscleWorkouts === 'undefined') return;
+            var workoutNames = {};
+            Object.keys(muscleWorkouts).forEach(function(key) {
+                var nameEl = document.getElementById('awn_'+key);
+                var durEl  = document.getElementById('awd_'+key);
+                var calEl  = document.getElementById('awc_'+key);
+                var name   = nameEl ? nameEl.value.trim() : '';
+                var dur    = durEl  ? parseInt(durEl.value)  : 0;
+                var cal    = calEl  ? parseInt(calEl.value)  : 0;
+                workoutNames[key] = { name: name, dur: dur, cal: cal };
+                if (name) muscleWorkouts[key].name     = name;
                 if (dur)  muscleWorkouts[key].duration = dur;
                 if (cal)  muscleWorkouts[key].calories = cal;
             });
-            saveAdminConfig({ workoutNames });
-            showNotification('Workouts saved!');
+            saveAdminConfig({ workoutNames: workoutNames });
+            showNotification('Workout data saved!');
         }
 
-        // ══ CHALLENGES ══
+        // ══════════════════════════════════════════════════════
+        // CHALLENGES TAB
+        // ══════════════════════════════════════════════════════
         function admLoadChallenges() {
-            const container = document.getElementById('adm-challenge-list');
+            var container = document.getElementById('adm-challenge-list');
             if (!container) return;
-            const cfg = getAdminConfig();
-            const list = cfg.challenges || DAILY_CHALLENGES;
-            container.innerHTML = list.map((c,i) => `
-                <div class="adm-ch-card">
-                    <button class="adm-ch-del" onclick="admDelChallenge(${i})">✕</button>
-                    <div style="font-size:10px;color:#555;margin-bottom:8px">CHALLENGE ${i+1}</div>
-                    <input class="adm-input" id="acn_${i}" value="${c.name}" placeholder="Name" style="margin-bottom:6px;padding:7px 10px;font-size:12px">
-                    <input class="adm-input" id="acd_${i}" value="${c.desc}" placeholder="Description" style="margin-bottom:6px;padding:7px 10px;font-size:12px">
-                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
-                        <input class="adm-input" id="acr_${i}" value="${c.reps}" placeholder="Reps" style="padding:7px 10px;font-size:12px">
-                        <input class="adm-input" id="act_${i}" value="${c.time}" placeholder="Time" style="padding:7px 10px;font-size:12px">
-                    </div>
-                </div>`).join('');
+            var cfg  = getAdminConfig();
+            var list = cfg.challenges || (typeof DAILY_CHALLENGES !== 'undefined' ? DAILY_CHALLENGES : []);
+            var html = '';
+            list.forEach(function(c, i) {
+                html += '<div class="adm-ch-card">' +
+                    '<button class="adm-ch-del" onclick="admDelChallenge('+i+')">✕</button>' +
+                    '<div style="font-size:10px;color:#555;margin-bottom:8px">CHALLENGE '+(i+1)+'</div>' +
+                    '<input class="adm-input" id="acn_'+i+'" value="'+(c.name||'')+'" placeholder="Name" style="margin-bottom:6px;padding:7px 10px;font-size:12px">' +
+                    '<input class="adm-input" id="acd_'+i+'" value="'+(c.desc||'')+'" placeholder="Description" style="margin-bottom:6px;padding:7px 10px;font-size:12px">' +
+                    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">' +
+                        '<input class="adm-input" id="acr_'+i+'" value="'+(c.reps||'')+'" placeholder="Reps" style="padding:7px 10px;font-size:12px">' +
+                        '<input class="adm-input" id="act_'+i+'" value="'+(c.time||'')+'" placeholder="Time" style="padding:7px 10px;font-size:12px">' +
+                    '</div>' +
+                '</div>';
+            });
+            container.innerHTML = html;
         }
+
         function admAddChallenge() {
-            const cfg = getAdminConfig();
-            const list = cfg.challenges || [...DAILY_CHALLENGES];
+            var cfg  = getAdminConfig();
+            var list = cfg.challenges || (typeof DAILY_CHALLENGES !== 'undefined' ? JSON.parse(JSON.stringify(DAILY_CHALLENGES)) : []);
             list.push({ name:'New Challenge', desc:'Description', reps:'10 reps', time:'5 min', muscle:'fullbody' });
             saveAdminConfig({ challenges: list });
             admLoadChallenges();
         }
+
         function admDelChallenge(i) {
-            const cfg = getAdminConfig();
-            const list = cfg.challenges || [...DAILY_CHALLENGES];
-            list.splice(i,1);
+            var cfg  = getAdminConfig();
+            var list = cfg.challenges || (typeof DAILY_CHALLENGES !== 'undefined' ? JSON.parse(JSON.stringify(DAILY_CHALLENGES)) : []);
+            list.splice(i, 1);
             saveAdminConfig({ challenges: list });
             admLoadChallenges();
+            showNotification('Challenge removed');
         }
+
         function admSaveChallenges() {
-            const cfg = getAdminConfig();
-            const old = cfg.challenges || [...DAILY_CHALLENGES];
-            const saved = old.map((c,i) => ({
-                ...c,
-                name: document.getElementById('acn_'+i)?.value || c.name,
-                desc: document.getElementById('acd_'+i)?.value || c.desc,
-                reps: document.getElementById('acr_'+i)?.value || c.reps,
-                time: document.getElementById('act_'+i)?.value || c.time,
-            }));
+            var cfg  = getAdminConfig();
+            var old  = cfg.challenges || (typeof DAILY_CHALLENGES !== 'undefined' ? JSON.parse(JSON.stringify(DAILY_CHALLENGES)) : []);
+            var saved = old.map(function(c, i) {
+                return {
+                    name:   (document.getElementById('acn_'+i)||{value:c.name}).value || c.name,
+                    desc:   (document.getElementById('acd_'+i)||{value:c.desc}).value || c.desc,
+                    reps:   (document.getElementById('acr_'+i)||{value:c.reps}).value || c.reps,
+                    time:   (document.getElementById('act_'+i)||{value:c.time}).value || c.time,
+                    muscle: c.muscle || 'fullbody',
+                };
+            });
             saveAdminConfig({ challenges: saved });
             window._adminChallenges = saved;
+            if (typeof loadDailyChallenge === 'function') loadDailyChallenge();
             showNotification(saved.length + ' challenges saved!');
         }
 
-        // ══ IMAGES ══
-        const ADM_MUSCLE_KEYS   = ['chest','back','arms','shoulders','legs','abs','fullbody','cardio','glutes','calves','forearms'];
-        const ADM_MUSCLE_LABELS = { chest:'Chest',back:'Back',arms:'Arms',shoulders:'Shoulders',legs:'Legs',abs:'Core',fullbody:'Full Body',cardio:'Cardio',glutes:'Glutes',calves:'Calves',forearms:'Forearms' };
+        // ══════════════════════════════════════════════════════
+        // IMAGES TAB
+        // ══════════════════════════════════════════════════════
+        var ADM_MUSCLE_KEYS   = ['chest','back','arms','shoulders','legs','abs','fullbody','cardio','glutes','calves','forearms'];
+        var ADM_MUSCLE_LABELS = {chest:'Chest',back:'Back',arms:'Arms',shoulders:'Shoulders',legs:'Legs',abs:'Core',fullbody:'Full Body',cardio:'Cardio',glutes:'Glutes',calves:'Calves',forearms:'Forearms'};
 
         function admImgTab(tab) {
-            document.querySelectorAll('.adm-subtab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.adm-imgpanel').forEach(p => p.classList.remove('active'));
-            const t = document.querySelector(`.adm-subtab[onclick="admImgTab('${tab}')"]`);
-            const p = document.getElementById('adm-img-' + tab);
-            if (t) t.classList.add('active');
+            document.querySelectorAll('.adm-subtab').forEach(function(t) { t.classList.remove('active'); });
+            document.querySelectorAll('.adm-imgpanel').forEach(function(p) { p.classList.remove('active'); });
+            // Find subtab without fragile querySelector
+            document.querySelectorAll('.adm-subtab').forEach(function(t) {
+                if ((t.getAttribute('onclick')||'').indexOf("admImgTab('" + tab + "')") >= 0) t.classList.add('active');
+            });
+            var p = document.getElementById('adm-img-' + tab);
             if (p) p.classList.add('active');
-            if (tab==='hero')      admRenderHero();
-            if (tab==='muscles')   admRenderMuscles();
-            if (tab==='exercises') admRenderExercises();
+            if (tab === 'hero')      admRenderHero();
+            if (tab === 'muscles')   admRenderMuscles();
+            if (tab === 'exercises') admRenderExercises();
+        }
+
+        function admPushImages() {
+            if (!window._fbDb || !window._fbRef || !window._fbSet) return;
+            var imgData = {
+                hero:    JSON.parse(localStorage.getItem('adminImg_hero')   ||'[]'),
+                muscles: JSON.parse(localStorage.getItem('adminImg_muscles')||'{}'),
+                thumbs:  JSON.parse(localStorage.getItem('adminImg_thumbs') ||'{}'),
+                forms:   JSON.parse(localStorage.getItem('adminImg_forms')  ||'{}'),
+            };
+            window._fbSet(window._fbRef(window._fbDb,'adminImages'), imgData)
+                .then(function(){showSync('synced');}).catch(function(){});
+            showSync('syncing');
         }
 
         function admRenderHero() {
-            const el = document.getElementById('adm-img-hero');
+            var el = document.getElementById('adm-img-hero');
             if (!el) return;
-            const saved = JSON.parse(localStorage.getItem('adminImg_hero') || '[]');
-            const DAYS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-            const today = new Date().getDay();
-            el.innerHTML = '<div class="adm-img-grid">' + DAYS.map((d,i) => {
-                const src = saved[i] || (HERO_IMAGES && HERO_IMAGES[i % HERO_IMAGES.length]) || '';
-                return `<div class="adm-img-card" onclick="document.getElementById('hf_${i}').click()">
-                    <img src="${src}" id="hp_${i}" style="height:60px">
-                    <div class="adm-img-card-label">${d}${i===today?' ★':''} <span>tap to change</span></div>
-                    <div class="adm-img-overlay"><svg viewBox="0 0 24 24"><path d="M9 16h6v-6h4l-7-7-7 7h4v6z"/></svg></div>
-                    <input type="file" id="hf_${i}" accept="image/*" onchange="admUpHero(event,${i})">
-                </div>`;
-            }).join('') + '</div>';
+            var saved = JSON.parse(localStorage.getItem('adminImg_hero')||'[]');
+            var DAYS  = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+            var today = new Date().getDay();
+            var html  = '<div class="adm-img-grid">';
+            DAYS.forEach(function(d, i) {
+                var src = saved[i] || (typeof HERO_IMAGES !== 'undefined' ? (HERO_IMAGES[i%HERO_IMAGES.length]||'') : '');
+                html += '<div class="adm-img-card" onclick="document.getElementById(\'hf_'+i+'\').click()">' +
+                    '<img src="'+src+'" id="hp_'+i+'" style="height:60px;width:100%;object-fit:cover">' +
+                    '<div class="adm-img-card-label">'+d+(i===today?' ★':'')+' <span>tap to change</span></div>' +
+                    '<div class="adm-img-overlay"><svg viewBox="0 0 24 24" fill="#ff6b1a" width="24" height="24"><path d="M9 16h6v-6h4l-7-7-7 7h4v6z"/></svg></div>' +
+                    '<input type="file" id="hf_'+i+'" accept="image/*" style="display:none" onchange="admUpHero(event,'+i+')">' +
+                '</div>';
+            });
+            html += '</div><button class="adm-btn adm-btn-secondary" style="margin-top:8px" onclick="admClearHero()">Reset Hero Images</button>';
+            el.innerHTML = html;
         }
+
         function admUpHero(e, i) {
-            const file = e.target.files[0]; if (!file) return;
-            const r = new FileReader();
-            r.onload = ev => {
-                const saved = JSON.parse(localStorage.getItem('adminImg_hero')||'[]');
+            var file = e.target.files && e.target.files[0]; if (!file) return;
+            var reader = new FileReader();
+            reader.onload = function(ev) {
+                var saved = JSON.parse(localStorage.getItem('adminImg_hero')||'[]');
                 while (saved.length <= i) saved.push(null);
                 saved[i] = ev.target.result;
                 localStorage.setItem('adminImg_hero', JSON.stringify(saved));
-                const img = document.getElementById('hp_'+i);
+                var img = document.getElementById('hp_'+i);
                 if (img) img.src = ev.target.result;
+                if (typeof HERO_IMAGES !== 'undefined') window._adminHeroImages = saved;
                 admPushImages();
                 showNotification('Hero image updated!');
             };
-            r.readAsDataURL(file);
+            reader.readAsDataURL(file);
             e.target.value = '';
         }
 
-        function admRenderMuscles() {
-            const el = document.getElementById('adm-img-muscles');
-            if (!el) return;
-            const saved = JSON.parse(localStorage.getItem('adminImg_muscles')||'{}');
-            el.innerHTML = '<div class="adm-img-grid">' + ADM_MUSCLE_KEYS.map(key => {
-                const src = saved[key] || (MUSCLE_META[key] && MUSCLE_META[key].img) || '';
-                return `<div class="adm-img-card" onclick="document.getElementById('mf_${key}').click()">
-                    <img src="${src}" id="mp_${key}" style="height:70px">
-                    <div class="adm-img-card-label">${ADM_MUSCLE_LABELS[key]} <span>tap to change</span></div>
-                    <div class="adm-img-overlay"><svg viewBox="0 0 24 24"><path d="M9 16h6v-6h4l-7-7-7 7h4v6z"/></svg></div>
-                    <input type="file" id="mf_${key}" accept="image/*" onchange="admUpMuscle(event,'${key}')">
-                </div>`;
-            }).join('') + '</div><button class="adm-btn adm-btn-secondary" onclick="admClearMuscles()">Reset Muscle Images</button>';
+        function admClearHero() {
+            localStorage.removeItem('adminImg_hero');
+            window._adminHeroImages = [];
+            admRenderHero();
+            admPushImages();
+            showNotification('Hero images reset');
         }
+
+        function admRenderMuscles() {
+            var el = document.getElementById('adm-img-muscles');
+            if (!el) return;
+            var saved = JSON.parse(localStorage.getItem('adminImg_muscles')||'{}');
+            var html  = '<div class="adm-img-grid">';
+            ADM_MUSCLE_KEYS.forEach(function(key) {
+                var meta = (typeof MUSCLE_META !== 'undefined') ? MUSCLE_META[key] : null;
+                var src  = saved[key] || (meta && meta.img) || '';
+                html += '<div class="adm-img-card" onclick="document.getElementById(\'mf_'+key+'\').click()">' +
+                    '<img src="'+src+'" id="mp_'+key+'" style="height:70px;width:100%;object-fit:cover">' +
+                    '<div class="adm-img-card-label">'+ADM_MUSCLE_LABELS[key]+' <span>tap to change</span></div>' +
+                    '<div class="adm-img-overlay"><svg viewBox="0 0 24 24" fill="#ff6b1a" width="24" height="24"><path d="M9 16h6v-6h4l-7-7-7 7h4v6z"/></svg></div>' +
+                    '<input type="file" id="mf_'+key+'" accept="image/*" style="display:none" onchange="admUpMuscle(event,\''+key+'\')">' +
+                '</div>';
+            });
+            html += '</div><button class="adm-btn adm-btn-secondary" style="margin-top:8px" onclick="admClearMuscles()">Reset Muscle Images</button>';
+            el.innerHTML = html;
+        }
+
         function admUpMuscle(e, key) {
-            const file = e.target.files[0]; if (!file) return;
-            const r = new FileReader();
-            r.onload = ev => {
-                const saved = JSON.parse(localStorage.getItem('adminImg_muscles')||'{}');
+            var file = e.target.files && e.target.files[0]; if (!file) return;
+            var reader = new FileReader();
+            reader.onload = function(ev) {
+                var saved = JSON.parse(localStorage.getItem('adminImg_muscles')||'{}');
                 saved[key] = ev.target.result;
                 localStorage.setItem('adminImg_muscles', JSON.stringify(saved));
-                const img = document.getElementById('mp_'+key);
+                var img = document.getElementById('mp_'+key);
                 if (img) img.src = ev.target.result;
-                if (MUSCLE_META[key]) MUSCLE_META[key].img = ev.target.result;
+                if (typeof MUSCLE_META !== 'undefined' && MUSCLE_META[key]) MUSCLE_META[key].img = ev.target.result;
                 if (typeof renderTrainCards === 'function') renderTrainCards();
+                if (typeof renderHomeFeatured === 'function') renderHomeFeatured();
                 admPushImages();
-                showNotification(ADM_MUSCLE_LABELS[key]+' updated!');
+                showNotification(ADM_MUSCLE_LABELS[key]+' image updated!');
             };
-            r.readAsDataURL(file);
+            reader.readAsDataURL(file);
             e.target.value = '';
         }
+
         function admClearMuscles() {
             localStorage.removeItem('adminImg_muscles');
             admRenderMuscles();
+            if (typeof renderTrainCards === 'function') renderTrainCards();
             admPushImages();
             showNotification('Muscle images reset');
         }
 
         function admRenderExercises() {
-            const el = document.getElementById('adm-img-exercises');
-            if (!el) return;
-            const savedT = JSON.parse(localStorage.getItem('adminImg_thumbs')||'{}');
-            const savedF = JSON.parse(localStorage.getItem('adminImg_forms')||'{}');
-            const names = new Set();
-            Object.values(muscleWorkouts).forEach(mw => (mw.exercises||[]).forEach(ex => names.add(ex.name)));
-            el.innerHTML = '<p style="font-size:11px;color:#555;margin-bottom:10px">Left = list thumbnail. Right = workout form guide.</p>' +
-                [...names].sort().map(name => {
-                    const sid = name.replace(/[^a-zA-Z0-9]/g,'_');
-                    const esc = name.replace(/'/g,"\'");
-                    const ts = savedT[name] || EXERCISE_THUMBS[name] || DEFAULT_EXERCISE_THUMB;
-                    const fs = savedF[name] || EXERCISE_IMAGES[name] || DEFAULT_EXERCISE_IMAGE;
-                    return `<div class="adm-ex-row">
-                        <div class="adm-ex-thumb" onclick="document.getElementById('tf_${sid}').click()" title="Thumbnail">
-                            <img src="${ts}" id="tp_${sid}">
-                            <input type="file" id="tf_${sid}" accept="image/*" onchange="admUpThumb(event,'${esc}','${sid}')">
-                        </div>
-                        <div class="adm-ex-name">${name}</div>
-                        <div class="adm-ex-form" onclick="document.getElementById('ff_${sid}').click()" title="Form guide">
-                            <img src="${fs}" id="fp_${sid}">
-                            <input type="file" id="ff_${sid}" accept="image/*" onchange="admUpForm(event,'${esc}','${sid}')">
-                        </div>
-                    </div>`;
-                }).join('') +
-                '<button class="adm-btn adm-btn-secondary" style="margin-top:10px" onclick="admClearExercises()">Reset Exercise Images</button>';
+            var el = document.getElementById('adm-img-exercises');
+            if (!el || typeof muscleWorkouts === 'undefined') return;
+            var savedT = JSON.parse(localStorage.getItem('adminImg_thumbs')||'{}');
+            var savedF = JSON.parse(localStorage.getItem('adminImg_forms') ||'{}');
+            var names  = [];
+            var seen   = {};
+            Object.values(muscleWorkouts).forEach(function(mw) {
+                (mw.exercises||[]).forEach(function(ex) {
+                    if (!seen[ex.name]) { names.push(ex.name); seen[ex.name]=1; }
+                });
+            });
+            names.sort();
+            var defT = (typeof DEFAULT_EXERCISE_THUMB !== 'undefined') ? DEFAULT_EXERCISE_THUMB : '';
+            var defF = (typeof DEFAULT_EXERCISE_IMAGE !== 'undefined') ? DEFAULT_EXERCISE_IMAGE : '';
+            var html = '<p style="font-size:11px;color:#555;margin-bottom:10px">Left = list thumbnail &nbsp;|&nbsp; Right = workout form guide. Tap to upload.</p>';
+            names.forEach(function(name) {
+                var sid = name.replace(/[^a-zA-Z0-9]/g,'_');
+                var esc = name.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+                var ts  = savedT[name] || (typeof EXERCISE_THUMBS!=='undefined'?EXERCISE_THUMBS[name]:'') || defT;
+                var fs  = savedF[name] || (typeof EXERCISE_IMAGES!=='undefined'?EXERCISE_IMAGES[name]:'') || defF;
+                html += '<div class="adm-ex-row">' +
+                    '<div class="adm-ex-thumb" onclick="document.getElementById(\'tf_'+sid+'\').click()" title="Upload thumbnail">' +
+                        '<img src="'+ts+'" id="tp_'+sid+'">' +
+                        '<input type="file" id="tf_'+sid+'" accept="image/*" style="display:none" onchange="admUpThumb(event,\''+esc+'\',\''+sid+'\')">' +
+                    '</div>' +
+                    '<div class="adm-ex-name">'+name+'</div>' +
+                    '<div class="adm-ex-form" onclick="document.getElementById(\'ff_'+sid+'\').click()" title="Upload form guide">' +
+                        '<img src="'+fs+'" id="fp_'+sid+'">' +
+                        '<input type="file" id="ff_'+sid+'" accept="image/*" style="display:none" onchange="admUpForm(event,\''+esc+'\',\''+sid+'\')">' +
+                    '</div>' +
+                '</div>';
+            });
+            html += '<button class="adm-btn adm-btn-secondary" style="margin-top:10px" onclick="admClearExercises()">Reset Exercise Images</button>';
+            el.innerHTML = html;
         }
+
         function admUpThumb(e, name, sid) {
-            const file = e.target.files[0]; if (!file) return;
-            const r = new FileReader();
-            r.onload = ev => {
-                const saved = JSON.parse(localStorage.getItem('adminImg_thumbs')||'{}');
+            var file = e.target.files && e.target.files[0]; if (!file) return;
+            var reader = new FileReader();
+            reader.onload = function(ev) {
+                var saved = JSON.parse(localStorage.getItem('adminImg_thumbs')||'{}');
                 saved[name] = ev.target.result;
                 localStorage.setItem('adminImg_thumbs', JSON.stringify(saved));
-                const img = document.getElementById('tp_'+sid);
+                var img = document.getElementById('tp_'+sid);
                 if (img) img.src = ev.target.result;
-                EXERCISE_THUMBS[name] = ev.target.result;
+                if (typeof EXERCISE_THUMBS !== 'undefined') EXERCISE_THUMBS[name] = ev.target.result;
                 admPushImages();
                 showNotification(name+' thumbnail updated!');
             };
-            r.readAsDataURL(file);
+            reader.readAsDataURL(file);
             e.target.value = '';
         }
+
         function admUpForm(e, name, sid) {
-            const file = e.target.files[0]; if (!file) return;
-            const r = new FileReader();
-            r.onload = ev => {
-                const saved = JSON.parse(localStorage.getItem('adminImg_forms')||'{}');
+            var file = e.target.files && e.target.files[0]; if (!file) return;
+            var reader = new FileReader();
+            reader.onload = function(ev) {
+                var saved = JSON.parse(localStorage.getItem('adminImg_forms')||'{}');
                 saved[name] = ev.target.result;
                 localStorage.setItem('adminImg_forms', JSON.stringify(saved));
-                const img = document.getElementById('fp_'+sid);
+                var img = document.getElementById('fp_'+sid);
                 if (img) img.src = ev.target.result;
-                EXERCISE_IMAGES[name] = ev.target.result;
+                if (typeof EXERCISE_IMAGES !== 'undefined') EXERCISE_IMAGES[name] = ev.target.result;
                 admPushImages();
                 showNotification(name+' form image updated!');
             };
-            r.readAsDataURL(file);
+            reader.readAsDataURL(file);
             e.target.value = '';
         }
+
         function admClearExercises() {
             localStorage.removeItem('adminImg_thumbs');
             localStorage.removeItem('adminImg_forms');
@@ -15689,160 +16068,154 @@
             showNotification('Exercise images reset');
         }
 
-        function admPushImages() {
-            if (!window._fbDb || !window._fbRef || !window._fbSet) return;
-            const imgData = {
-                hero:    JSON.parse(localStorage.getItem('adminImg_hero')   ||'[]'),
-                muscles: JSON.parse(localStorage.getItem('adminImg_muscles')||'{}'),
-                thumbs:  JSON.parse(localStorage.getItem('adminImg_thumbs') ||'{}'),
-                forms:   JSON.parse(localStorage.getItem('adminImg_forms')  ||'{}'),
-            };
-            window._fbSet(window._fbRef(window._fbDb, 'adminImages'), imgData)
-                .then(() => showSync('synced')).catch(() => {});
-            showSync('syncing');
-        }
-
-        // ── Apply images on login ──
-        function applyAdminImages() {
-            const savedH = JSON.parse(localStorage.getItem('adminImg_hero')   ||'[]');
-            const savedM = JSON.parse(localStorage.getItem('adminImg_muscles')||'{}');
-            const savedT = JSON.parse(localStorage.getItem('adminImg_thumbs') ||'{}');
-            const savedF = JSON.parse(localStorage.getItem('adminImg_forms')  ||'{}');
-            if (savedH.length) window._adminHeroImages = savedH;
-            Object.entries(savedM).forEach(([k,u]) => { if (MUSCLE_META[k] && u) MUSCLE_META[k].img = u; });
-            Object.entries(savedT).forEach(([n,u]) => { EXERCISE_THUMBS[n] = u; });
-            Object.entries(savedF).forEach(([n,u]) => { EXERCISE_IMAGES[n] = u; });
-        }
-
-        // ══ USERS ══
+        // ══════════════════════════════════════════════════════
+        // USERS TAB
+        // ══════════════════════════════════════════════════════
         function admLoadUsers() {
-            const el = document.getElementById('adm-stats');
+            var el = document.getElementById('adm-stats');
             if (!el) return;
-            const hist    = JSON.parse(localStorage.getItem('workoutHistory')||'[]');
-            const badges  = JSON.parse(localStorage.getItem('earnedBadges')||'[]');
-            const profile = JSON.parse(localStorage.getItem('userProfile')||'{}');
-            const stats = [
-                {v:hist.length,          l:'Workouts'},
-                {v:badges.length,         l:'Badges'},
-                {v:hist.reduce((s,w)=>s+(w.calories||0),0), l:'Calories'},
-                {v:hist.reduce((s,w)=>s+(w.duration||0),0), l:'Minutes'},
-                {v:profile.name||'—',    l:'Name'},
-                {v:profile.email||'—',   l:'Email'},
+            var hist    = JSON.parse(localStorage.getItem('workoutHistory')||'[]');
+            var badges  = JSON.parse(localStorage.getItem('earnedBadges') ||'[]');
+            var profile = JSON.parse(localStorage.getItem('userProfile')  ||'{}');
+            var stats   = [
+                {v: hist.length,                                    l: 'Workouts'},
+                {v: badges.length,                                  l: 'Badges'},
+                {v: hist.reduce(function(s,w){return s+(w.calories||0);},0), l: 'Calories Burned'},
+                {v: hist.reduce(function(s,w){return s+(w.duration||0);},0), l: 'Minutes Active'},
+                {v: profile.name  || '—',                          l: 'User Name'},
+                {v: profile.email || '—',                          l: 'Email'},
             ];
-            el.innerHTML = '<div class="adm-stats-grid">' +
-                stats.map(s => `<div class="adm-stat-box"><div class="adm-stat-val">${s.v}</div><div class="adm-stat-lbl">${s.l}</div></div>`).join('') +
-                '</div>';
+            var html = '<div class="adm-stats-grid">';
+            stats.forEach(function(s) {
+                html += '<div class="adm-stat-box"><div class="adm-stat-val">'+s.v+'</div><div class="adm-stat-lbl">'+s.l+'</div></div>';
+            });
+            html += '</div>';
+            el.innerHTML = html;
         }
+
         function admExportDB() {
-            const keys = ['workoutHistory','userProfile','workoutPlanner','savedPlans','bmiData','userGoals','bodyMeasurements','personalRecords','earnedBadges','streak','trainFavourites','adminConfig'];
-            const data = {};
-            keys.forEach(k => { const v=localStorage.getItem(k); if(v) try{data[k]=JSON.parse(v)}catch{data[k]=v} });
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));
+            var keys = ['workoutHistory','userProfile','workoutPlanner','savedPlans','bmiData','userGoals',
+                        'bodyMeasurements','personalRecords','earnedBadges','streak','trainFavourites','adminConfig'];
+            var data = {};
+            keys.forEach(function(k) {
+                var v = localStorage.getItem(k);
+                if (v) { try { data[k] = JSON.parse(v); } catch(e) { data[k] = v; } }
+            });
+            var blob = new Blob([JSON.stringify(data,null,2)], {type:'application/json'});
+            var a    = document.createElement('a');
+            a.href   = URL.createObjectURL(blob);
             a.download = 'athly_export_'+new Date().toISOString().slice(0,10)+'.json';
             a.click();
-            showNotification('Exported!');
+            showNotification('Data exported!');
         }
 
         // ── Announcement banner ──
         function showAnnouncementBanner(text, color) {
             if (!text || !text.trim()) return;
-            let b = document.getElementById('admin-announcement-banner');
+            var b = document.getElementById('admin-announcement-banner');
             if (!b) {
                 b = document.createElement('div');
                 b.id = 'admin-announcement-banner';
-                b.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:7999;padding:8px 40px 8px 16px;font-size:12px;font-weight:700;text-align:center;color:#000;display:none';
-                const x = document.createElement('button');
+                b.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:7999;padding:8px 40px 8px 16px;font-size:12px;font-weight:700;text-align:center;color:#000;';
+                var x = document.createElement('button');
                 x.textContent = '✕';
-                x.style.cssText = 'position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;font-size:16px;cursor:pointer;color:#000;opacity:.6';
-                x.onclick = () => b.style.display = 'none';
+                x.style.cssText = 'position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;font-size:16px;cursor:pointer;color:#000;opacity:.6;padding:0;';
+                x.onclick = function() { b.style.display = 'none'; };
                 b.appendChild(x);
                 document.body.insertBefore(b, document.body.firstChild);
             }
             b.style.background = color || '#ff6b1a';
-            const x = b.querySelector('button');
+            var x2 = b.querySelector('button');
             b.textContent = text;
-            if (x) b.appendChild(x);
+            if (x2) b.appendChild(x2);
             b.style.display = 'block';
         }
 
-        // ── Register all window globals ──
-        window.openAdminPanel    = openAdminPanel;
-        window.closeAdminPanel   = closeAdminPanel;
-        window.checkAdmin        = checkAdmin;
-        window.applyAdminConfig  = applyAdminConfig;
-        window.applyAdminImages  = applyAdminImages;
-        window.getAdminConfig    = getAdminConfig;
-        window.saveAdminConfig   = saveAdminConfig;
-        window.admTab            = admTab;
-        window.admSaveBranding   = admSaveBranding;
-        window.admSaveNav        = admSaveNav;
-        window.admSaveQuotes     = admSaveQuotes;
-        window.admPreset         = admPreset;
-        window.admLiveColour     = admLiveColour;
-        window.admHexChange      = admHexChange;
-        window.admSaveColours    = admSaveColours;
-        window.admResetColours   = admResetColours;
-        window.admApplyFont      = admApplyFont;
-        window.admApplyFontSize  = admApplyFontSize;
-        window.admApplyFontWeight= admApplyFontWeight;
-        window.admApplyLetterSpacing = admApplyLetterSpacing;
-        window.admSaveTypography = admSaveTypography;
-        window.admApplyRadius    = admApplyRadius;
-        window.admApplySpacing   = admApplySpacing;
-        window.admToggleEl       = admToggleEl;
-        window.admToggleAnimations = admToggleAnimations;
-        window.admSaveLayout     = admSaveLayout;
-        window.admSaveTips       = admSaveTips;
-        window.admSaveBanner     = admSaveBanner;
-        window.admBroadcast      = admBroadcast;
-        window.admLoadWorkouts   = admLoadWorkouts;
-        window.admSaveWorkouts   = admSaveWorkouts;
-        window.admAddChallenge   = admAddChallenge;
-        window.admDelChallenge   = admDelChallenge;
-        window.admSaveChallenges = admSaveChallenges;
-        window.admImgTab         = admImgTab;
-        window.admUpHero         = admUpHero;
-        window.admUpMuscle       = admUpMuscle;
-        window.admClearMuscles   = admClearMuscles;
-        window.admUpThumb        = admUpThumb;
-        window.admUpForm         = admUpForm;
-        window.admClearExercises = admClearExercises;
-        window.admLoadUsers      = admLoadUsers;
-        window.admExportDB       = admExportDB;
+        // ── Register all admin functions on window ──
+        window.openAdminPanel      = openAdminPanel;
+        window.closeAdminPanel     = closeAdminPanel;
+        window.checkAdmin          = checkAdmin;
+        window.applyAdminConfig    = applyAdminConfig;
+        window.applyAdminImages    = applyAdminImages;
+        window.getAdminConfig      = getAdminConfig;
+        window.saveAdminConfig     = saveAdminConfig;
         window.showAnnouncementBanner = showAnnouncementBanner;
+        window.admTab              = admTab;
+        window.admSaveBranding     = admSaveBranding;
+        window.admSaveNav          = admSaveNav;
+        window.admSaveQuotes       = admSaveQuotes;
+        window.admPreset           = admPreset;
+        window.admLiveColour       = admLiveColour;
+        window.admHexChange        = admHexChange;
+        window.admSaveColours      = admSaveColours;
+        window.admResetColours     = admResetColours;
+        window.admApplyFont        = admApplyFont;
+        window.admApplyFontSize    = admApplyFontSize;
+        window.admApplyFontWeight  = admApplyFontWeight;
+        window.admApplyLetterSpacing = admApplyLetterSpacing;
+        window.admSaveTypography   = admSaveTypography;
+        window.admApplyRadius      = admApplyRadius;
+        window.admApplySpacing     = admApplySpacing;
+        window.admToggleEl         = admToggleEl;
+        window.admToggleAnimations = admToggleAnimations;
+        window.admSaveLayout       = admSaveLayout;
+        window.admSaveTips         = admSaveTips;
+        window.admSaveBanner       = admSaveBanner;
+        window.admBroadcast        = admBroadcast;
+        window.admSaveWorkouts     = admSaveWorkouts;
+        window.admAddChallenge     = admAddChallenge;
+        window.admDelChallenge     = admDelChallenge;
+        window.admSaveChallenges   = admSaveChallenges;
+        window.admImgTab           = admImgTab;
+        window.admUpHero           = admUpHero;
+        window.admClearHero        = admClearHero;
+        window.admUpMuscle         = admUpMuscle;
+        window.admClearMuscles     = admClearMuscles;
+        window.admUpThumb          = admUpThumb;
+        window.admUpForm           = admUpForm;
+        window.admClearExercises   = admClearExercises;
+        window.admExportDB         = admExportDB;
 
 
         // ══════════════════════════════════════════════════════
-        // HOME PAGE — RENDER FUNCTIONS
+        // HOME PAGE RENDER FUNCTIONS
         // ══════════════════════════════════════════════════════
-
         const FEATURED_WORKOUTS = [
-            { key:'chest',    name:'Chest Day',    label:'Push Day',   dur:25, cal:280, grad:'linear-gradient(145deg,#5a1010,#3a0808)' },
-            { key:'legs',     name:'Leg Day',      label:'Lower Body', dur:28, cal:300, grad:'linear-gradient(145deg,#0a3010,#062008)' },
-            { key:'abs',      name:'Core Blast',   label:'Core',       dur:18, cal:180, grad:'linear-gradient(145deg,#2a2800,#1a1800)' },
-            { key:'back',     name:'Back Power',   label:'Pull Day',   dur:25, cal:270, grad:'linear-gradient(145deg,#082828,#041818)' },
-            { key:'fullbody', name:'Full Body',    label:'Total Body', dur:35, cal:380, grad:'linear-gradient(145deg,#2a1400,#1a0c00)' },
-            { key:'cardio',   name:'Cardio HIIT',  label:'Cardio',     dur:20, cal:300, grad:'linear-gradient(145deg,#001828,#001018)' },
-            { key:'shoulders',name:'Shoulder Day', label:'Push Day',   dur:22, cal:240, grad:'linear-gradient(145deg,#0a2535,#06161e)' },
-            { key:'arms',     name:'Arm Day',      label:'Push/Pull',  dur:30, cal:220, grad:'linear-gradient(145deg,#2a1040,#180828)' },
+            { key:'chest',    name:'Chest Day',   dur:25, cal:280, grad:'linear-gradient(145deg,#5a1010,#3a0808)' },
+            { key:'legs',     name:'Leg Day',     dur:28, cal:300, grad:'linear-gradient(145deg,#0a3010,#062008)' },
+            { key:'abs',      name:'Core Blast',  dur:18, cal:180, grad:'linear-gradient(145deg,#2a2800,#1a1800)' },
+            { key:'back',     name:'Back Power',  dur:25, cal:270, grad:'linear-gradient(145deg,#082828,#041818)' },
+            { key:'fullbody', name:'Full Body',   dur:35, cal:380, grad:'linear-gradient(145deg,#2a1400,#1a0c00)' },
+            { key:'cardio',   name:'Cardio HIIT', dur:20, cal:300, grad:'linear-gradient(145deg,#001828,#001018)' },
+            { key:'shoulders',name:'Shoulders',   dur:22, cal:240, grad:'linear-gradient(145deg,#0a2535,#06161e)' },
+            { key:'arms',     name:'Arm Day',     dur:30, cal:220, grad:'linear-gradient(145deg,#2a1040,#180828)' },
         ];
-
-        let _homeCatFilter = 'all';
+        var _homeCatFilter = 'all';
 
         function updateHomeGreeting() {
-            const h = new Date().getHours();
-            const g = h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening';
-            const subEl  = document.getElementById('home-greeting-sub');
-            const nameEl = document.getElementById('home-greeting-name');
+            var h = new Date().getHours();
+            var g = h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening';
+            var subEl  = document.getElementById('home-greeting-sub');
+            var nameEl = document.getElementById('home-greeting-name');
             if (subEl) subEl.textContent = g;
-            const profile = JSON.parse(localStorage.getItem('userProfile') || '{}');
-            const authName = window._fbUser && window._fbUser.displayName;
-            if (nameEl) nameEl.textContent = authName || profile.name || 'Athlete';
+
+            // Single source of truth: Firebase auth > userProfile.name
+            var authName    = window._fbUser && window._fbUser.displayName;
+            var profile     = JSON.parse(localStorage.getItem('userProfile') || '{}');
+            var displayName = authName || profile.name || 'Athlete';
+
+            if (nameEl) nameEl.textContent = displayName;
+
+            // Keep userProfile.name in sync with Firebase auth name
+            if (authName && profile.name !== authName) {
+                profile.name = authName;
+                localStorage.setItem('userProfile', JSON.stringify(profile));
+            }
+
             // Avatar
-            const avatarEl = document.getElementById('home-avatar-btn');
+            var avatarEl = document.getElementById('home-avatar-btn');
             if (avatarEl) {
-                const localAvatar = localStorage.getItem('localAvatarImage') || profile.avatarImage;
+                var localAvatar = localStorage.getItem('localAvatarImage') || profile.avatarImage;
                 if (localAvatar) {
                     avatarEl.innerHTML = '<img src="' + localAvatar + '" style="width:100%;height:100%;object-fit:cover;border-radius:50%">';
                 }
@@ -15850,98 +16223,93 @@
         }
 
         function renderHomeWeekStrip() {
-            const strip = document.getElementById('home-week-strip');
+            var strip = document.getElementById('home-week-strip');
             if (!strip) return;
-            const history = JSON.parse(localStorage.getItem('workoutHistory') || '[]');
-            const today   = new Date();
-            const todayDay = today.getDay(); // 0=Sun
-            const DAYS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-            // Start from Monday of current week
-            const monday = new Date(today);
+            var history  = JSON.parse(localStorage.getItem('workoutHistory') || '[]');
+            var today    = new Date();
+            var todayDay = today.getDay();
+            var DAYS     = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+            var monday   = new Date(today);
             monday.setDate(today.getDate() - ((todayDay + 6) % 7));
             strip.innerHTML = '';
-            for (let i = 0; i < 7; i++) {
-                const d = new Date(monday);
+            for (var i = 0; i < 7; i++) {
+                var d = new Date(monday);
                 d.setDate(monday.getDate() + i);
                 d.setHours(0,0,0,0);
-                const isToday = d.toDateString() === today.toDateString();
-                const hasWorkout = history.some(w => {
+                var isToday = d.toDateString() === today.toDateString();
+                var hasWorkout = history.some(function(w) {
                     if (!w.date) return false;
-                    const wd = new Date(w.date); wd.setHours(0,0,0,0);
+                    var wd = new Date(w.date); wd.setHours(0,0,0,0);
                     return wd.getTime() === d.getTime();
                 });
-                const div = document.createElement('div');
-                div.className = 'week-day' + (isToday ? ' today' : '') + (hasWorkout ? ' has-workout' : '');
-                div.innerHTML = '<div class="week-day-label">' + DAYS[(i+1)%7] + '</div>' +
-                                '<div class="week-day-num">' + d.getDate() + '</div>';
+                var div = document.createElement('div');
+                div.className = 'week-day' + (isToday?' today':'') + (hasWorkout?' has-workout':'');
+                div.innerHTML = '<div class="week-day-label">' + DAYS[(i+1)%7] + '</div><div class="week-day-num">' + d.getDate() + '</div>';
                 strip.appendChild(div);
             }
         }
 
         function renderHomeFeatured() {
-            const row = document.getElementById('home-featured-row');
+            var row = document.getElementById('home-featured-row');
             if (!row) return;
-            const savedMuscles = JSON.parse(localStorage.getItem('adminImg_muscles') || '{}');
-            const cfg = getAdminConfig ? getAdminConfig() : {};
-            const savedNames = (cfg && cfg.workoutNames) || {};
+            var savedMuscles = JSON.parse(localStorage.getItem('adminImg_muscles') || '{}');
+            var cfg          = (typeof getAdminConfig === 'function') ? getAdminConfig() : {};
+            var savedNames   = (cfg && cfg.workoutNames) || {};
 
-            let list = FEATURED_WORKOUTS;
+            var list = FEATURED_WORKOUTS;
             if (_homeCatFilter !== 'all') {
-                const map = {
+                var map = {
                     warmup:   ['fullbody','cardio'],
                     cardio:   ['cardio'],
                     strength: ['chest','back','arms','shoulders','legs','abs','glutes','fullbody']
                 };
-                const keys = map[_homeCatFilter] || [];
-                list = list.filter(w => keys.includes(w.key));
-                if (!list.length) list = FEATURED_WORKOUTS;
+                var filtered = list.filter(function(w) { return (map[_homeCatFilter]||[]).indexOf(w.key) >= 0; });
+                if (filtered.length) list = filtered;
             }
 
             row.innerHTML = list.map(function(w) {
-                var meta   = (typeof MUSCLE_META !== 'undefined') ? MUSCLE_META[w.key] : null;
-                var imgSrc = savedMuscles[w.key] || (meta && meta.img) || '';
+                var meta    = (typeof MUSCLE_META !== 'undefined') ? MUSCLE_META[w.key] : null;
+                var imgSrc  = savedMuscles[w.key] || (meta && meta.img) || '';
                 var bgStyle = imgSrc
-                    ? ('background-image:url("' + imgSrc + '");background-size:cover;background-position:center')
-                    : ('background:' + w.grad);
+                    ? 'background-image:url("' + imgSrc + '");background-size:cover;background-position:center'
+                    : 'background:' + w.grad;
                 var dispName = (savedNames[w.key] && savedNames[w.key].name) || w.name;
                 var dispDur  = (savedNames[w.key] && savedNames[w.key].dur)  || w.dur;
                 var dispCal  = (savedNames[w.key] && savedNames[w.key].cal)  || w.cal;
-                return '<div class="home-featured-card" onclick="startMuscleWorkout(\'' + w.key + '\')">' +
-                    '<div class="home-featured-card-bg" style="' + bgStyle + '"></div>' +
-                    '<div class="home-featured-card-overlay"></div>' +
-                    '<div class="home-featured-card-body">' +
-                        '<div class="home-featured-card-name">' + dispName + '</div>' +
-                        '<div class="home-featured-card-meta">' +
-                            dispDur + ' min &nbsp;·&nbsp; ' + dispCal + ' cal' +
-                        '</div>' +
-                    '</div>' +
+                return '<div class="home-featured-card" onclick="startMuscleWorkout(\''+w.key+'\')">'+
+                    '<div class="home-featured-card-bg" style="'+bgStyle+'"></div>'+
+                    '<div class="home-featured-card-overlay"></div>'+
+                    '<div class="home-featured-card-body">'+
+                        '<div class="home-featured-card-name">'+dispName+'</div>'+
+                        '<div class="home-featured-card-meta">'+dispDur+' min &nbsp;·&nbsp; '+dispCal+' cal</div>'+
+                    '</div>'+
                 '</div>';
             }).join('');
         }
 
-                function renderHomeActivity() {
-            const list = document.getElementById('home-activity-list');
+        function renderHomeActivity() {
+            var list = document.getElementById('home-activity-list');
             if (!list) return;
-            const history = JSON.parse(localStorage.getItem('workoutHistory') || '[]');
+            var history = JSON.parse(localStorage.getItem('workoutHistory') || '[]');
             if (!history.length) {
-                list.innerHTML = '<div style="text-align:center;padding:24px 18px;color:var(--text-muted);font-size:13px;font-weight:500">No workouts yet — start your first session!</div>';
+                list.innerHTML = '<div style="text-align:center;padding:24px 18px;color:var(--text-muted);font-size:13px">No workouts yet — start your first session!</div>';
                 return;
             }
-            const COLORS = ['#ff6b1a','#ffd000','#4fc3f7','#81c784','#ce93d8','#ef9a9a'];
-            list.innerHTML = history.slice(0,5).map((w,i) => {
-                const c = COLORS[i % COLORS.length];
-                return '<div class="home-activity-row" onclick="showPage(\'profile\')">' +
-                    '<div class="home-activity-icon" style="background:' + c + '22">' +
-                        '<svg viewBox="0 0 24 24" fill="' + c + '" width="22" height="22"><path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43l-1.43-1.44-2.85 2.85 1.44 1.43L3.43 9.14 2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43 1.44 1.43 2.85-2.85-1.44-1.43z"/></svg>' +
-                    '</div>' +
-                    '<div class="home-activity-info">' +
-                        '<div class="home-activity-name">' + (w.name||'Workout') + '</div>' +
-                        '<div class="home-activity-time">' + (w.date||'') + '</div>' +
-                    '</div>' +
-                    '<div class="home-activity-stat">' +
-                        '<div class="home-activity-val" style="color:' + c + '">' + (w.calories||0) + '</div>' +
-                        '<div class="home-activity-unit">cal</div>' +
-                    '</div>' +
+            var COLORS = ['#ff6b1a','#ffd000','#4fc3f7','#81c784','#ce93d8','#ef9a9a'];
+            list.innerHTML = history.slice(0,5).map(function(w, i) {
+                var c = COLORS[i % COLORS.length];
+                return '<div class="home-activity-row" onclick="showPage(\'profile\')">'+
+                    '<div class="home-activity-icon" style="background:'+c+'22">'+
+                        '<svg viewBox="0 0 24 24" fill="'+c+'" width="22" height="22"><path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43l-1.43-1.44-2.85 2.85 1.44 1.43L3.43 9.14 2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43 1.44 1.43 2.85-2.85-1.44-1.43z"/></svg>'+
+                    '</div>'+
+                    '<div class="home-activity-info">'+
+                        '<div class="home-activity-name">'+(w.name||'Workout')+'</div>'+
+                        '<div class="home-activity-time">'+(w.date||'')+'</div>'+
+                    '</div>'+
+                    '<div class="home-activity-stat">'+
+                        '<div class="home-activity-val" style="color:'+c+'">'+(w.calories||0)+'</div>'+
+                        '<div class="home-activity-unit">cal</div>'+
+                    '</div>'+
                 '</div>';
             }).join('');
         }
@@ -15955,139 +16323,19 @@
 
         function homeCatFilter(cat) {
             _homeCatFilter = cat;
-            document.querySelectorAll('.home-cat-pill').forEach(p => p.classList.remove('active'));
-            const el = document.getElementById('hcat-' + cat);
+            document.querySelectorAll('.home-cat-pill').forEach(function(p) { p.classList.remove('active'); });
+            var el = document.getElementById('hcat-' + cat);
             if (el) el.classList.add('active');
             renderHomeFeatured();
         }
 
         window.renderNewHome       = renderNewHome;
-        window.renderHomeFeatured  = renderHomeFeatured;
-        window.renderHomeWeekStrip = renderHomeWeekStrip;
-        window.renderHomeActivity  = renderHomeActivity;
         window.updateHomeGreeting  = updateHomeGreeting;
+        window.renderHomeWeekStrip = renderHomeWeekStrip;
+        window.renderHomeFeatured  = renderHomeFeatured;
+        window.renderHomeActivity  = renderHomeActivity;
         window.homeCatFilter       = homeCatFilter;
 
-        // ── Debounced auto-sync on any localStorage write ──
-        function scheduleSync() {
-            if (!_fbUid) return;
-            clearTimeout(_syncDebounceTimer);
-            _syncDebounceTimer = setTimeout(syncToFirebase, 3000);
-        }
-
-        // ── Patch localStorage.setItem to trigger sync ──
-        (function() {
-            const orig = localStorage.setItem.bind(localStorage);
-            localStorage.setItem = function(key, value) {
-                orig(key, value);
-                if (SYNC_KEYS.includes(key) || key.startsWith('challenge_') || key.startsWith('program_start_')) {
-                    scheduleSync();
-                }
-            };
-        })();
-
-        // ── Auth state handlers ──
-        window.addEventListener('fb-authed', async (e) => {
-            const user = e.detail;
-            _fbUid = user.uid;
-
-            // Hide auth screen, show app
-            hideAuthScreen();
-
-            // Check if admin
-            checkAdmin(user.email);
-
-            // ── Real-time admin config listener (fires for ALL users immediately when admin changes anything) ──
-            if (window._fbDb && window._fbOnValue && window._fbRef) {
-                try {
-                    // Config (colours, text, branding, challenges etc.)
-                    const cfgRef = window._fbRef(window._fbDb, 'adminConfig');
-                    window._fbOnValue(cfgRef, snap => {
-                        if (snap && snap.exists && snap.exists()) {
-                            const val = snap.val();
-                            // Strip banner before saving/applying
-                            delete val.bannerText;
-                            delete val.bannerColor;
-                            localStorage.setItem('adminConfig', JSON.stringify(val));
-                            applyAdminConfig();
-                            // Remove any existing banner element
-                            const _ab = document.getElementById('admin-announcement-banner');
-                            if (_ab) _ab.remove();
-                            showSync('synced');
-                        }
-                    });
-
-                    // Images (hero, muscle cards, exercise thumbs/forms)
-                    const imgRef = window._fbRef(window._fbDb, 'adminImages');
-                    window._fbOnValue(imgRef, snap => {
-                        if (snap && snap.exists && snap.exists()) {
-                            const val = snap.val();
-                            if (val.hero)    localStorage.setItem('adminImg_hero',    JSON.stringify(val.hero));
-                            if (val.muscles) localStorage.setItem('adminImg_muscles', JSON.stringify(val.muscles));
-                            if (val.thumbs)  localStorage.setItem('adminImg_thumbs',  JSON.stringify(val.thumbs));
-                            if (val.forms)   localStorage.setItem('adminImg_forms',   JSON.stringify(val.forms));
-                            applyAdminImages();
-                        }
-                    });
-
-                    // Broadcast messages
-                    const bcastRef = window._fbRef(window._fbDb, 'broadcast');
-                    window._fbOnValue(bcastRef, snap => {
-                        if (snap && snap.exists && snap.exists()) {
-                            const val = snap.val();
-                            // Broadcast banner permanently disabled
-                    const _bb = document.getElementById('admin-announcement-banner');
-                    if (_bb) _bb.remove();
-                        }
-                    });
-                } catch(e) { console.warn('Admin listener error:', e); }
-            }
-            applyAdminConfig();
-            applyAdminImages();
-
-            // Sync Firebase auth name/email into userProfile
-            if (user.displayName || user.email) {
-                const p = JSON.parse(localStorage.getItem('userProfile') || '{}');
-                if (!p.name && user.displayName) p.name = user.displayName;
-                if (!p.email && user.email)       p.email = user.email;
-                if (user.displayName) p.name = user.displayName; // always use auth name
-                if (user.email)       p.email = user.email;
-                localStorage.setItem('userProfile', JSON.stringify(p));
-            }
-
-            // Update profile UI
-            const displayName = user.displayName || 'Athlete';
-            const emailShort  = user.email || '';
-            const infoRow = document.getElementById('auth-user-info-row');
-            const infoSpan= document.getElementById('auth-signed-in-as');
-            const signoutBtn = document.getElementById('signout-btn');
-            if (infoRow)   infoRow.style.display   = 'flex';
-            if (signoutBtn) signoutBtn.style.display = 'flex';
-            if (infoSpan)  infoSpan.textContent = displayName + ' · ' + emailShort;
-
-            // Load cloud data (overwrites localStorage)
-            await loadFromFirebase(user.uid);
-        });
-
-        window.addEventListener('fb-signedout', () => {
-            _fbUid = null;
-            showAuthScreen();
-            const infoRow    = document.getElementById('auth-user-info-row');
-            const signoutBtn = document.getElementById('signout-btn');
-            if (infoRow)    infoRow.style.display    = 'none';
-            if (signoutBtn) signoutBtn.style.display  = 'none';
-        });
-
-        // ── Expose auth functions globally ──
-        window.authSwitchTab    = authSwitchTab;
-        window.authSignIn       = authSignIn;
-        window.authSignUp       = authSignUp;
-        window.authGoogleSignIn = authGoogleSignIn;
-        window.authSignOutUser  = authSignOutUser;
-        window.syncToFirebase   = syncToFirebase;
-
-
-        // ══════════════════════════════════════════════════════
 
         // ==================== MAKE FUNCTIONS GLOBAL ====================
         window.showPage = showPage;

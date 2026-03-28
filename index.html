@@ -15134,6 +15134,16 @@
             return 'Error: ' + (code || 'unknown') + '. Open browser console (F12) for details.';
         }
 
+        // ── Expose all auth functions on window ──
+        window.authSwitchTab     = authSwitchTab;
+        window.authSignIn        = authSignIn;
+        window.authSignUp        = authSignUp;
+        window.authGoogleSignIn  = authGoogleSignIn;
+        window.authSignOutUser   = authSignOutUser;
+        window.showAuthError     = showAuthError;
+        window.clearAuthError    = clearAuthError;
+
+
         // ── Sync indicator ──
         function showSync(state) { // 'syncing' | 'synced' | 'error' | 'hide'
             const ind  = document.getElementById('sync-indicator');

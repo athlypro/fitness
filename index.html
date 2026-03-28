@@ -7752,6 +7752,10 @@
 
       // ── Auth state listener ──
       onAuthStateChanged(auth, user => {
+        // Firebase is ready
+        const statusEl = document.getElementById('auth-firebase-status');
+        if (statusEl) statusEl.style.display = 'none';
+
         if (user) {
           window._fbUser = user;
           window.dispatchEvent(new CustomEvent('fb-authed', { detail: user }));
@@ -7760,6 +7764,11 @@
           window.dispatchEvent(new Event('fb-signedout'));
         }
       });
+
+      // Mark Firebase as loaded so auth buttons know they can proceed
+      window._fbReady = true;
+      const _statusEl = document.getElementById('auth-firebase-status');
+      if (_statusEl) _statusEl.style.display = 'none';
     </script>
 
 </head>
@@ -8090,11 +8099,11 @@
             <div id="auth-login-form">
                 <div class="auth-field">
                     <label>Email</label>
-                    <input type="email" id="login-email" placeholder="you@email.com" autocomplete="email">
+                    <input type="email" id="login-email" placeholder="you@email.com" autocomplete="email" onkeydown="if(event.key==='Enter')document.getElementById('login-password').focus()">
                 </div>
                 <div class="auth-field">
                     <label>Password</label>
-                    <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password">
+                    <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')authSignIn()">
                 </div>
                 <button class="auth-submit-btn" id="login-btn" onclick="authSignIn()">Sign In</button>
             </div>
@@ -8137,6 +8146,9 @@
                 Need help? Make sure <strong style="color:rgba(255,255,255,.5)">Email/Password</strong> is enabled in
                 Firebase Console → Authentication → Sign-in methods
             </div>
+        </div>
+        <div id="auth-firebase-status" style="text-align:center;margin-top:12px;font-size:11px;color:#333;font-weight:600">
+            Connecting to server...
         </div>
     </div>
 
@@ -15056,10 +15068,17 @@
             const email = document.getElementById('login-email').value.trim();
             const pass  = document.getElementById('login-password').value;
             if (!email || !pass) { showAuthError('Please enter email and password.'); return; }
+            if (typeof window._fbSignInEmail !== 'function') {
+                showAuthError('Still connecting to server — please wait a moment and try again.');
+                return;
+            }
             clearAuthError();
             setAuthBtnLoading('login-btn', true);
             try {
                 await window._fbSignInEmail(email, pass);
+                // Success — fb-authed event will fire and hide the screen
+                // Re-enable button in case something goes wrong
+                setTimeout(function() { setAuthBtnLoading('login-btn', false); }, 5000);
             } catch (e) {
                 setAuthBtnLoading('login-btn', false);
                 showAuthError(friendlyAuthError(e.code, e.message));
@@ -15073,16 +15092,21 @@
             const pass  = document.getElementById('signup-password').value;
             if (!name || !email || !pass) { showAuthError('Please fill in all fields.'); return; }
             if (pass.length < 6) { showAuthError('Password must be at least 6 characters.'); return; }
+            if (typeof window._fbCreateEmail !== 'function') {
+                showAuthError('Still connecting to server — please wait a moment and try again.');
+                return;
+            }
             clearAuthError();
             setAuthBtnLoading('signup-btn', true);
             try {
                 const cred = await window._fbCreateEmail(email, pass);
                 await window._fbUpdateProfile(cred.user, { displayName: name });
-                // Save name to userProfile immediately
                 const profile = JSON.parse(localStorage.getItem('userProfile') || '{}');
                 profile.name  = name;
                 profile.email = email;
                 localStorage.setItem('userProfile', JSON.stringify(profile));
+                // fb-authed will fire automatically — re-enable after timeout
+                setTimeout(function() { setAuthBtnLoading('signup-btn', false); }, 5000);
             } catch (e) {
                 setAuthBtnLoading('signup-btn', false);
                 showAuthError(friendlyAuthError(e.code, e.message));
@@ -15092,6 +15116,10 @@
         // ── Google Sign In ──
         async function authGoogleSignIn() {
             clearAuthError();
+            if (typeof window._fbGoogleSignIn !== 'function') {
+                showAuthError('Still connecting to server — please wait a moment and try again.');
+                return;
+            }
             try {
                 await window._fbGoogleSignIn();
             } catch (e) {

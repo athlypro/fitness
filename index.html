@@ -15278,6 +15278,107 @@
             }
         }
 
+        // ── Debounced auto-sync ──
+        function scheduleSync() {
+            if (!_fbUid) return;
+            clearTimeout(_syncDebounceTimer);
+            _syncDebounceTimer = setTimeout(syncToFirebase, 3000);
+        }
+
+        // ── Patch localStorage.setItem to trigger sync ──
+        (function() {
+            const orig = localStorage.setItem.bind(localStorage);
+            localStorage.setItem = function(key, value) {
+                orig(key, value);
+                if (SYNC_KEYS.includes(key) || key.startsWith('challenge_') || key.startsWith('program_start_')) {
+                    scheduleSync();
+                }
+            };
+        })();
+
+        // ══════════════════════════════════════════════════════
+        // FIREBASE AUTH STATE LISTENERS
+        // ══════════════════════════════════════════════════════
+        window.addEventListener('fb-authed', async function(e) {
+            const user = e.detail;
+            _fbUid = user.uid;
+
+            // Hide auth screen, show app
+            hideAuthScreen();
+
+            // Check if admin
+            checkAdmin(user.email);
+
+            // Apply admin config & images from Firebase in real-time
+            if (window._fbDb && window._fbOnValue && window._fbRef) {
+                try {
+                    window._fbOnValue(window._fbRef(window._fbDb, 'adminConfig'), function(snap) {
+                        if (snap && snap.exists && snap.exists()) {
+                            const val = snap.val();
+                            delete val.bannerText; delete val.bannerColor;
+                            localStorage.setItem('adminConfig', JSON.stringify(val));
+                            applyAdminConfig();
+                            const ab = document.getElementById('admin-announcement-banner');
+                            if (ab) ab.remove();
+                        }
+                    });
+                    window._fbOnValue(window._fbRef(window._fbDb, 'adminImages'), function(snap) {
+                        if (snap && snap.exists && snap.exists()) {
+                            const val = snap.val();
+                            if (val.hero)    localStorage.setItem('adminImg_hero',    JSON.stringify(val.hero));
+                            if (val.muscles) localStorage.setItem('adminImg_muscles', JSON.stringify(val.muscles));
+                            if (val.thumbs)  localStorage.setItem('adminImg_thumbs',  JSON.stringify(val.thumbs));
+                            if (val.forms)   localStorage.setItem('adminImg_forms',   JSON.stringify(val.forms));
+                            applyAdminImages();
+                        }
+                    });
+                } catch(err) { console.warn('Admin listener:', err); }
+            }
+
+            // Apply saved admin settings
+            applyAdminConfig();
+            applyAdminImages();
+
+            // Sync Firebase auth name into profile
+            if (user.displayName || user.email) {
+                const p = JSON.parse(localStorage.getItem('userProfile') || '{}');
+                if (user.displayName) p.name  = user.displayName;
+                if (user.email)       p.email = user.email;
+                localStorage.setItem('userProfile', JSON.stringify(p));
+            }
+
+            // Update signout button in profile
+            const infoRow    = document.getElementById('auth-user-info-row');
+            const infoSpan   = document.getElementById('auth-signed-in-as');
+            const signoutBtn = document.getElementById('signout-btn');
+            if (infoRow)    infoRow.style.display    = 'flex';
+            if (signoutBtn) signoutBtn.style.display  = 'flex';
+            if (infoSpan)   infoSpan.textContent = (user.displayName||'') + ' · ' + (user.email||'');
+
+            // Load user data from Firebase then show home
+            await loadFromFirebase(user.uid);
+
+            // Make sure we're on the home page
+            showPage('home');
+        });
+
+        window.addEventListener('fb-signedout', function() {
+            _fbUid = null;
+            showAuthScreen();
+            const infoRow    = document.getElementById('auth-user-info-row');
+            const signoutBtn = document.getElementById('signout-btn');
+            if (infoRow)    infoRow.style.display    = 'none';
+            if (signoutBtn) signoutBtn.style.display  = 'none';
+        });
+
+        // ── Auth helper functions ──
+        function authSignOutUser() {
+            if (window._fbSignOut) window._fbSignOut();
+        }
+        window.authSignOutUser = authSignOutUser;
+
+
+
 
         // ══════════════════════════════════════════════════════
         // ADMIN PANEL — CLEAN REBUILD
